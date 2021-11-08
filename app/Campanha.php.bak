@@ -1,0 +1,147 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+
+class Campanha extends Model
+{
+    //
+    protected $fillable = ['nome', 'inicio', 'fim', 'status', 'budget', 'campos_personalizados'];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+    }
+
+    public function on_create () {
+        $this->midias()->sync([
+            3, 5, 6, 8, 10, 11, 12, 13, 4
+        ]);
+        $this->save();
+    }
+
+    public function tags () { return $this->hasMany(Campanha_Tag::class); }
+
+    public function before_create () {
+        if (!$this->attribute_exists('campos_personalizados'))
+            $this->campos_personalizados = [];
+    }
+
+    public function leads_total () {
+        return $this->hasMany('App\Lead');
+    }
+
+    public function inscritos_total () {
+        return $this->forceIndex('status_id', function () { return $this->leads_total()->where('status_id', 'INSC')->orWhere('status_id', 'MATR')->where('campanha_id', $this->id); });
+    }
+
+    public function matriculados_total () {
+        return $this->matriculados();
+    }
+
+    public function leads () {
+    	return $this->forceIndex('status_id', function () { return $this->hasMany('App\Lead')->where('status_id', 'LEAD'); });
+    }
+
+    public function inscritos () {
+        return $this->forceIndex('status_id', function () { return $this->hasMany('App\Lead')->where('status_id', 'INSC'); });
+    }
+
+    public function matriculados () {
+        return $this->forceIndex('status_id', function () {  return $this->hasMany('App\Lead')->where('status_id', 'MATR'); });
+    }
+
+    public function cursos () {
+    	return $this->belongsToMany('App\Curso')->ordered();
+    }
+
+    public function midias () {
+        return $this->belongsToMany('App\Midia_Tipo', 'campanha_midia', 'campanha_id', 'midia_id');
+    }
+
+    public function provas () { return $this->hasMany(Prova::class); }
+
+    public function notas_fiscais () { return $this->hasMany(Nota_Fiscal_Campanha::class); }
+
+    public function getBudgetConsumidoAttribute () {
+        $consumido = 0.0;
+        foreach ($this->notas_fiscais()->cursor() as $nota) {
+            $consumido += $nota->valor;
+        }
+        return $consumido;
+    }
+
+    public function getIsProgramadaAttribute () {
+        $a = time();
+        $i = strtotime($this->inicio);
+        return ($a < $i);
+    }
+    public function getIsAtivaAttribute () {
+        $a = time();
+        $i = strtotime($this->inicio);
+        $f = strtotime($this->fim);
+        return ($i < $a && $a < $f);
+    }
+    public function getIsEncerradaAttribute () {
+        $a = time();
+        $f = strtotime($this->fim);
+        return ($f < $a);
+    }
+
+    public function setInicioAttribute ($value) {
+        $this->attributes['inicio'] = Carbon::createFromFormat('d/m/Y', $value);
+    }
+
+    public function setFimAttribute ($value) {
+        $this->attributes['fim'] = Carbon::createFromFormat('d/m/Y', $value);
+    }
+
+    public function getCamposPersonalizadosAttribute() {
+        $json = $this->attribute_get('campos_personalizados', '[]');
+        return json_decode($json, true);
+    }
+
+    public function setCamposPersonalizadosAttribute ($value) {
+        $this->attribute_set('campos_personalizados', json_encode($value));
+    }
+
+    public function getStatusAttribute () {
+        $a = time();
+    	$i = strtotime($this->inicio);
+    	$f = strtotime($this->fim);
+
+        $status = 'Desconhecido';
+
+        if     ($this->is_programada) $status = 'Programada';
+        elseif ($this->is_ativa) $status = 'Ativa';
+        elseif ($this->is_encerrada) $status = 'Encerrada';
+
+    	return $status;
+    }
+
+    public $_cursos = null;
+    public function tem_curso ($curso_id) {
+        if (is_null($this->_cursos)) {
+            $this->_cursos = [];
+            foreach ($this->cursos()->cursor() as $curso) {
+                $this->_cursos[] = $curso->id;
+            }
+        }
+
+        return in_array($curso_id, $this->_cursos);
+    }
+
+    public function getAlunosAttribute () {
+        $alunos = [];
+        $ja_foram = [];
+
+        foreach ($this->leads()->cursor() as $lead) {
+            $aluno = $lead->global_relation('aluno');
+
+            if (!in_array($aluno->cpf, $ja_foram))
+                $alunos[] = $aluno;
+        }
+
+        return $alunos;
+    }
+}

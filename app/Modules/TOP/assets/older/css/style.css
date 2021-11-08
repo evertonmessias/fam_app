@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+/* line 3, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #FFF;
+  background-color: #061a3b;
+}
+
+/* line 12, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+html {
+  overflow-x: hidden;
+}
+
+/* line 37, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+h1 {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 1.6em;
+  line-height: normal;
+  margin-top: 80px;
+}
+
+/* line 40, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+h2 {
+  font-style: normal;
+  font-weight: 100;
+  font-size: 1.4em;
+  line-height: 36px;
+  color: #FFF;
+}
+
+/* line 43, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+p {
+  font-style: normal;
+  font-weight: 100;
+  font-size: .9em;
+  line-height: 20px;
+}
+
+/* line 48, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+::selection {
+  color: #FFF;
+  background: #061a3b;
+}
+
+/* line 52, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+::placeholder {
+  color: #FFF;
+}
+
+/* line 55, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #FFF;
+}
+
+/* line 57, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #FFF;
+}
+
+/* line 59, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #FFF;
+}
+
+/* line 61, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #FFF;
+}
+
+/* line 64, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  text-decoration: none;
+}
+
+/* line 72, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.full {
+  height: 100%;
+  width: 100%;
+}
+
+/* line 77, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.inicio {
+  text-align: center;
+  margin: 2% auto;
+  color: #FFF;
+}
+
+/* line 81, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.inicio img {
+  margin-bottom: 15px;
+}
+
+/* line 87, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.col-lg-6 a {
+  color: #FFF;
+  font-weight: 100;
+}
+
+/* line 90, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.col-lg-6 a:hover {
+  color: #CCC;
+}
+
+/* line 96, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.text-left {
+  text-align: left;
+}
+
+/* line 100, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+#next {
+  margin-top: 30px;
+  background-color: #04132d;
+  border-radius: 15px;
+  border: 0;
+  width: 150px;
+  padding: 15px;
+  color: #FFF;
+}
+
+/* line 108, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+#next:hover {
+  background-color: #04132d;
+  border: 0;
+  border-bottom: solid 3px #4267b2;
+  cursor: pointer;
+}
+
+/* line 116, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+input[type=radio] {
+  visibility: hidden;
+  margin-right: 15px;
+  margin-left: 25px;
+  cursor: pointer;
+}
+
+/* line 122, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+input[type=radio]:before {
+  content: " ";
+  display: inline-block;
+  margin-right: 15px;
+  padding-right: 15px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4267b2;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 0px;
+  visibility: visible;
+  box-shadow: 0 0 0px 2px #4267b2;
+}
+
+/* line 136, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+input[type=radio]:checked:before {
+  background-color: #4267b2;
+  content: "\2713";
+  font-size: 15px;
+  text-align: center;
+  color: #FFF;
+  padding: 0px;
+  vertical-align: top;
+}
+
+/* line 147, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.campo {
+  width: 75%;
+  max-width: 450px;
+  height: 30px;
+  padding: 25px 0 25px 0;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 8px;
+  border: solid 1px #FFF;
+  color: #FFF !important;
+  margin: 10px auto 1px auto;
+}
+
+/* line 159, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.campo:hover {
+  border: solid 1px #CCC;
+}
+
+/* line 163, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.opcao {
+  width: 90%;
+  height: 30px;
+  padding: 16px 0 30px 0;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 20px;
+  border: solid 1px #FFF;
+  color: #FFF !important;
+  margin: 10px auto;
+}
+
+/* line 174, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.opcao:hover {
+  background-color: #FFF;
+  color: #061a3b !important;
+  border-bottom: solid 2px #CCC;
+  cursor: pointer;
+}
+
+/* line 181, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.gold {
+  width: 70% !important;
+  border: solid 1px gold !important;
+  color: gold !important;
+}
+
+/* line 185, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+.gold:hover {
+  background-color: gold !important;
+  color: #000 !important;
+  border-bottom: solid 4px #dab803 !important;
+}
+
+@media (max-width: 780px) {
+  /* line 196, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  .full {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  /* line 202, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  body {
+    background-color: #061a3b;
+  }
+  /* line 205, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  img {
+    text-align: center;
+    width: 99%;
+    max-width: 100%;
+  }
+  /* line 210, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  .seta {
+    max-width: 40px;
+    max-height: 40px;
+    margin-top: 10px !important;
+    text-align: center;
+  }
+  /* line 216, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  .compartilhar {
+    max-width: 150px !important;
+  }
+  /* line 219, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  .esconder {
+    display: none;
+  }
+  /* line 222, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  h1 {
+    line-height: normal !important;
+    text-align: center;
+    font-size: 3em;
+  }
+  /* line 227, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  span {
+    line-height: normal !important;
+    font-size: 1.2em;
+    display: block;
+  }
+  /* line 233, C:/Users/Rafael/Desktop/Mamp/teste-orientacao-profissional/scss/style.scss */
+  .border {
+    border: 0 !important;
+    margin: 0 auto !important;
+  }
+}
+
+/*# sourceMappingURL=../css/style.map */

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<title>TecFAM | Ensino técnico com estrutura superior</title>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-TQ4PQVT');</script>
+	<!-- End Google Tag Manager -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="theme-color" content="#162f51">
+	<meta name="msapplication-navbutton-color" content="#162f51">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#162f51">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+
+	<!-- Google Analytics -->
+	<script src="/js/ga.js" type="text/javascript"></script>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-P6F4X7X');</script>
+	<!-- End Google Tag Manager -->
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6F4X7X"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<!-- RD Station -->
+	{{ settings.rd_scripts|raw }}
+
+	<!-- Tags Header -->
+	{{ tags.head|raw }}
+
+	<script type="text/javascript">
+	    window.smartlook||(function(d) {
+	    var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+	    var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+	    c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+	    })(document);
+	    smartlook('init', '3cca1a92f5a4720cd6f0a57ae8b5d23210d2db73');
+	</script>
+</head>
+<body {% if class %}class="{{ class }}"{% endif %}>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQ4PQVT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '1395394967220729',
+		xfbml      : true,
+		version    : 'v2.9'
+	});
+	FB.AppEvents.logPageView();
+};
+
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/pt_BR/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<nav>
+	<div class="layout">
+		<ul>
+			<li><a id="logo" href="http://fam.br/"></a><h1>Faculdade de Americana</h1><span id="nav-toggle-wrapper"><a id="nav-toggle"><i class="fa fa-bars"></i></a></span></li>
+			<li><a class="nav-btn" href="//fam.br">FAM.BR</a></li>
+			{# <li><a class="nav-btn" href="{{ url_cursos }}">Guia de Cursos</a></li> #}
+			<li><a class="nav-btn" href="{{ opcoes.url_edital }}">Edital</a></li>
+			{# <li><a class="nav-btn" href="/resultados">Ver Resultado</a></li> #}
+			<!-- <li><a class="nav-btn" href="{{ url_perguntas }}">Perguntas Frequentes</a></li> -->
+		</ul>
+	</div>
+</nav>
+{% block pagina %}{% endblock %}
+<footer>
+	<div class="layout">
+		<p>Atendimento das 9 às 21 horas | <a href="{{ url_edital }}">Edital</a> | <a href="{{ url_cursos }}">Guia de Cursos</a></p>
+		<div id="social-bar">
+			<a class="social instagram" href="http://instagram.com/famamericana"><span>Instagram</span></a>
+			<a class="social facebook" href="http://fb.com/famamericana"><span>Facebook</span></a>
+			<a class="social email" href="mailto:vestibular@fam.br"><span>E-mail</span></a>
+			<a class="social chat" href="#"><span>Chat</span></a>
+			<div>
+				<a class="social telefone" href="tel:08007712449"><span>Telefone</span></a>
+				<span>0800 771 2449</span>
+			</div>
+			<div>
+				<a class="social whatsapp"><span>WhatsApp</span></a>
+				<span>WhatsFAM (19) 99437-9555</span>
+			</div>
+		</div>
+	</div>
+</footer>
+<link rel="stylesheet" type="text/css" href="{{ url_root }}/player/assets/pplayer.css" />
+<link rel="stylesheet" type="text/css" href="{{ url_root }}/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_root }}/player/js/jquery.pplayer.js"></script>
+<script type="text/javascript" src="{{ url_root }}/js/jquery.maskedinput.js"></script>
+<script type="text/javascript" src="{{ url_root }}/js/player.js"></script>
+<script type="text/javascript" src="{{ url_root }}/js/tabs.js"></script>
+<script type="text/javascript" src="{{ url_root }}/js/app-fam.js"></script>
+{% block scripts %}{% endblock %}
+<!-- Tags Footer -->
+{{ tags.foot|raw }}
+</body>
+</html>

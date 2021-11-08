@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% include 'TOP3::includes.head' %}
+</head>
+<body>    
+
+<section class="full" id="bg-home">   
+    <div class="container flex-center">
+        <div class="row w-100">
+            <div class="col-lg-7 col-lg-offset-5 inicio">
+                <div class="row">
+                    <div class="col-lg-12 col-lg-offset-0 col-md-8 col-md-offset-2">
+                        {% if custom_branding %}
+                            <img border="0" src="img/logo.png" alt="FAM 20 anos | Teste de Orientação Profissional" />
+                        {% else %}
+                            <img border="0" src="img/logo.png" alt="FAM 20 anos | Teste de Orientação Profissional" />
+                        {% endif %}
+                        <img border="0" src="img/chamada.png" class="chamada" alt="Sentindo-se sem rumo profissional? Não se desespere." />
+                    </div>
+                    <div class="col-lg-9 col-lg-offset-3 text col-md-8 col-md-offset-2">
+                        <p>Ter dúvidas sobre qual carreira escolher é normal, e, sabendo dessa dificuldade, criamos um teste de Orientação Profissional que vai analisar o seu perfil e indicar as direções para o seu sucesso!</p>
+                        <p class="extra-bold"><b>Vamos Começar?</b></p>
+                        <form action="quiz" method="post" id="go_quiz">
+                            {{ csrf_field() }}
+                            <input type="text" name="nome" required id="input-nome" class="campo" placeholder="Nome completo">
+                            <input type="text" name="cpf" required id="input-cpf" class="campo" placeholder="CPF">
+                            <input type="text" name="celular" required id="input-celular" class="campo" placeholder="Celular">
+
+                            <div class="send-container">
+                                <input type="email" name="email" required id="input-email" class="campo" placeholder="E-mail">
+                                <button class="send-btn" role="submit" title="Enviar">Enviar</button>
+                            </div>
+                            {# <p class="ou-center">ou</p>
+                            <div class="fb-login">
+                                <fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+                            </div> #}
+                        </form>
+                    </div>
+                </div>
+            </div>
+		</div>
+    </div>
+</section> 
+
+<script type="text/javascript">
+function fb_login (x) {
+    if (x.status == 'connected') {
+        $('#loader').fadeIn(350);
+
+        FB.api('/me?fields=id,name,gender,email', (response) => {
+            if (response.name)
+                $('#input-nome').val(response.name);
+
+            if (response.email)
+                $('#input-email').val(response.email);
+
+            $('#go_quiz').submit();
+        });
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+.c-menu {
+    list-style: none;
+    padding: 0;
+    &__item {
+        @include media-breakpoint-up(md) {
+            &:not(:last-child) { margin-right: .85em }
+        }
+        @media (max-width: 768px) {
+            width: 49%;
+            margin-left: .5%;
+            margin-right: .5%;
+        }
+    }
+    &__link {
+        @extend %u-bitner-bold;
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 0.2em;
+        background-color: $menuButton;
+        color: #fff;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: .2s ease;
+        text-align: center;
+        &:hover {
+            transform: translateY(-2px);
+            background: #002f54;
+        }
+        @media (max-width: 768px) {
+            padding: 0.3em 1em;
+            font-size: .85em;
+            width: 100%;
+        }
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

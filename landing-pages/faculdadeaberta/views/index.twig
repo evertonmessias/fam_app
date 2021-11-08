@@ -1,0 +1,255 @@
+{% extends 'LP::layout' %}
+
+{% set title = 'Programa Faculdade Aberta - FAM' %}
+{% set meta_desc = 'A FAM estará de portas abertas para te receber. Venha conhecer nossa estrutura e como funciona o nosso universo.' %}
+{% set meta_keyw = '' %}
+
+{# Iniciando números #}
+{% set set_28_manha = 0 %}
+{% set set_28_noite = 0 %}
+{% set set_29_manha = 0 %}
+{% set set_29_noite = 0 %}
+{% set set_30_manha = 0 %}
+{% set set_30_noite = 0 %}
+
+{% set out_01_manha = 0 %}
+{% set out_01_noite = 0 %}
+{% set out_02_manha = 0 %}
+{% set out_02_noite = 0 %}
+{% set out_05_manha = 0 %}
+{% set out_05_noite = 0 %}
+{% set out_06_manha = 0 %}
+{% set out_06_noite = 0 %}
+
+{% set out_07_manha = 0 %}
+{% set out_07_noite = 0 %}
+{% set out_08_manha = 0 %}
+{% set out_08_noite = 0 %}
+{% set out_09_manha = 0 %}
+{% set out_09_noite = 0 %}
+
+
+{# Para cada escola inscrita #}
+{% for escola in data_requested %}
+    {# Verificar se está cadastrado #}
+    {% if (escola.data.data_e_periodo is defined) %}
+        {% set periodo = escola.data.data_e_periodo %}
+        {%     if (periodo == "set_28_manha") %} {% set set_28_manha = set_28_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "set_28_noite") %} {% set set_28_noite = set_28_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "set_29_manha") %} {% set set_29_manha = set_29_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "set_29_noite") %} {% set set_29_noite = set_29_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "set_30_manha") %} {% set set_30_manha = set_30_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "set_30_noite") %} {% set set_30_noite = set_30_noite + escola.data.nro_alunos %}
+
+        {% elseif (periodo == "out_01_manha") %} {% set out_01_manha = out_01_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_01_noite") %} {% set out_01_noite = out_01_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_02_manha") %} {% set out_02_manha = out_02_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_02_noite") %} {% set out_02_noite = out_02_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_05_manha") %} {% set out_05_manha = out_05_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_05_noite") %} {% set out_05_noite = out_05_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_06_manha") %} {% set out_06_manha = out_06_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_06_noite") %} {% set out_06_noite = out_06_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_07_manha") %} {% set out_07_manha = out_07_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_07_noite") %} {% set out_07_noite = out_07_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_08_manha") %} {% set out_08_manha = out_08_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_08_noite") %} {% set out_08_noite = out_08_noite + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_09_manha") %} {% set out_09_manha = out_09_manha + escola.data.nro_alunos %}
+        {% elseif (periodo == "out_09_noite") %} {% set out_09_noite = out_09_noite + escola.data.nro_alunos %}
+
+
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{# Inicia opções que serão mostradas #}
+{% set opcoes =
+[
+    {"id": "set_28_manha", "data": "28/09/2020", "datacomp": "09/28/2020", "grupo_liberacao": "1", "vagas": 550, "block": true, "horario": "07h", "alunos": set_28_manha },
+    {"id": "set_28_noite", "data": "28/09/2020", "datacomp": "09/28/2020", "grupo_liberacao": "1", "vagas": 550, "block": true, "horario": "19h", "alunos": set_28_noite },
+    {"id": "set_29_manha", "data": "29/09/2020", "datacomp": "09/29/2020", "grupo_liberacao": "1", "vagas": 550, "horario": "07h", "alunos": set_29_manha },
+    {"id": "set_29_noite", "data": "29/09/2020", "datacomp": "09/29/2020", "grupo_liberacao": "1", "vagas": 550, "horario": "19h", "alunos": set_29_noite },
+    {"id": "set_30_manha", "data": "30/09/2020", "datacomp": "09/30/2020", "grupo_liberacao": "1", "vagas": 550, "horario": "07h", "alunos": set_30_manha },
+    {"id": "set_30_noite", "data": "30/09/2020", "datacomp": "09/30/2020", "grupo_liberacao": "1", "vagas": 550, "horario": "19h", "alunos": set_30_noite },
+
+    {"id": "out_01_manha", "data": "01/10/2020", "datacomp": "10/01/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_01_manha },
+    {"id": "out_01_noite", "data": "01/10/2020", "datacomp": "10/01/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_01_noite },
+    {"id": "out_02_manha", "data": "02/10/2020", "datacomp": "10/02/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_02_manha },
+    {"id": "out_02_noite", "data": "02/10/2020", "datacomp": "10/02/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_02_noite },
+    {"id": "out_05_manha", "data": "05/10/2020", "datacomp": "10/05/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_05_manha },
+    {"id": "out_05_noite", "data": "05/10/2020", "datacomp": "10/05/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_05_noite },
+    {"id": "out_06_manha", "data": "06/10/2020", "datacomp": "10/06/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_06_manha },
+    {"id": "out_06_noite", "data": "06/10/2020", "datacomp": "10/06/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_06_noite },
+    {"id": "out_07_manha", "data": "07/10/2020", "datacomp": "10/07/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_07_manha },
+    {"id": "out_07_noite", "data": "07/10/2020", "datacomp": "10/07/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_07_noite },
+    {"id": "out_08_manha", "data": "08/10/2020", "datacomp": "10/08/2020", "grupo_liberacao": "1", "vagas": 750, "horario": "07h", "alunos": out_08_manha },
+    {"id": "out_08_noite", "data": "08/10/2020", "datacomp": "10/08/2020", "grupo_liberacao": "1", "vagas": 550, "horario": "19h", "alunos": out_08_noite },
+    {"id": "out_09_manha", "data": "09/10/2020", "datacomp": "10/09/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "07h", "alunos": out_09_manha },
+    {"id": "out_09_noite", "data": "09/10/2020", "datacomp": "10/09/2020", "grupo_liberacao": "2", "vagas": 550, "horario": "19h", "alunos": out_09_noite }, 
+]
+%}
+
+{% block body %}
+
+<nav class="l-nav container d-flex flex-column flex-md-row justify-content-md-between align-items-center pt-3">
+    <a href="https://fam.br" target="_blank" rel="noopener"><img src="/assets/img/logo-fam.svg" alt="" class="c-logo" style="margin-top: -5px !important;"/></a>
+    <ul class="c-menu d-flex flex-wrap justify-content-center" style="margin-top: 6px;">
+        <li class="c-menu__item"><a href="https://issuu.com/famfaculdadedeamericana/docs/fam_-_faculdade_de_americana_-_guia_de_cursos_vv20" class="c-menu__link" target="_blank" style="background-color: #ffec45; color: #0e4c85; font-weight: 200; font-family: Arial;">Guia de Cursos</a></li>
+        <!--<li class="c-menu__item"><a href="https://assets.fam.br/editais/Programa%20Desconto%20Especial%20pelo%20ENEM%20-%202019.2.pdf" class="c-menu__link" target="_blank">Edital</a></li> -->
+    </ul>
+</nav>    
+
+<section class="c-chamada">
+    <div class="container c-chamada__content d-flex flex-column align-content-center justify-content-between"  style="display: none !important;">
+        <img src="/assets/img/logo-chamada.png" class="c-chamada__logo wow zoomIn"/>
+        <span>
+            <h2 class="c-chamada__title wow fadeInUp">A FAM estará de portas abertas para te receber</h2>
+            <p class="c-chamada__text wow fadeInUp">Venha conhecer nossa estrutura e como funciona o nosso universo.</p>
+        </span>
+    </div>
+</section>
+
+<main class="container c-content pt-5 pb-5" style="padding-top: 0px !important;">
+<div align="center" style="width: 100% !important;"><img src="/assets/img/logosx.png"/></div>
+    <p class="c-content__text mt-4 wow fadeInUp" style="color: #0e4c85 !important;">Favor, realize o cadastro</p>
+    <!-- Form -->
+    <form method="post" action="/inscricao" class="c-form js-form">
+        {{ csrf_field() }}
+        <div class="row pb-5">
+            <div class="col-md-12"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="text" placeholder="Nome completo da escola" name="nome_escola" /></div>
+            <div class="col-md-6"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="text" placeholder="Nome do coordenador(a) pedagógico" name="nome_coordenador_pedagogico" /></div>
+            <div class="col-md-6"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="text" placeholder="Nome do responsável pelo cadastro" name="nome_responsavel_cadastro" /></div>
+
+            <div class="col-md-4"><input required class="c-form__input wow fadeInUp" type="text" style="background-color: #0e4c85 !important;" placeholder="Endereço completo da escola" name="endereco_escola"/></div>
+            <div class="col-md-4">
+                <select size required class="c-form__select wow fadeInUp" style="background-color: #0e4c85 !important;" name="estado_escola">
+                    <option selected disabled value="">Selecione seu estado...</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="PR">Paraná</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </div>
+            <div class="col-md-4"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="text" placeholder="Cidade" name="cidade_escola" /></div>
+
+            <div class="col-md-6"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="tel" placeholder="Telefone do responsável" name="telefone_responsavel" maxlength="14" /></div>
+            <div class="col-md-6"><input required class="c-form__input wow fadeInUp" style="background-color: #0e4c85 !important;" type="email" placeholder="E-mail do responsável" name="email_responsavel" /></div>
+
+            <div class="col-md-12"><input required class="c-form__input wow fadeInUp js-qtd-alunos" style="background-color: #0e4c85 !important;" type="number" placeholder="Quantidade de alunos que participarão" name="nro_alunos" /></div>
+            
+            <div class="col-md-12 js-data-horario d-none">
+                <select class="c-form__select animated fadeInUp js-opcao" style="background-color: #0e4c85 !important;" name="data_e_periodo" required>
+                    <option selected disabled value="" class="js-data-default">Escolha uma data e horário</option>
+                    {% for opcao in opcoes %}
+                        {% if opcao.alunos < opcao.vagas and opcao.block != true and opcao.datacomp|date('m/d/Y') >= "now"|date('m/d/Y') %}
+                            <option value="{{ opcao.id }}" class="d-none js-opcao-disponivel" data-vagas="{{ (opcao.vagas) - (opcao.alunos) }}">{{ opcao.data }} - {{ opcao.horario }} ({{ (opcao.vagas) - (opcao.alunos) }} vagas)</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            
+        </div>
+        <input class="c-form__submit wow fadeInUp" style="margin-top: 0px !important; background-color: #0e4c85 !important;" type="submit" value="Concluir Cadastro" />
+    </form>
+    <div class="c-popup js-popup">
+        <div class="c-popup__inner">
+            <h2 class="c-popup__title">Cadastro realizado com sucesso!</h2>
+            <p class="c-popup__text">Em caso de dúvidas, entre em contato pelo telefone <a href="tel:1934658100" class="c-popup__link">(19) 3465-8100</a>.</p>
+            <button class="c-popup__close js-popup-close">Ok</button>
+        </div>
+    </div>
+</main>
+
+<footer class="l-footer mt-0 mt-md-5" style="margin-top: 0px !important;">
+    <div class="container">
+        <p style="color: #0e4c85 !important;">Atendimento das 9 às 21 horas | 
+        <!-- <a class="l-footer__link" target="_blank" href="https://assets.fam.br/editais/Programa%20Desconto%20Especial%20pelo%20ENEM%20-%202019.2.pdf">Edital</a> | -->
+        <a class="l-footer__link" target="_blank" href="https://issuu.com/famfaculdadedeamericana/docs/fam_-_faculdade_de_americana_-_guia_de_cursos_vv20"><font color="#0e4c85">Guia de Cursos</font></a></p>
+        <div class="social">
+            <a class="l-footer__link" target="_blank" href="http://instagram.com/famamericana"><i class="l-footer__icon fa fa-instagram"></i></a>
+            <a class="l-footer__link" target="_blank" href="http://fb.com/famamericana"><i class="l-footer__icon fa fa-facebook"></i></a>
+            <a class="l-footer__link" target="_blank" href="mailto:vestibular@fam.br"><i class="l-footer__icon fa fa-envelope-o"></i></a>
+            <a class="has-text l-footer__link" target="_blank" href="tel:08007712449">
+                <i class="l-footer__icon fa fa-phone"></i>
+                <font color="#0e4c85">0800 771 2449</font>
+            </a>
+            <a class="has-text l-footer__link" target="_blank" href="https://api.whatsapp.com/send?phone=551994379555">
+                <i class="l-footer__icon fa fa-whatsapp"></i>
+                <font color="#0e4c85">WhatsFAM (19) 99437-9555</font>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha256-z6FznuNG1jo9PP3/jBjL6P3tvLMtSwiVAowZPOgo56U=" crossorigin="anonymous"></script>
+<script>
+    $( document ).ready(function() {
+        $(".js-manutencao").fadeIn();
+
+        // Iniciar Wow.js
+        new WOW().init();
+
+        // Ao selecionar uma opção, deixar em destaque
+        $(".js-qtd-alunos").on("input", function() {
+            let qtdAlunos = $(this).val();
+
+            // Para cada opção que o sistema liberar
+            $(".js-opcao-disponivel").each(function(i, e) {
+                let opcoesLiberadas = 0;
+                if (parseInt($(e).attr("data-vagas")) >= parseInt(qtdAlunos)) {
+                    opcoesLiberadas++;
+                    $(e).removeClass("d-none");
+                } else {
+                    $(e).addClass("d-none");
+                }
+
+                if (opcoesLiberadas === 0) {
+                    $(".js-data-default").text("Não há horários disponíveis para esse número de alunos.");
+                } else {
+                    $(".js-data-default").text("Escolha uma data e horário");
+                }
+            });
+            
+            // Resetar o horário sempre que mudar
+            $(".js-opcao").val("");
+            // Mostrar o campo de horários
+            $(".js-data-horario").removeClass("d-none");
+        });
+        if (document.URL.match(/success=([0-9]+)/)[1]) {
+            $(".js-popup").fadeIn();
+            window.history.replaceState({}, document.title, "/");
+        }
+
+        $(".js-popup-close").on("click", function() {
+            $(".js-popup").fadeOut();
+        });
+    });
+</script>
+<style>
+    
+</style>
+
+{% endblock %}

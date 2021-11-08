@@ -1,0 +1,60 @@
+{% extends 'Admin::BI.layout' %}
+
+{# Conteúdo #}
+{% block content %}
+<div class="right_col" role="main">
+  <div class="">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Comparativo de Campanhas</h2>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <p>Selecione duas campanhas para comparar:</p>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label>Campanha 1:
+              <select class="form-control select2" id="c1">
+              {% for campanha in campanhas.sortByDesc('inicio') %}
+                <option value="{{ campanha.id }}">{{ campanha.nome }}</option>
+              {% endfor %}
+              </select>
+            </label>
+          </div>
+          <div class="col-md-12">
+            <label>Campanha 2:
+              <select class="form-control select2" id="c2">
+              {% for campanha in campanhas.sortByDesc('inicio') %}
+                <option value="{{ campanha.id }}">{{ campanha.nome }}</option>
+              {% endfor %}
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <a id="btn-relatorio" class="btn btn-primary">Comparar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{# Scripts #}
+{% block script %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#btn-relatorio').on('click', () => {
+        var c1 = $('#c1').val();
+        var c2 = $('#c2').val();
+        if (c1 == c2) {
+          alert ('Você não pode comparar a mesma campanha consigo mesma!');
+          return;
+        }
+        document.location.href = '/bi/performance/' + c1 + '/' + c2;
+      });
+    });
+  </script>
+{% endblock %}

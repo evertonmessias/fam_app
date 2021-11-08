@@ -1,0 +1,262 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-home' %}
+
+{% block body %}
+
+	<main id="page-home" class="container index">
+		<div class="colindex">
+			<h4>Estude na FAM</h4>
+			<form id="form" action="/inscricao" method="post" class="form-home">
+				{{ csrf_field() }}
+				<the-mask onkeypress="Valida();" required name="cpf" id="cpf" class="form-control cpf" type="tel" placeholder="Insira seu CPF" :mask="['###.###.###-##']" title="Por favor insira seu CPF"></the-mask>
+				<div class="oculto">
+					<input required name="candidato[nome]" id="nome" class="form-control" type="text" placeholder="Nome" title="Por favor insira seu nome"/>
+					<input required name="candidato[sobrenome]" id="sobrenome" class="form-control" type="text" placeholder="Sobrenome" title="Por favor insira seu Sobrenome"/>
+					<input required name="candidato[email]" id="email" class="form-control" type="email" placeholder="E-mail" title="Por favor insira seu e-mail"/>
+					<the-mask class="form-control" name="candidato[celular]" id="celular" type="tel" placeholder="Celular/WhatsApp" required :mask="['(##) ####-####', '(##) #####-####']" title="Por favor insira seu celular"></the-mask>
+					
+					<!-- Tipo de ingresso  -->
+					<div class="forma-ingresso">							
+						<select oninput="FormaIngresso(value);" id="ingresso" class="form-control cingresso" name="ingresso">
+							<option value="null" selected>Deseja ingressar através de:</option>									
+							<option class="ves" value="vestibular">Vestibular</option>
+							<option class="ene" value="enem">Nota do ENEM</option>
+							<option class="seg" value="segunda_graduacao">Segunda Graduação</option>
+							<option class="tec" value="tecnico">Técnico</option>
+							<!-- <option class="bol" value="bolsa">Prova de Bolsas</option> -->
+						</select>
+					</div>
+					<!-- Ja sabe ?  -->
+					<div class="curso-pergunta">
+					<select oninput="CursoSIM(value);" class="form-control curso cursoescolha">
+						<option selected :value="null">Você ja sabe qual curso ?</option>
+						<option value="sim">SIM</option>
+						<option value="nao">NÃO</option>
+					</select>	
+					</div>	
+					<!-- Ajuda  -->			
+					<div class="curso-nao">
+						<select oninput="TipoCurso(value);" name="distancia" class="form-control curso">
+							<option selected :value="null">Nós te ajudamos:</option>
+							<option value="gpresencial">Graduação Presencial ?</option>
+							<option value="adistancia">Graduação a Distância ?</option>
+						</select>
+					</div>
+					<div class="cursoop">
+					<div class="cursolista"></div>														
+					<br>
+						<input class="botaoindex" type="button" onclick="Submeter()" value="Enviar">
+						<input class="botaoindex" type="button" onclick="window.location.reload();" value="Reiniciar">
+					</div>
+					<br><br><br>
+					<div class="erro">
+					<h5>Erro ! Preencha todos os campos.</h5>
+					</div>														
+					
+				</div>
+			</form>
+		</div>
+		<div class="imgindex">
+			<img id="imgindeximg" src="/assets/images/index.png">
+		</div>
+
+
+	</main>
+
+	<div style="display:none">
+		<img src="./assets/images/index1.png">
+		<img src="./assets/images/fundo1.png">
+		<img src="./assets/images/tema-ead.png">
+		<img src="./assets/images/fundo-ead.png">
+	</div>
+
+	<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script language="javascript" type="text/javascript">
+		
+	var select = document.createElement("select");
+    select.setAttribute("name", "curso");
+    select.setAttribute("id", "curso");
+	if(screen.width >= 700){
+		select.setAttribute("style", "display:block; width:320px;font-weight:700!important;");	
+	}else{
+		select.setAttribute("style", "display:block;margin-top:2px;height:50px;width:345px;font-weight:700!important;");			
+	}	
+	var option = document.createElement("option");
+	select.setAttribute("selected","selected");
+    option.setAttribute("value", null);
+    option.innerHTML = 'Selecione um curso...';
+    select.appendChild(option);
+
+	function FormaIngresso(resp){
+		if (resp == "tecnico"){
+			document.getElementById("imgindeximg").src="./assets/images/index1.png";
+			$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			//$(".cingresso").prop('disabled', 'disabled');			
+			$(".cursoop").slideDown(500); 
+			{% for curso in cursostec %}
+			var optiont = document.createElement("option");
+			optiont.setAttribute("value",'{{ curso.id }}');
+			optiont.innerHTML = '{{ curso.nome }}';
+			select.append(optiont);
+			{% endfor %}   
+			$(".cursolista").append(select);
+		}else if (resp == "bolsa"){					
+			$(".cursoop").slideDown(500); 
+			{% for curso in cursospres %}
+			var optiont = document.createElement("option");
+			optiont.setAttribute("value",'{{ curso.id }}');
+			optiont.innerHTML = '{{ curso.nome }}';
+			if (0 !== optiont.innerHTML.indexOf('Técnico')) {
+				select.append(optiont);
+			}
+			{% endfor %}   
+			$(".cursolista").append(select);
+		}
+		else{
+			//$(".cingresso").prop('disabled', 'disabled');
+			document.getElementById("imgindeximg").src="./assets/images/index.png";
+			$("#app").css("background-image", "url('./assets/images/fundo.png')");
+			$(".curso-pergunta").slideDown(500);
+		}
+	}
+
+	function CursoSIM(resp){	  
+		if (resp == "sim"){
+			$(".cursoop").slideDown(500);
+			$(".curso-pergunta").css({ "display": "none" }) 
+			$(".curso-nao").css({ "display": "none" })
+			{% for curso in cursosgrad %}
+			var option = document.createElement("option");
+			option.setAttribute("value",'{{ curso.id }}');
+			option.innerHTML = '{{ curso.nome }}';
+			select.appendChild(option);
+			{% endfor %}   
+			$(".cursolista").append(select);
+		}else{
+			$(".cursoop").css({ "display": "none" })
+			$(".curso-pergunta").css({ "display": "none" }) 
+			$(".curso-nao").slideDown(500);      
+		}
+	}
+
+	function TipoCurso(resp){
+    if (resp == "gpresencial"){
+			//document.getElementById("imgindeximg").src="./assets/images/index1.png";
+			$(".curso-nao").css({ "display": "none" })
+	    $(".cursoop").slideDown(500);
+			{% for curso in cursospres %}
+			var optiong = document.createElement("option");
+			optiong.setAttribute("value",'{{ curso.id }}');
+			optiong.innerHTML = '{{ curso.nome }}';
+			select.append(optiong);
+			{% endfor %}   
+			$(".cursolista").append(select);      
+    }else{
+			document.getElementById("imgindeximg").src="./assets/images/index2.png";
+			$("#app").css("background-image", "url('./assets/images/fundo2.png')");
+			$(".curso-nao").css({ "display": "none" })
+	        $(".cursoop").slideDown(500); 
+			{% for curso in cursosdist %}
+			var optiond = document.createElement("option");
+			optiond.setAttribute("value",'{{ curso.id }}');
+			optiond.innerHTML = '{{ curso.nome }}';
+			select.append(optiond);
+			{% endfor %}   
+			$(".cursolista").append(select);        
+    }
+	}
+
+	function apaga() {
+		$('.pop').css({'display': 'none'});
+	}
+
+
+jQuery(document).ready(function($){
+	var imagemCursoEAD = setInterval(function(){
+		$("select#curso").change(function(){
+			if($(this).val() == 69){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 77){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 88){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 89){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 76){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 74){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 75){
+				document.getElementById("imgindeximg").src="./assets/images/tema-ead.png";
+				$("#app").css("background-image", "url('./assets/images/fundo-ead.png')");
+			}else if($(this).val() == 49){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 63){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 87){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 56){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 57){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 52){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 50){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 59){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 84){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");
+			}else if($(this).val() == 85){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");			
+			}else if($(this).val() == 86){
+				document.getElementById("imgindeximg").src="./assets/images/index1.png";
+				$("#app").css("background-image", "url('./assets/images/fundo1.png')");			
+			}else{
+				document.getElementById("imgindeximg").src="./assets/images/index.png";
+				$("#app").css("background-image", "url('./assets/images/fundo.png')");
+			}
+		})
+		// alert("OK");
+		// clearInterval(imagemCursoEAD);
+	}, 2000);
+});
+
+/*
+window.open('/assets/pop/pop.html','page','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=520,height=520');
+*/
+	</script>
+{% endblock %}
+{% block scripts %}
+	<!-- Script da Página -->
+	<script type="text/javascript" src="/assets/js/page-index.js"></script>
+	<script type="text/javascript" src="/assets/js/update.js"></script>
+	<script type="text/javascript" src="/assets/js/validador.js"></script>
+
+	<!-- Styles da Página -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/page-index.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/css/update.css"/>
+
+	{% if error %}
+		<script>
+			alert('{{ error }}');
+		</script>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% set class = 'inscricao' %}
+
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<!-- <header class="banner-inscricao">
+	<div class="layout">
+		<h2 id="vc-no-topo">Você no <span>topo!</span></h2>
+		<h2 id="nome-curso">{{ inscricao['nome'] }}</h2>
+	</div>
+	<h2 id="nome-curso-mobile">{{ inscricao['nome'] }}</h2>
+</header> -->
+
+<style type="text/css">
+#inscricao-dados { font-size: 0px; }
+</style>
+
+<main>
+	<div class="layout">
+		<div class="center">
+			<h1 style="padding-top:2em">{{ inscricao['nome'] }}</h1>
+			<h4>Completar Cadastro</h4>
+			<h5 class="center">{{ aluno.nome }}</h5>
+			<form action="/inscricao/adicionais" method="post">
+				{{ csrf_field() }}
+				<input type="hidden" name="cpf" value="{{ aluno.cpf }}" />
+				<div id="inscricao-dados">
+					<div class="input responsive-full">
+						<div class="select">
+							<select name="dados_adicionais[ensino_medio]">
+								<option value="">Onde conclu&iacute;u o ensino m&eacute;dio?</option>
+								<option value="publica" {% if aluno.dados_adicionais.ensino_medio == 'publica' %} selected="selected" {% endif %}>P&uacute;blica</option>
+								<option value="particular" {% if aluno.dados_adicionais.ensino_medio == 'particular' %} selected="selected" {% endif %}>Particular</option>
+							</select>
+						</div>
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Ano de conclus&atilde;o do Ensino M&eacute;dio:" type="text" name="dados_adicionais[ano_conclusao]" value="{% if aluno.dados_adicionais.ano_conclusao == 0 %}{% else %}{{ aluno.dados_adicionais.ano_conclusao }}{% endif %}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Nome completo do Pai:" type="text" name="dados_adicionais[nome_pai]" value="{{ aluno.dados_adicionais.nome_pai }}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Nome completo da M&atilde;e:" type="text" name="dados_adicionais[nome_mae]" value="{{ aluno.dados_adicionais.nome_mae }}" />
+					</div>
+					<div class="input fourth fill">
+						<input placeholder="Endere&ccedil;o:" type="text" name="endereco" value="{{ aluno.endereco }}" />
+					</div>
+					<div class="input fourth">
+						<input placeholder="N&ordm;:" type="text" name="numero" value="{{ aluno.numero }}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Complemento:" type="text" name="complemento" value="{{ aluno.complemento }}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Bairro:" type="text" name="bairro" value="{{ aluno.bairro }}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="CEP:" type="text" name="dados_adicionais[cep]" value="{{ aluno.dados_adicionais.cep }}" />
+					</div>
+					<div class="input half responsive-full">
+						<input placeholder="Cidade/UF" type="text" name="cidade" readonly="readonly" value="{{ aluno.cidade.nome }}/{{ aluno.cidade.estado.uf }}" />
+					</div>
+					<div class="input full">
+						<p>Atendendo &agrave; Portaria Normativa n&ordm; 21, de 28 de agosto de 2013, com rela&ccedil;&atilde;o &agrave; ra&ccedil;a/cor, o candidato se autodeclara:</p>
+					</div>
+					<div class="input responsive-full">
+						<div class="select">
+							<select name="dados_adicionais[raca]" required="required">
+								<option value="">Autodeclara&ccedil;&atilde;o ra&ccedil;a/cor:</option>
+								{% for raca in racas %} 
+								<option value="{{ raca.codigo }}" {% if aluno.dados_adicionais.raca == raca.codigo %} selected="selected" {% endif %}>{{ raca.raca }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="input responsive-full" id="deficiencia-container">
+						<div class="select">
+							<select name="dados_adicionais[deficiencia]" id="deficiencia" required="required">
+								<option value="">Possui alguma defici&ecirc;ncia?</option>
+								<option value="sim" {% if aluno.dados_adicionais.deficiencia == 'sim' %} selected="selected" {% endif %}>Sim</option>
+								<option value="nao" {% if aluno.dados_adicionais.deficiencia == 'nao' %} selected="selected" {% endif %}>N&atilde;o</option>
+							</select>
+						</div>
+					</div>
+					<div class="input responsive-full" id="deficiencia-qual">
+						<div class="select">
+							<select name="dados_adicionais[deficiencia_qual]">
+								<option value="">Qual?</option>
+								{% for deficiencia in deficiencias %}
+								<option value="{{ deficiencia.codigo }}" {% if deficiencia.codigo == aluno.dados_adicionais.deficiencia_qual %} selected="selected" {% endif %}>{{ deficiencia.deficiencia }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="input responsive-full" id="deficiencia-condicoes">
+						<input placeholder="Condi&ccedil;&otilde;es especiais para a realiza&ccedil;&atilde;o da prova:" type="text" name="dados_adicionais[deficiencia_condicoes]" value="{{ aluno.dados_adicionais.deficiencia_condicoes }}" />
+					</div>
+					<div class="input responsive-full">
+						<input type="submit" class="button-cta" value="Concluir Inscri&ccedil;&atilde;o" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{
+	"name": "Landing Page",
+	"options": {
+		"diretorio": {
+			"type": "text",
+			"label": "Pasta :"
+		},
+		"redirecionar": {
+			"type": "radio",
+			"label": "Ativar Redirecionamento?",
+			"values": [
+				{ "label": "Não", "default": true, "value": "0" },
+				{ "label": "Sim", "value": "1" }
+			]
+		},
+		"redirecionar_url": {
+			"type": "text",
+			"label": "Redirecionar para :"
+		}
+	}
+}

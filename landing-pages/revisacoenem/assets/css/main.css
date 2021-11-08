@@ -1,0 +1,185 @@
+img {
+    max-width: 100%;
+}
+
+/* Inputs */
+.form-control {
+    font: 'Lato', sans-serif;
+    border: 0px none;
+    border-radius: 3px;
+    background: #fff;
+    color: #002e66;
+}
+
+::-webkit-input-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/********************************************************************/
+
+.home, .inscricao {
+    font-family: 'Varela Round', sans-serif;
+    position: relative;
+    
+    background-color: #3d77ff;
+    background: -moz-linear-gradient(left, rgba(32,96,243,1) 0%, rgba(61,119,255,1) 53%, rgba(32,96,243,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(32,96,243,1)), color-stop(53%, rgba(61,119,255,1)), color-stop(100%, rgba(32,96,243,1)));
+    background: -webkit-linear-gradient(left, rgba(32,96,243,1) 0%, rgba(61,119,255,1) 53%, rgba(32,96,243,1) 100%);
+    background: -o-linear-gradient(left, rgba(32,96,243,1) 0%, rgba(61,119,255,1) 53%, rgba(32,96,243,1) 100%);
+    background: -ms-linear-gradient(left, rgba(32,96,243,1) 0%, rgba(61,119,255,1) 53%, rgba(32,96,243,1) 100%);
+    background: linear-gradient(to right, rgba(32,96,243,1) 0%, rgba(61,119,255,1) 53%, rgba(32,96,243,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2060f3', endColorstr='#2060f3', GradientType=1 );
+    background-position: center;
+    background-size: cover;
+}
+
+.home > .container,
+.inscricao > .container {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Home */
+.home .logo {
+    margin: 2em auto;
+}
+
+.enviar {
+    background-color: #0ee1ed;
+    color: #002e66;
+    transition: .2s ease;
+}
+.enviar:hover {
+    background-color: #002e66;
+    color: #fff;
+}
+
+.home form .form-control {
+    margin: 0.5em auto;
+}
+
+@media (min-width: 768px) {
+    .home .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-height: 90%;
+        max-width: 100%;
+        object-fit: contain;
+        margin: 0px;
+
+        transform: translate(-50%, -50%);
+    }
+    .home form {
+        position: absolute;
+        right: 10%;
+        bottom: 10%;
+    }
+}
+
+@media (min-width: 1600px) and (min-height: 750px) {
+    .home .logo {
+        max-height: 63%;
+    }
+    .home form {
+        position: absolute;
+        right: 10%;
+        bottom: 15%;
+    }
+}
+
+/* Inscrição */
+.inscricao {
+    color: #fff;
+}
+.inscricao .logo {
+    margin: 2em auto;
+}
+
+.inscricao form {
+    padding: 0.5em 0px;
+}
+.inscricao form .form-control {
+    margin: 0.5em auto;
+}
+.inscricao .form-check {
+    background-color: #002e66;
+    padding: 15px;
+    padding-left: calc(1.25rem + 15px);
+    border-radius: 3px;
+    transition: .2s ease;
+}
+.inscricao .form-check.full { background-color: #002e6699 }
+
+.inscricao .form-check:not(.full):hover, .inscricao .form-check.checked {
+    background-color: #0ee1ed;
+    box-shadow: 0px 1px 5px rgba(0,0,0,.2);
+}
+
+.inscricao .form-check-label {
+    color: #fff;
+}
+
+.inscricao .form-check:not(.full):hover .form-check-label,
+.inscricao .form-check.checked .form-check-label {
+    color: #002e66;
+}
+
+.inscricao .enviar {
+    padding: .5em 2em;
+    font-weight: bold;
+}
+
+.table {
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    .inscricao .logo {
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .inscricao .logo {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .inscricao .logo {
+        margin: 2.5em 15px;
+    }
+    .inscricao .enviar {
+        width: 100%;
+    }
+
+    .inscricao .chamada-title {
+        font-size: 1.75rem;
+        text-align: center;
+    }
+    .inscricao .chamada-title-h3 {
+        font-size: 1.35rem;
+        text-align: center;
+    }
+}

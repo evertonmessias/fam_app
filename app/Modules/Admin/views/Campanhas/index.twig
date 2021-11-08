@@ -1,0 +1,162 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_campanha' as form %}
+
+{% set title = 'Campanhas' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Campanhas</h2>
+
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Campanha</th>
+                        <th>Início</th>
+                        <th>Fim</th>
+                        <th class="all">Status</th>
+                        <th class="min-tablet">Leads</th>
+                        <th class="min-tablet">Inscritos</th>
+                        <th class="min-tablet">Matriculados</th>
+                        <th>Budget</th>
+                        <th>Consumido</th>
+                        {# <th>Proj. Retorno*</th> #}
+                        <th class="all"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for campanha in campanhas %}
+                      <tr>
+                        <th scope="row">{{ campanha.id }}</th>
+                        <td>{{ campanha.nome }}</td>
+                        <td>{{ campanha.inicio|date('d/m/Y') }}</td>
+                        <td>{{ campanha.fim|date('d/m/Y') }}</td>
+                        <td>{{ campanha.status }}</td>
+                        <td>{{ campanha.leads.count }}</td>
+                        <td>{{ campanha.inscritos.count }}</td>
+                        <td>{{ campanha.matriculados.count }}</td>
+                        <td>R$ {{ campanha.budget|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.budget_consumido|number_format(2, ',', '.') }}</td>
+                        {# <td>R$ {{ campanha.projecoes.matriculados|number_format(2, ',', '.') }}</td> #}
+                        <td>
+                          <a href="/campanhas/{{ campanha.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                        	<a target="_blank" href="/dashboard/{{ campanha.id }}/" title="Visualizar no Dashboard"><i class="fa fa-dashboard"></i></a>
+                          <a href="/campanhas/{{ campanha.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                        	{% if campanha.leads_total().count() > 0 %}<a href="/campanhas/{{ campanha.id }}/leads/csv" title="Exportar como CSV"><i class="fa fa-download"></i></a>{% endif %}
+                        	{% if campanha.leads_total().count() > 0 %}<a href="/campanhas/{{ campanha.id }}/leads/zipzop" title="Exportar como Contatos do WhatsApp"><i class="fa fa-whatsapp"></i></a>{% endif %}
+                        </td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+        
+                  <div>
+                    <em>* Valores baseados em matrículas realizadas nesta campanha, em pagamentos mensais, nos próximos 6 meses.</em>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Projeções <small>Período de 6 meses, em pagamentos mensais</small></h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th class="all">Campanha</th>
+                        <th class="all">Status</th>
+                        <th class="min-tablet">Proj. Leads</th>
+                        <th class="min-tablet">Proj. Inscritos</th>
+                        <th class="min-tablet">Proj. Matrículas</th>
+                        <th class="min-tablet">Proj. Cursos</th>
+                        <th>R$/lead</th>
+                        <th>R$/inscrito</th>
+                        <th>R$/matrícula</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for campanha in campanhas %}
+                      <tr>
+                        <th scope="row">{{ campanha.id }}</th>
+                        <td>{{ campanha.nome }}</td>
+                        <td>{{ campanha.status }}</td>
+                        <td>R$ {{ campanha.projecoes.leads|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.projecoes.inscritos|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.projecoes.matriculados|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.projecoes.cursos|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.custo.lead|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.custo.inscrito|number_format(2, ',', '.') }}</td>
+                        <td>R$ {{ campanha.custo.matricula|number_format(2, ',', '.') }}</td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        {{ form.editar_campanha (null, cursos) }}
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+$('table').DataTable({
+  title: '{{ campanha.nome }}',
+  dom: "Bfrtip",
+  buttons: [
+    {
+      extend: "copy",
+      className: "btn-sm"
+    },
+    {
+      extend: "csv",
+      className: "btn-sm"
+    },
+    {
+      extend: "excel",
+      className: "btn-sm"
+    },
+    {
+      extend: "pdfHtml5",
+      className: "btn-sm"
+    },
+    {
+      extend: "print",
+      className: "btn-sm"
+    },
+  ],
+  responsive: true
+});
+
+</script>
+{% endblock %}

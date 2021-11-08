@@ -1,0 +1,11 @@
+.c-content {
+    &__text {
+        @extend %u-bitner-bold;
+        font-size: 2.75em;
+        margin-bottom: 1.5em;
+        color: rgb(255, 254, 254);
+        line-height: 1.2;
+        text-align: center;
+        @media (max-width: 768px) { font-size: 2em; }
+    }
+}

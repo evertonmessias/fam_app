@@ -1,0 +1,451 @@
+@charset "UTF-8";
+img {
+  max-width: 100%; }
+
+/********************************************************************************************
+ * Menu
+ *******************************************************************************************/
+/********************************************************************************************
+ * Footer
+ *******************************************************************************************/
+/********************************************************************************************
+ * Formulários
+ *******************************************************************************************/
+/********************************************************************************************
+ * Página: Home
+ *******************************************************************************************/
+/********************************************************************************************
+ * Página: Inscrição
+ *******************************************************************************************/
+/********************************************************************************************
+ * Layout Institucional
+ *******************************************************************************************/
+.icone {
+  display: inline-block;
+  background-size: contain;
+  vertical-align: middle;
+  background-repeat: no-repeat; }
+  .icone.logo-fam {
+    background-image: url(../images/logo-fam.svg), none;
+    width: 8em;
+    height: 3em; }
+
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="number"].form-control,
+select.form-control {
+  display: block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: 1.25em;
+  border: none;
+  margin: 0;
+  background-color: #0b2f7f;
+  box-shadow: 0 -1px 0 #e4ff00;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0px; }
+
+select:not([size]):not([multiple]).form-control {
+  font-size: 1em; }
+
+.btn {
+  background-color: #0b2f7f;
+  color: #fff;
+  border-color: transparent; }
+  .btn:hover {
+    background-color: #092668;
+    color: #fff;
+    border-color: transparent; }
+  .btn.cta {
+    background-color: #0b2f7f;
+    color: #e4ff00;
+    border-color: #e4ff00; }
+    .btn.cta:hover {
+      background-color: #092668;
+      color: #e4ff00;
+      border-color: #e4ff00; }
+  .btn.large {
+    font-size: 1.5em;
+    padding: .375rem 1.5rem; }
+  .btn.uppercase {
+    text-transform: uppercase; }
+  .btn.centered {
+    margin-left: auto;
+    margin-right: auto; }
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff !important;
+  font-weight: 300;
+  font-style: italic; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff !important;
+  font-weight: 300;
+  font-style: italic; }
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff !important;
+  font-weight: 300;
+  font-style: italic; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff !important;
+  font-weight: 300;
+  font-style: italic; }
+
+.fade_resize-enter-active, .fade_resize-leave-active {
+  transition: opacity .6s, max-height .6s;
+  max-height: 20em;
+  overflow: hidden; }
+
+.fade_resize-enter, .fade_resize-leave-to {
+  opacity: 0;
+  max-height: 0em; }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .6s; }
+
+.fade-enter, .fade-leave-to {
+  opacity: 0; }
+
+body {
+  position: relative;
+  background-position: top center;
+  background-size: cover;
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+
+main {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: calc(100vh - 5.375em);
+  padding-bottom: 6em; }
+
+#acfam-nav-main {
+  position: relative;
+  overflow: hidden;
+  z-index: 1000;
+  background-color: #0b2f7f;
+  color: #fff; }
+  @media (max-width: 576px) {
+    #acfam-nav-main {
+      padding: 1em auto; } }
+  #acfam-nav-main li a {
+    display: block;
+    padding: 0.5em 1em;
+    border-radius: 0.2em;
+    background-color: #092668;
+    color: #fff;
+    transition: all 0.2s ease; }
+    @media (min-width: 576px) {
+      #acfam-nav-main li a {
+        margin-left: 1em; } }
+    @media (max-width: 576px) {
+      #acfam-nav-main li a {
+        margin: 0.5em auto; } }
+    #acfam-nav-main li a:hover, #acfam-nav-main li a:focus, #acfam-nav-main li a:active {
+      background-color: #fff;
+      color: #092668; }
+  #acfam-nav-main .navbar-toggler {
+    color: inherit; }
+  #acfam-nav-main:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    transform: scale(1.2);
+    opacity: 0.1;
+    background-image: url("../images/home-background.jpg");
+    background-position: top center;
+    background-size: cover;
+    filter: blur(16px); }
+
+body#page-home {
+  background-image: url("../images/home-background.jpg");
+  background-color: #0d3896;
+  color: #fff; }
+  body#page-home #acfam-home-artwork {
+    position: relative;
+    min-height: 650px; }
+    body#page-home #acfam-home-artwork .art {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 5%;
+      max-width: 50%; }
+      body#page-home #acfam-home-artwork .art.allow-larger-width {
+        max-width: 75%; }
+      body#page-home #acfam-home-artwork .art.allow-full-width {
+        max-width: 100%; }
+      body#page-home #acfam-home-artwork .art.top {
+        top: 0px; }
+      body#page-home #acfam-home-artwork .art.left {
+        left: 0px; }
+      body#page-home #acfam-home-artwork .art.right {
+        left: auto;
+        right: 0px; }
+      body#page-home #acfam-home-artwork .art.bottom {
+        top: auto;
+        bottom: 0px; }
+      body#page-home #acfam-home-artwork .art.center {
+        transform: translate(-50%, -50%); }
+      body#page-home #acfam-home-artwork .art.center-h {
+        transform: translateX(-50%); }
+      body#page-home #acfam-home-artwork .art.center-v {
+        transform: translateY(-50%); }
+      body#page-home #acfam-home-artwork .art.overflow {
+        transform: translateX(50%); }
+      body#page-home #acfam-home-artwork .art.overflow-full {
+        transform: translateX(100%); }
+  body#page-home body {
+    background-color: #0d3896;
+    color: #fff; }
+  body#page-home #acfam-home-form form {
+    text-align: center; }
+    body#page-home #acfam-home-form form img {
+      margin-bottom: 2em; }
+    body#page-home #acfam-home-form form input {
+      margin: 0.5em auto; }
+    body#page-home #acfam-home-form form input[type="text"] {
+      width: 100%; }
+  @media (max-width: 576px) {
+    body#page-home main {
+      position: relative;
+      z-index: 999;
+      overflow: hidden;
+      background-color: #0d3896; }
+      body#page-home main:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        transform: scale(1.2);
+        opacity: 0.1;
+        background-image: url("../images/home-background.jpg");
+        background-position: top center;
+        background-size: cover;
+        filter: blur(16px); } }
+
+body#page-inscricao {
+  background-image: url("../images/inscricao-background.jpg");
+  background-color: #0d3896;
+  color: #0b2f7f; }
+  body#page-inscricao header {
+    position: relative; }
+    body#page-inscricao header:before {
+      content: ' ';
+      padding-bottom: 37.50%; }
+  body#page-inscricao #acfam-inscricao-opcoes-curso {
+    padding: 1em;
+    background-color: #e4ff00;
+    color: #0b2f7f;
+    border-radius: 0.25rem; }
+    body#page-inscricao #acfam-inscricao-opcoes-curso h2 {
+      text-transform: uppercase;
+      font-size: 1.2em; }
+    body#page-inscricao #acfam-inscricao-opcoes-curso .curso-info strong {
+      display: block;
+      margin-top: 1em;
+      font-size: 0.9em;
+      text-transform: uppercase; }
+    @media (max-width: 992px) {
+      body#page-inscricao #acfam-inscricao-opcoes-curso .opcao-curso {
+        border-top: 1px solid #b6cc00;
+        padding-top: 1em;
+        padding-bottom: 1em; } }
+  body#page-inscricao #acfam-inscricao-infos {
+    text-align: center; }
+    body#page-inscricao #acfam-inscricao-infos span, body#page-inscricao #acfam-inscricao-infos strong {
+      text-transform: uppercase;
+      display: block;
+      margin: 1em auto;
+      font-size: 1.5em; }
+    body#page-inscricao #acfam-inscricao-infos .inicio-aulas {
+      font-size: 3.5em;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: #0b2f7f; }
+    body#page-inscricao #acfam-inscricao-infos .desconto-regressivo {
+      font-size: 2.5em;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: #356fee; }
+
+body#page-finalizar-inscricao {
+  background-image: url("../images/institucional-background.png");
+  background-color: #e2e2e2;
+  color: #121215; }
+  body#page-finalizar-inscricao main .row-header {
+    padding: 2em; }
+    body#page-finalizar-inscricao main .row-header h1 {
+      font-size: 1.8em;
+      color: #0b2f7f;
+      text-shadow: 0px 1px 0px #071e50; }
+  body#page-finalizar-inscricao main .row-header-cursos .opcao-curso {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    background-color: white;
+    box-shadow: 0px 2px 1px #c9c9c9;
+    position: relative; }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso.matriculado:after {
+      content: 'Matriculado';
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      padding: 0.5em 1em;
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso.principal {
+      background-color: #0b2f7f;
+      color: #ffffff;
+      box-shadow: 0px 4px 0px #071e50; }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso h2 {
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+  body#page-finalizar-inscricao main .row-header-cursos .fit-height {
+    margin-bottom: 1em; }
+  body#page-finalizar-inscricao main .content {
+    display: block;
+    width: 100%;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 0px #c9c9c9;
+    background-color: white;
+    color: #121215; }
+    body#page-finalizar-inscricao main .content .accent {
+      color: #0b2f7f; }
+
+body#page-acompanhar-inscricao {
+  background-image: url("../images/institucional-background.png");
+  background-color: #e2e2e2;
+  color: #121215; }
+  body#page-acompanhar-inscricao main .row-header {
+    padding: 2em; }
+    body#page-acompanhar-inscricao main .row-header h1 {
+      color: #0b2f7f;
+      text-shadow: 0px 1px 0px #071e50; }
+  body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    background-color: white;
+    box-shadow: 0px 2px 1px #c9c9c9;
+    position: relative; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso.matriculado:after {
+      content: 'Matriculado';
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      padding: 0.5em 1em;
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso.principal {
+      background-color: #0b2f7f;
+      color: #ffffff;
+      box-shadow: 0px 4px 0px #071e50; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso h2 {
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+  body#page-acompanhar-inscricao main .row-header-cursos .fit-height {
+    margin-bottom: 1em; }
+  body#page-acompanhar-inscricao main .content {
+    display: block;
+    width: 100%;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 0px #c9c9c9;
+    background-color: white;
+    color: #121215; }
+
+footer {
+  width: 100%;
+  padding-bottom: 1em;
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+  color: #0b2f7f; }
+  @media (min-width: 992px) {
+    footer {
+      position: absolute;
+      bottom: 0px; } }
+  footer a {
+    color: inherit; }
+    footer a:hover {
+      color: inherit;
+      text-decoration: none; }
+  footer .social {
+    margin-top: -0.5em; }
+    footer .social a {
+      display: inline-block;
+      margin: 0em 0.2em; }
+      footer .social a i {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        padding: 0.5em;
+        color: #fff; }
+        footer .social a i:after {
+          content: ' ';
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 2em;
+          height: 2em;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+          background-color: #0b2f7f;
+          border-radius: 1em; }
+      @media (max-width: 992px) {
+        footer .social a .has-text {
+          clear: both;
+          display: block; } }
+
+.fit-height {
+  display: flex; }
+  .fit-height .fit {
+    flex: 1; }
+
+.full-height {
+  min-height: 100%; }
+
+.row > .v-spacing {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
+.align.center {
+  text-align: center; }
+.align.left {
+  text-align: left; }
+.align.right {
+  text-align: right; }
+
+/*# sourceMappingURL=main.css.map */

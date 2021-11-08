@@ -1,0 +1,319 @@
+{% spaceless %}
+
+{% set utc = ''|date('U') %}
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        .botaoemail {
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            width: 200px;
+            height: 60px;
+            background-color: #092668;
+            color: #fff !important;
+            font-weight: 400;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .botaoemail.matricula {
+            height: 40px;
+            background-color: #F5BF3E;
+        }
+
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            Margin: 0 auto !important;
+        }
+
+        table table table {
+            table-layout: auto;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        .mobile-link--footer a,
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: underline !important;
+        }
+
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+
+        .button-td:hover,
+        .button-a:hover {
+            background: #0b2f7f !important;
+            border-color: #0b2f7f !important;
+        }
+
+        u+#body a {
+            color: inherit;
+            text-decoration: none;
+            font-size: inherit;
+            font-family: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+        }
+
+        @media screen and (max-width: 480px) {
+
+            .fluid,
+            .fluid-centered {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+            }
+
+            .fluid-centered {
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+            }
+
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+
+            .stack-column-center {
+                text-align: center !important;
+            }
+
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+                float: none !important;
+            }
+
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+
+        }
+    </style>
+</head>
+
+<body width="100%" bgcolor="#61D1F3" style="Margin: 0;">
+    <center style="width: 100%; background: #61D1F3;">
+        <div
+            style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+            Seja bem-vind{{ aluno.genero_letra }} à FAM! Confira os dados da sua inscrição!
+        </div>
+        <div style="max-width: 680px; margin: auto;">
+            <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
+                <tr>
+                    <td style="padding: 20px 0; text-align: center">
+                        <img src="https://assets.fam.br/img/logo-fam-light.png" width="181" height="72"
+                            alt="FAM - Faculdade de Americana" border="0">
+                    </td>
+                </tr>
+            </table>
+            <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="100%"
+                style="max-width: 680px;">
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td
+                                    style="padding: 40px; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                    <p style="text-align: center;"><strong
+                                            style="font-size: 1.4em; display:block; color: #111111;">Seja
+                                            bem-vind{{ aluno.genero_letra }}, {{ aluno.primeiro_nome }}!!</strong>
+                                        Seu pedido de inscrição está confirmado!<br />
+                                        Esperamos por você no centro de uma poderosa estrutura de ensino.</p> <br>
+                                    {% if aluno.ingresso == 'vestibular' %}
+                                    <p style="text-align: justify;">Seu pedido de inscrição está confirmado!<br><br>
+                                        Você optou por ingressar através de vestibular online. Na data escolhida no
+                                        cadastro, você receberá sua prova por este e-mail, com instruções de como
+                                        realizá-la. Fique atento, pois a prova é válida somente para a data
+                                        escolhida.<br><br>
+                                        Você também pode adiantar sua pré-matrícula abaixo: caso seja aprovado (a) no
+                                        vestibular, o processo de matrícula já estará 98% completo para você iniciar sua
+                                        vida universitária numa poderosa estrutura de ensino que é a FAM
+
+                                    </p>
+                                    {% endif %}
+                                    {% if aluno.ingresso == 'enem' %}
+                                    <p style="text-align: justify;">Seu pedido de inscrição está confirmado!<br><br>
+                                        Você optou por ingressar através da sua nota do ENEM.<br><br>
+                                        Realize sua matrícula abaixo, insira todos os seus documentos no processo e você
+                                        estará preparado para iniciar sua vida universitária numa poderosa estrutura de
+                                        ensino que é a FAM.
+                                    </p>
+                                    {% endif %}
+                                    {% if aluno.ingresso == 'segunda_graduacao' %}
+                                    <p style="text-align: justify;">Seu pedido de inscrição está confirmado!<br><br>
+                                        Você optou por ingressar através da sua 2ª graduação. Realize sua matrícula
+                                        abaixo, insira todos os seus documentos no processo e você estará preparado para
+                                        iniciar sua vida universitária numa poderosa estrutura de ensino que é a FAM.
+                                    </p>
+                                    {% endif %}
+                                    {% if aluno.ingresso == 'tecnico' %}
+                                    <p style="text-align: justify;">Seu pedido de inscrição está confirmado!<br><br>
+                                        Você optou por ingressar em um curso técnico. Realize sua matrícula abaixo,
+                                        insira todos os seus documentos solicitados e você estará preparado para iniciar
+                                        sua vida acadêmica numa poderosa estrutura de ensino que é a FAM.
+                                    </p>
+                                    {% endif %}
+                                    {% if aluno.ingresso == 'bolsa' %}
+                                    <p style="text-align: justify;">Seu pedido de inscrição está confirmado!<br><br>
+                                        Você optou por ingressar através de Prova de Bolsas. No dia e horário escolhido
+                                        no cadastro, você receberá o tema da sua prova, com instruções de como
+                                        realizá-la através do nosso canal no youtube. Fique atento, pois a prova é
+                                        válida somente para a data escolhida.<br><br>
+                                        Você também pode adiantar sua pré-matrícula abaixo: caso seja aprovado (a), o
+                                        processo de matrícula já estará 98% completo para você iniciar sua vida
+                                        universitária numa poderosa estrutura de ensino que é a FAM.
+                                    </p>
+                                    {% endif %}
+                                    <br><br><br>
+                                    <a class="botaoemail"
+                                        href="https://www.fam.br/wp-content/uploads/2020/06/ebook-Como-enviar-os-documentos-para-matricula.pdf"
+                                        target="_blank">
+                                        Como enviar seus documentos digitalizados para matrícula</a>
+                                    <br>
+                                    <p style="text-align: justify;">Você também pode adiantar sua pré-matrícula
+                                        abaixo:<br>
+                                        (caso seja aprovado (a) no vestibular, o processo de
+                                        matrícula já estará 98% completo para você iniciar
+                                        sua vida universitária numa poderosa estrutura de
+                                        ensino que é a FAM!)</p><br>
+                                    <a class="botaoemail matricula" href="https://vestibularfam.com.br/matricula"
+                                        target="_blank">
+                                        Clique aqui para realizar sua matrícula</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#0b2f7f" valign="middle"
+                        style="text-align: center; background-position: center center !important; background-size: cover !important;">
+                        <div>
+                            <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
+                                style="max-width:500px; Margin: auto;">
+                                <tr>
+                                    <td valign="middle"
+                                        style="text-align: center; padding: 40px 20px; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #ffffff;">
+                                        <strong style="font-size: 1.4em; display:block;">Inscrição</strong>
+                                        <p>
+                                            <strong>Opções de Curso:</strong><br><br>
+                                            Primeira opção: {{ opcoes_curso[0].nome }}<br>
+                                            {% if opcoes_curso[1] %}Segunda opção: {{ opcoes_curso[1].nome }}{% endif %}<br>
+                                            {% if opcoes_curso[2] %}Terceira opção: {{ opcoes_curso[2].nome }}{% endif %}<br><br>
+                                        </p>
+                                        <p style="text-align:justify;">
+                                            Durante a pandemia, a FAM - Faculdade de Americana está operacionalizando as
+                                            provas de vestibular de forma online, seguindo todos os protocolos.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td
+                                    style="background-color:#F5BF3E;padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                    <strong style="font-size: 1.4em; display:block; color: #111111;">Prezado
+                                        candidato,</strong>
+                                    <p style="color: #000;"><b>
+                                            Por medidas de segurança devido ao COVID-19, caso apresente algum dos
+                                            sintomas abaixo, procure atendimento médico.
+                                        </b></p>
+                                    <ul style="color: #000;text-align: left;">
+                                        <li>Tosse;</li>
+                                        <li>Coriza;</li>
+                                        <li>Febre;</li>
+                                        <li>Dor de garganta;</li>
+                                        <li>Dificuldade para respirar</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <strong>Veja como chegar:</strong>
+                            <a href="https://goo.gl/maps/tBKjGzKqmAA2" target="_blank">
+                                <img src="http://{{ modulo.url }}/assets/imagens_email/mapa-fam.png" width="100%"
+                                    border="0" />
+                            </a>
+                            <br><br>
+                            <!-- Button : Begin -->
+                            <table cellspacing="0" cellpadding="0" border="0" align="center" style="Margin: auto">
+                                <tr>
+                                    <td style="border-radius: 3px; background: #092668; text-align: center;"
+                                        class="button-td">
+                                        <a href="https://goo.gl/maps/tBKjGzKqmAA2" target="_blank"
+                                            style="background: #092668; border: 15px solid #092668; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;"
+                                            class="button-a">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff">Visualizar
+                                                Mapa</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                    </td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+            </table>
+        </div>
+    </center>
+</body>
+
+</html>
+
+{% endspaceless %}

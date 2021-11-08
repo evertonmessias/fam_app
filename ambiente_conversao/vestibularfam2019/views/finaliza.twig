@@ -1,0 +1,79 @@
+{% extends 'AmbienteConversao::layout.twig' %}
+
+{% set page_id = 'page-finalizar-inscricao' %}
+
+{% block body %}
+<main class="container">
+	<div class="row">
+		<div class="row-header col-md-12">
+			<h1>Parabéns {{ aluno.primeiro_nome }}, seu pedido de inscrição foi realizado com sucesso!</h1>
+		</div>
+		<div class="row-header-cursos col-md-12">
+			<div class="row">
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso principal fit {% if lead.isMatriculado(opcoes_curso[0]) %}matriculado{% endif %}">
+						<h2>Primeira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[0].nome }}
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso fit {% if lead.isMatriculado(opcoes_curso[1]) %}matriculado{% endif %}">
+						<h2>Segunda Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[1].nome }}
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso fit {% if lead.isMatriculado(opcoes_curso[2]) %}matriculado{% endif %}">
+						<h2>Terceira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[2].nome }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Detalhes da Inscrição</h2>
+					<p><strong>Enviamos um e-mail com mais detalhes sobre sua inscrição.</strong></p>
+				{% if dados_adicionais.usar_enem == 'sim' %}
+					<p>
+						<strong>Data entrega da documentação:</strong><br />
+						{{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Horário:</strong><br />
+						{% if prova.data.hora|date('H') < 12 %}das 08:30 às 11:30{% else %}das 9:00 às 21:00{% endif %}
+						</p>
+					<p>Não se esqueça de trazer sua nota do ENEM válida.</p>
+				{% else %}
+					<p>
+						<strong>Data da prova:</strong><br />
+						{{ prova.data.hora|date('w')|dia_semana }}, {{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Hora da prova:</strong><br />
+						{{ prova.data.hora|date('H:i') }}
+					</p>
+				{% endif %}
+					<p>
+						<strong>Local da prova:</strong><br />
+						{{ prova.local.local }}<br />{{ prova.local.endereco }}
+					</p>
+
+					<p class="accent"><strong>Esperamos por você!</strong></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

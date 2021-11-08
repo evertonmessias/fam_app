@@ -1,0 +1,40 @@
+{
+    "name": "Faculdade Aberta",
+    "identifier": "faculdadeaberta-dev",
+    "data": {
+        "table": "datastore",
+        "column": "identifier",
+        "match": "faculdadeaberta-dev"
+    },
+    "endpoints": {
+        "inscricao": {
+            "settings": {
+                "datastore-mode": "create",
+                "identifier": "faculdadeaberta-dev"
+            },
+            "validation": {
+                "nome_escola": "required|max:255",
+                "nome_coordenador_pedagogico": "required|max:255",
+                "nome_responsavel_cadastro": "required|max:255",
+                "endereco_escola": "required|max:255",
+                "estado_escola": "required|max:2",
+                "cidade_escola": "required|max:255",
+                "telefone_responsavel": "required|max:14",
+                "email_responsavel": "required|email|max:255",
+                "nro_alunos": "required",
+                "data_e_periodo": "required"
+            },
+            "callback": "/?success=1"
+        }
+    },
+    "email": {
+        "endpoint": "inscricao",
+        "subject": "Faculdade Aberta - Confirmação de Inscrição",
+        "from": "no-reply@vestibularfam.com.br",
+        "fromName": "FAM",
+        "toEmailField": "email_responsavel",
+        "toNameField": "nome_responsavel_cadastro",
+        "emailView": "emailconfirmacao",
+        "customcallback": "/?teste=1"
+    }
+}

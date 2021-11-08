@@ -1,0 +1,216 @@
+{% macro calendario_provas () %}
+
+      <div class="col-md-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Datas de Provas <small>Visão Geral</small></h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+            <div id='calendar'></div>
+
+          </div>
+        </div>
+      </div>
+    
+	<div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel">New Calendar Entry</h4>
+          </div>
+          <div class="modal-body">
+            <div id="testmodal" style="padding: 5px 20px;">
+              <form id="antoform" class="form-horizontal calender" role="form">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" name="title">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="myModalLabel2">Edit Calendar Entry</h4>
+          </div>
+          <div class="modal-body">
+
+            <div id="testmodal2" style="padding: 5px 20px;">
+              <form id="antoform2" class="form-horizontal calender" role="form">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title2" name="title2">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endmacro %}
+
+{% macro editar_datas_provas (data, unidades) %}
+
+<form id="demo-form" method="post" action="/provas/datas/{% if data %}{{ data.id }}/edit{% else %}new{% endif %}" data-parsley-validate>
+  {{ csrf_field() }}
+
+      <div class="col-md-{% if data %}12{% else %}6{% endif %}">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% if data %}Editar{% else %}Nova{% endif %} Data de Prova</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+	
+			<div class="row">
+	            <div class="col-md-6">
+	            	<label for="data">Data:</label>
+            		<input class="form-control" type="date" name="data" value="{{ data.hora|date('Y-m-d') }}" />
+	            </div>
+	            <div class="col-md-3">
+	            	<label for="hora">Hora:</label>
+            		<input class="form-control" type="hour" name="hora" value="{{ data.hora|date('H:i') }}" data-parsley-pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" />
+	            </div>
+	            <div class="col-md-3">
+	            	<label for="hora">Hora final (opcional):</label>
+            		<input class="form-control" type="hour" name="hora_final" value="{% if data.hora_final %}{{ data.hora_final|date('H:i') }}{% endif %}" data-parsley-pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" />
+	            </div>
+	            <div class="col-md-12">
+	            	<label for="hora">Local de Prova:</label>
+                {% if data %}
+                <div>{{ data.local.local }}</div>
+                {% else %}
+            		<select class="form-control" name="local">
+            		{% for unidade in unidades %}
+						<optgroup label="{{ unidade.nome }}">
+						{% for local in unidade.locais_provas %}
+							<option value="{{ local.id }}">{{ local.local }}</option>
+						{% endfor %}
+						</optgroup>
+            		{% endfor %}
+            		</select>
+              {% endif %}
+	            </div>
+	            <div class="col-md-6">
+	            	<label for="maximo">Limite:</label>
+            		<input class="form-control" type="number" name="maximo" value="{% if data.maximo %}{{ data.maximo }}{% else %}30{% endif %}" />
+	            </div>
+	            <div class="col-md-6">
+	            	<label for="hora">Status:</label>
+            		<select class="form-control" name="ativar">
+						<option value="1">Ativa</option>
+						<option value="0">Inativa</option>
+            		</select>
+	            </div>
+	        </div>
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+
+          </div>
+        </div>
+      </div>
+</form>
+
+{% endmacro %}
+
+{% macro editar_locais_provas (local, unidades) %}
+
+<form id="demo-form" method="post" action="/provas/locais/{% if local %}{{ local.id }}/edit{% else %}new{% endif %}" local-parsley-validate>
+  {{ csrf_field() }}
+
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% if local %}Editar{% else %}Novo{% endif %} Local de Prova</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+	
+			<div class="row">
+	            <div class="col-md-12">
+	            	<label for="hora">Unidade:</label>
+              {% if local %}
+                <div><a target="_blank" href="/unidades/{{ local.unidade.id }}/">{{ local.unidade.nome }}</a></div>
+              {% else %}
+            		<select class="form-control" name="unidade">
+            		{% for unidade in unidades %}
+						<option value="{{ unidade.id }}">{{ unidade.nome }}</option>
+            		{% endfor %}
+            		</select>
+              {% endif %}
+	            </div>
+	        </div>
+
+			<hr />
+	        <h2>Dados Opcionais <small>Estes dados serão preenchidos automaticamente se estiverem em branco.</small></h2>
+	        <div class="clearfix"></div>
+
+	        <div class="row">
+	            <div class="col-md-12">
+	            	<label for="local">Local:</label>
+            		<input class="form-control" type="text" name="local" value="{{ local.local }}" />
+	            </div>
+	            <div class="col-md-12">
+	            	<label for="local">Endereço:</label>
+            		<input class="form-control" type="text" name="endereco" value="{{ local.endereco }}" />
+	            </div>
+	            <div class="col-md-6">
+	            	<label for="hora">Telefone:</label>
+            		<input class="form-control" type="text" name="telefone" value="{{ local.telefone }}" />
+	            </div>
+	            <div class="col-md-6">
+	            	<label for="email">E-mail:</label>
+            		<input class="form-control" type="text" name="email" value="{{ local.email }}" />
+	            </div>
+	            <div class="col-md-12">
+	            	<label for="hora">Coordenadas:<br /><small>Obs.: Você pode copiar e colar uma URL do Google Maps aqui.</small></label>
+            		<input class="form-control" type="text" name="coordenadas" value="{{ local.coordenadas.json }}" />
+	            </div>
+	        </div>
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+
+          </div>
+        </div>
+      </div>
+</form>
+
+{% endmacro %}

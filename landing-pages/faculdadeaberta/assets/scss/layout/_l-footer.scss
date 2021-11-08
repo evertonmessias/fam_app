@@ -1,0 +1,42 @@
+.l-footer {
+    padding-bottom: 4em;
+    @extend %u-bitner-bold;
+    text-align: center;
+    color: #fff;
+    &__link {
+        display: inline-block;
+        margin: 0em 0.3em;
+        text-decoration: none;
+        color: #fff;
+        transition: .2s ease;
+        &:hover {
+            color: #002f54;
+        }
+    }
+    &__icon {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        padding: 0.74em;
+        transition: .2s ease;
+        color: #020204;
+        &:after {
+            content: ' ';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2.5em;
+            height: 2.5em;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            transition: .2s ease;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        &:hover {
+            &:after { background-color: #002f54; }
+            &:before { color: #fff; }
+        }
+    }
+}

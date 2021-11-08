@@ -1,0 +1,546 @@
+    /* ALTERAÇÕES EVERTON 29-09-2020 */
+
+    #app{
+        background-image: url(../images/fundo.png);
+    }
+    .pop {
+        margin: 0;
+        padding: 0;
+        display: block;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 120%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+    }
+
+    .pop .msg {
+        margin: 0;
+        padding: 0;
+        display: block;
+        position: absolute;
+        top: 15%;
+        left: 35%;
+        width: 500px;
+        height: 500px;
+        background-color: #f0506f;
+        z-index: 2500;
+    }
+
+    .pop .bolsa {
+        display: block;
+        position: absolute;
+        width: 200px;
+        height: 50px;
+        top: 433px;
+        left: 150px;
+        border-radius: 5px;
+        background-color: #c6d92c;
+        color: #fff;
+        font-weight: 600;
+        z-index: 3000;
+    }
+
+    @media (min-width: 768px) {
+        .navbar {
+            top: 10px;
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            width: 1110px;
+            height: 110px;            
+        }
+        .index {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            width: 1110px !important; 
+            min-height: 38em;
+            margin-top: -3em !important;   
+            background-color: rgba(255,255,255,0.1); 
+            border-radius: 10px;          
+        }
+        #imgindeximg{
+            width: 730px;            
+        }
+        .img-home-person {
+            transform: scale(0.8);
+            position: absolute;
+            top: 3px !important;
+            left: 3em;
+        }
+        .colindex {
+            display: block;
+            position: relative;
+            float: left;
+            margin-top: 4em;
+            margin-left: 3em;
+            width: 30em;
+            text-align: center;
+        }
+        .colindex .form-home{
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            width: 20em; 
+        }
+        .colindex .form-home input, .colindex .form-home select{
+            margin-top: 3px;
+            border-radius: 3px;
+            height: 50px;
+        }
+        .imgindex{
+            display: block;
+            position: relative;
+            float: right;
+            margin-top: 3em;
+            margin-right: 0em;
+            width: 34em;  
+        }
+
+    }
+    
+
+    .form-home {
+        z-index: 500 !important;
+    }
+
+
+    .curso-1-op{
+        display: block;
+        position: relative;
+        width: 318px;
+        height: 40px;
+        top: 6px;
+        padding-left: 10px;
+        line-height: 40px;
+        background-color: #FFCA30;
+        border-top: 1px solid #0e2e7c;
+        border-radius: 3px;
+    }
+
+    .form-home input, .form-home select {
+        color: #0e2e7c !important;
+        background-color: #FFCA30 !important;
+        border: 1px solid #0e2e7c;
+    }
+
+    @media (max-width: 768px) {
+        .pop .msg {
+            transform: scale(0.65);
+            left: -1em;
+        }
+    }
+
+    .tutoarq {
+        cursor: pointer;
+        display: block;
+        width: 16px;
+        margin-top: -2.5em;
+        float: right;
+        padding: 5px;
+        border-radius: 16px;
+        background-color: #ec008c;
+    }
+
+    .tutopdf {
+        cursor: pointer;
+        display: block;
+        width: 390px;
+        float: left;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: #ffca30;
+    }
+    .aceitapdf, .aceitapdf2{
+        display: block;
+        font-size: 16px;        
+        position: relative;
+        width: 17px;
+        height: 17px;
+        float: right;
+        top: 13px !important;
+        background-color: #ddd;
+        border: 1px solid #777;
+        color: #000;
+        font-weight: 900;
+        padding-bottom: 3px;
+        border-radius: 4px;
+    }
+  
+
+    .tutoarq:hover{
+        background-color: #ffca30;
+    }
+
+
+    /*manuais*/
+
+    .poparq {
+        margin: 0;
+        padding: 0;
+        display: none;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 120%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+    }
+
+    .imgarq1, .imgarq2, .imgarq3, .imgarq4, .imgarq5, .imgarq6, .imgarq7, .imgarq8, .imgarq9, .imgarq10, .imgarq11, .imgarq12, .imgarq13, .imgarq14 {
+        display: none;
+        position: absolute;
+        margin-left: 2em;
+        z-index: 2500;
+    }
+
+    .fechapdf{
+        background-color: #ffca30;
+        border-radius: 2px;
+        width: 100px;
+        padding: 5px;        
+    }
+    
+
+    .arqpdf1,.arqpdf2,.arqpdf3,.arqpdf4{
+        display: none;
+        position: absolute;
+        left: -10em;
+        z-index: 2500;
+    }
+
+
+    @media (min-width: 768px) {
+        #pageinscricao {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            top: -1em;
+            width: 1100px;
+            height: 100%;
+        }
+        #pagefinaliza {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 0px;
+            width: 1100px;
+            height: 100%;
+            margin-left: 18%;
+        }
+        
+        .js-form {
+            display: block;
+            position: relative;
+            margin-top: -450px !important;
+        }
+        .inscricaofundo {
+            display: block;
+            position: relative;
+            width: 1110px !important;
+            border-radius: 30px;
+            top: -2em;
+            background-color: rgba(255,255,255,0.1);
+        }
+        .finalizado {
+            display: block;
+            position: relative;
+            left: -4.3em;
+            width: 1110px !important;
+            padding-left: 150px !important;
+            padding-top: 20px !important;
+            border-radius: 30px;
+            top: -2.5em !important;
+            background-color: rgba(255,255,255,0.1);
+            margin-bottom: -18em !important;
+        }
+        .logo-azul {
+            display: block;
+            position: absolute;
+            left: 14em;
+            top: 20px;
+            height: 50px;
+            z-index: 1000 !important;
+        }
+    }
+
+    ul a.nav-link {
+        background-color: #0e2e7c !important;
+        color: #fff !important;
+    }
+
+    ul a.nav-link:hover {
+        background-color: #ffca30 !important;
+        color: #fff !important;
+    }
+    
+
+    .imginscricao {
+        transform: scale(1);
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 1em !important;
+        width: 1050px;
+        border-radius: 5px;
+    }
+
+
+    @media (max-width: 768px) {
+        header.fit-height{
+            top:2em;
+        }
+        .js-form {
+            display: block;
+            position: relative;
+            margin-top: -260px !important;
+        }
+        .inscricaofundo {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .finalizado {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .logo-azul {
+            display: none;
+        }
+    }
+
+    .btn-final{
+        width: 200px;
+    }
+
+    .btn-concluir {
+        background-color: #ffca30 !important;
+        color: #ec008c !important;
+    }
+
+    .btn-concluir:hover {
+        background-color: #29295f !important;
+        color: #fff !important;
+    }
+
+    #page-adicionais .arquivo {
+        cursor: pointer;
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        background-color: #ccc;
+        width: 390px;
+        font-size: 20px;
+        line-height: 50px;
+        height: 50px;
+        border-radius: 4px;
+        left: -15px;
+    }
+
+    .oculto, .erro, .curso-pergunta, .cursoop, .curso-nao, .vestibular, .enem, .formado, .tecnico, .bolsa, .confirmaemail, .deficiencia {
+        display: none;
+    }
+
+    .botaoindex{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        float: left;
+        width: 100px !important;        
+        font-weight: 700 !important;
+        margin-left: 2.5em;
+    }
+
+    .erro h5{
+      color: #f00;
+    }
+
+    .datanascimento {
+        background-color: #1EADE9;
+    }
+
+    @media (min-width: 768px) {
+        .pontosenem {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            left: 230px;
+            color: #fff;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .pontosenem {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            color: #fff;
+        }
+    }
+
+    .alteracoes, .responsavel {
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 430px;
+        padding: 20px;
+        text-align: center;
+        height: 100%;
+    }
+
+    .responsavel {
+        display: none;
+        position: relative;
+        margin: 0 auto;
+        width: 380px;
+        margin-left: -18px;
+        border-radius: 4px;
+        text-align: center;
+        height: 100%;
+    }
+
+    .responsavel .arquivo{
+        left: 1px !important;
+    }
+    .responsavel .tutoarq{
+        position: relative;
+        left: 50px !important;
+        top: 1px;        
+    }
+
+    #page-adicionais input[type="text"], #page-adicionais input[type="password"], #page-adicionais input[type="email"], #page-adicionais input[type="tel"], #page-adicionais input[type="file"] {
+        width: 400px;
+    }
+
+    #page-adicionais select {
+        width: 430px;
+        height: 45px;
+    }
+
+    #page-adicionais input[type="file"] {
+        font-size: 16px;
+        width: 434px;
+        height: 45px;
+    }
+
+    .readonly {
+        background-color: #29295f;
+    }
+
+    .add {
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 600;
+        border: 0;
+        border-top: 1px solid #2b347c;
+        width: 150px;
+        height: 50px;
+        background-color: #ffca30;
+        color: #d3007d;
+    }
+
+    .add:hover {
+        background-color: #fff;
+        color: #d3007d;
+    }
+
+    @media (max-width: 768px) {
+        .alteracoes {
+            margin: 0;
+            padding: 0;
+            transform: scale(0.95);
+        }
+    }
+
+    #page-adicionais input[type="text"].afazer, #page-adicionais select.afazer, #page-adicionais input[type="email"].afazer, #page-adicionais input[type="tel"].afazer, #page-adicionais input[type="file"].afazer {
+        background-color: #ccc;
+    }
+    a.aceita {
+        font-size: 16px;
+        color: #fff;
+    }
+    .rodape {
+        display: block;
+        position: relative;
+        margin-top: -2em !important;
+        z-index: 1;
+        color: #0e2e7c !important;
+    }
+
+    body.mmatricula{
+        background-image: url("../images/background.png");
+    }
+    .amatricula{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 700px !important;
+        text-align: center !important;
+    }
+    .amatricula #cpf{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        text-align: center !important;
+    }
+    .amatricula h3{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 60%;
+        color: #fff;
+    }
+    .amatricula input, .amatricula select, .amatricula label{
+        background-color: #FFCA30 !important;
+        color: #0e2e7c !important;
+    }
+    .amatricula input[type="checkbox"]{
+        transform: scale(1.5);        
+    }
+    .amatricula input[type="button"]{
+        cursor: pointer;
+        background-color: #ec008c !important;
+        color: #fff !important;
+    }
+    .amatricula input[type="button"]:hover{
+        background-color: #FFCA30 !important;
+        color: #0e2e7c !important;
+    }
+    .amatricula input::placeholder{
+        color: #0e2e7c !important;
+    }
+    .amatricula .imgadd{
+        margin-top: -20px !important;
+        width: 700px !important;
+    }
+
+    
+    
+    .vmatricula h3{
+        color: #fff;
+    }
+    .vmatricula input, .vmatricula select, .vmatricula label{
+        background-color: #FFCA30 !important;
+        color: #0e2e7c !important;
+    }
+    .vmatricula input[type="checkbox"]{
+        transform: scale(1.5);
+        float: right;
+    }
+    .vmatricula input[type="button"]{
+        cursor: pointer;
+        background-color: #ec008c !important;
+        color: #fff !important;
+    }
+    .vmatricula input[type="button"]:hover{
+        background-color: #FFCA30 !important;
+        color: #0e2e7c !important;
+    }
+
+    .vmatricula input::placeholder{
+        color: #0e2e7c !important;
+    }
+    .vmatricula .imgadd{
+        margin-top: -20px !important;
+        width: 100% !important;
+    }
+

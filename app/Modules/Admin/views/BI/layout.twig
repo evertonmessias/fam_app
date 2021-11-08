@@ -1,0 +1,65 @@
+{% extends 'Admin::layout' %}
+
+{% block scripts %}
+    <!-- jQuery Sparklines -->
+    <script>
+      $(document).ready(function() {
+
+      	var tipos_spark = {
+      		bar: {
+	          type: 'bar',
+	          height: '40',
+	          barWidth: 9,
+	          colorMap: {
+	            '7': '#a1a1a1'
+	          },
+	          barSpacing: 2,
+	          barColor: '#26B99A'
+	        },
+	        line: {
+          	  type: 'line',
+	          width: '200',
+	          height: '40',
+	          lineColor: '#26B99A',
+	          fillColor: 'rgba(223, 223, 223, 0.57)',
+	          lineWidth: 2,
+	          spotColor: '#26B99A',
+	          minSpotColor: '#26B99A'
+	        }
+      	}
+
+      	$('.grafico_spark').each(function () {
+      		var dados = $(this).data('dados');
+      		var tipo = $(this).data('tipo');
+          var color = $(this).data('color');
+
+          var grf = tipos_spark[tipo];
+
+          if (color) {
+            grf.barColor = grf.lineColor = grf.spotColor = grf.minSpotColor = color;
+          }
+
+      		$(this).sparkline(dados, grf);
+      	});
+      });
+    </script>
+    <!-- /jQuery Sparklines -->
+
+    {% block script %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+        <div class="right_col" role="main">
+          <div class="">
+            {% block top_row %}{% endblock %}
+            
+            <div class="row">
+              <div class="col-md-12">
+                {% for grafico in graficos %}
+                {{ grafico.render|raw }}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

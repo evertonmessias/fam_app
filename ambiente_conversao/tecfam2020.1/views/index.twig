@@ -1,0 +1,53 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-home' %}
+
+{% block body %}
+<!-- Principal -->
+<main id="page-home" class="container fit-height">
+	<div class="row fit mt-4 mt-md-0">
+        <div class="col-md-12 position-absolute w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+            <img src="/assets/images/titulo.png" class="img-fluid m-n2 campanha-titulo" alt="Curso Técnico é FAM" />
+			<img src="/assets/images/arte.png" class="img-fluid campanha-arte" alt="" />
+        </div>
+		<div id="acfam-home-form" class="offset-md-8 col-md-4 pt-md-5 full-height">
+			<!-- Centralizar verticamente o formulário -->
+			<div class="row full-height align-items-end">
+				<div class="col">
+                    {# <img class="img-fluid apoio d-none d-md-block" src="/assets/images/home-text.png" alt="Apenas R$ 239,00 mensais." /> #}
+					<!-- Aqui é o formulário padrão de cadastro -->
+					<form action="/inscricao" method="post" class="form-home">
+						{{ csrf_field() }}
+
+						<the-mask required name="cpf" class="form-control mb-4 mb-md-3 cpf" type="tel" placeholder="Insira seu CPF" :mask="['###.###.###-##']" title="Por favor insira seu CPF"></the-mask>
+						<div class="inputs-hidden">
+							<input required name="candidato[nome]" class="form-control" type="text" placeholder="Nome" title="Por favor insira seu nome"/>
+							<input required name="candidato[email]" class="form-control" type="email" placeholder="E-mail" title="Por favor insira seu e-mail" />
+                            <the-mask class="form-control" name="candidato[celular]" type="tel" placeholder="Celular/WhatsApp" required :mask="['(##) ####-####', '(##) #####-####']" title="Por favor insira seu celular"></the-mask>
+                            <select required name="curso" class="form-control curso">
+                                <option selected :value="null">Selecione um curso...</option>
+                                <option v-for="curso in cursos_sort" :value="curso.id" v-html="curso.nome"></option>
+                            </select>
+						</div>
+						<fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+						<input class="btn cta" type="submit" value="Continuar" />
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+	<!-- Script da Página -->
+	<script type="text/javascript" src="/assets/js/page-index.js"></script>
+
+	<!-- Styles da Página -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/page-index.css" />
+
+	{% if error %}
+		<script>alert('{{ error }}');</script>
+	{% endif %}
+{% endblock %}

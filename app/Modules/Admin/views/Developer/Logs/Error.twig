@@ -1,0 +1,76 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Logs de Erro' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Logs de Erro</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for log in logs|reverse %}
+                      <tr>
+                        <th scope="row"><a target="_blank" href="/dev/logs/error/{{ log }}">{{ log }}</a></th>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+$(document).ready(() => {
+  $('table').DataTable({
+    title: '',
+    dom: "Bfrtip",
+    buttons: [
+      {
+        extend: "copy",
+        className: "btn-sm"
+      },
+      {
+        extend: "csv",
+        className: "btn-sm"
+      },
+      {
+        extend: "excel",
+        className: "btn-sm"
+      },
+      {
+        extend: "pdfHtml5",
+        className: "btn-sm"
+      },
+      {
+        extend: "print",
+        className: "btn-sm"
+      },
+    ],
+    responsive: true,
+    order: [[0, 'desc']]
+  });
+});
+
+</script>
+
+{% endblock %}

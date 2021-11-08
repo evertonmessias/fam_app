@@ -1,0 +1,82 @@
+{% extends 'LP::layout' %}
+
+{% set title = 'Obrigado! — Revisaço ENEM' %}
+{% set meta_desc = '' %}
+{% set meta_keyw = '' %}
+{% set opcoes =
+[
+    {"id": "red_14set_8-12", "data": "14 de Setembro", "materia": "Redação", "horario": "8h às 12h", },
+    {"id": "red_14set_13-17", "data": "14 de Setembro", "materia": "Redação", "horario": "13h às 17h", },
+    {"id": "por_21set_8-12", "data": "21 de Setembro", "materia": "Português (Gramática e Literatura)", "horario": "8h às 12h", },
+    {"id": "mat_21set_13-17", "data": "21 de Setembro", "materia": "Matemática", "horario": "13h às 17h", },
+    {"id": "his_28set_8-12", "data": "28 de Setembro", "materia": "História", "horario": "8h às 12h", },
+    {"id": "fil_28set_13-17", "data": "28 de Setembro", "materia": "Filosofia e Sociologia", "horario": "13h às 17h", },
+    {"id": "geo_05out_8-12", "data": "05 de Outubro", "materia": "Geografia", "horario": "8h às 12h", },
+    {"id": "bio_05out_13-17", "data": "05 de Outubro", "materia": "Biologia", "horario": "13h às 17h", },
+    {"id": "qui_12out_8-12", "data": "12 de Outubro", "materia": "Química", "horario": "8h às 12h", },
+    {"id": "fis_12out_13-17", "data": "12 de Outubro", "materia": "Física", "horario": "13h às 17h", },
+    {"id": "atu_19out_8-11", "data": "19 de Outubro", "materia": "Atualidades", "horario": "8h às 11h", },
+    {"id": "ing_19out_12-1430", "data": "19 de Outubro", "materia": "Inglês", "horario": "12h às 14h30", },
+    {"id": "esp_19out_1530-18", "data": "19 de Outubro", "materia": "Espanhol", "horario": "15h30 às 18h", }
+]
+%}
+{% set materias = datastore.opcoes|replace({ ('"'): '' })|replace({ ('['): ''})|replace({ (']'): ''})|replace({ ('"'): '' })|split(',')%}
+
+{% block body %}
+<div class="inscricao">
+    <div class="container pt-1">
+        <!-- Logo -->
+        <img class="logo d-block mt-5 ml-auto mr-auto" alt="Revisaço ENEM" src="/assets/img/insc-logo.png" />
+        
+        <!-- Chamada -->
+        <div class="row chamada">
+            <div class="col-md-7 d-flex flex-column align-items-start justify-content-center">
+                <h2 class="chamada-title mb-4">Sua inscrição foi recebida com sucesso!</h2>
+                <p>Apresente o print dessa tela no dia da(s) aula(s) escolhida(s).</p>
+                <p>{{ datastore.nome }}, estaremos entrando em contato em breve através do e-mail ({{ datastore.email }}{% if datastore.celular %}, ou pelo celular cadastrado ({{ datastore.celular }}){% endif %}.</p>
+                <p><b>CPF</b>: {{ datastore.cpf }}.</p>
+                <table class="table" style="color: #fff">
+                    <tr>
+                        <th>Matéria</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                    </tr>
+                    {% for materia in materias %}
+                        {% for opcao in opcoes %}
+                            {% if materia == opcao.id %}
+                            <tr>
+                                <td>{{ opcao.materia }}</td>
+                                <td>{{ opcao.data }}</td>
+                                <td>{{ opcao.horario }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
+                <img class="img-fluid mt-0 mt-4" alt="" src="/assets/img/img-pessoa.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 d-flex flex-column align-items-center mt-3 mt-md-5">
+                <h3 class="chamada-title-h3 mb-5">Confirme sua presença e compartilhe o evento no Facebook!</h3>
+                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fevents%2F2562631730464670%2Fpermalink%2F2562631763798000%2F&width=552&show_text=true&appId=2359985977568223&height=656&data-width=" width="652" data-width="" height="556" style="border:none;overflow:hidden;margin-left: auto; margin-right: auto" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" id="evento"></iframe>
+            </div>
+        </div>
+        <div class="row">
+            <a href="https://fam.br" class="btn enviar d-block w-auto pl-4 pr-4 ml-auto mr-auto mt-5 mb-5" rel="noopener">Visitar o site da FAM</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        if (window.innerWidth < 680) {
+            document.getElementById("evento").src = "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fevents%2F2562631730464670%2Fpermalink%2F2562631763798000%2F&width=350&show_text=true&appId=2359985977568223&height=450";
+            document.getElementById("evento").style.width = "350px";
+            document.getElementById("evento").style.height = "450px";
+        }
+    </script>
+{% endblock %}

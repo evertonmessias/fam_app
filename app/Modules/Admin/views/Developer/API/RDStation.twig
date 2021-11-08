@@ -1,0 +1,127 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'RD Station' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+    <form method="post" action="/dev/api/rd-station">
+      {{ csrf_field() }}
+          
+      <div class="row">
+        <div class="col-md-12" style="padding-top: 1em; padding-bottom: 1em">
+            <input type="submit" class="btn btn-primary" value="Salvar Alterações" />
+            <input type="reset" class="btn btn-warning" value="Resetar Alterações" />
+        </div>
+      </div>
+      
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Configurações da API</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="row">
+
+                      <div class="col-md-6 col-xs-12">
+                        <label for="rd_token">Token:</label>
+                        <input name="rd_token" id="rd_token" class="form-control" type="text" value="{{ rd_token }}" />
+                      </div>
+
+                      <div class="col-md-6 col-xs-12">
+                        <label for="rd_token_privado">Token Privado:</label>
+                        <input name="rd_token_privado" id="rd_token_privado" class="form-control" type="text" value="{{ rd_token_privado }}" />
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-12 col-xs-12">
+                        <br />
+                        <label for="rd_scripts">Tags e Scripts:</label>
+                        <textarea name="rd_scripts" id="rd_scripts" class="form-control" rows="3">{{ rd_scripts }}</textarea>
+                      </div>
+
+                    </div>
+
+                    <br />
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+
+  <div class="">
+      
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tipos de Lead X Base X Conversão</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Cód.</th>
+                          <th>Nome</th>
+                          <th>Base (CRM)</th>
+                          <th>Id. Conversão (RD Station)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    {% for status in lead_status %}
+                        <tr>
+                          <th scope="row">{{ status.codigo }}</th>
+                          <td><input name="status[{{ status.codigo }}][nome]" type="text" class="form-control" value="{{ status.nome }}" /></td>
+                          <td><input name="status[{{ status.codigo }}][base_id]" type="text" class="form-control" value="{{ status.base_id }}" /></td>
+                          <td><input name="status[{{ status.codigo }}][conversao]" type="text" class="form-control" value="{{ status.conversao }}" /></td>
+                        </tr>
+                    {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+
+      </form>
+    </div>
+  <div class="">
+    <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Exportar Leads</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+        
+                  <div>
+                    <form method="post" action="/dev/api/rd-station/export" onsubmit="return confirm('Exportar todos os leads para o RD Station?');">
+                      {{ csrf_field() }}
+                      <p>Forçar exportação de todos os leads para o RD Station.<br /><strong>Aviso:</strong> O processo pode levar algum tempo para ser concluído e pode sobrescrever informações no RD!</p>
+                      <input type="submit" class="btn btn-danger" value="Exportar Bases" />
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

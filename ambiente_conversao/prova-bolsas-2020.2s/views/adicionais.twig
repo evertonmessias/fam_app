@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>Vestibular FAM</title>
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/update.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/js/update.js"></script>
+		<script type="text/javascript" src="/assets/js/validador.js"></script>
+		<script type="text/javascript" src="/assets/js/cep.js"></script>
+		<script type="text/javascript" src="/assets/js/cepR.js"></script>
+		<script type="text/javascript">
+			$(document).ready(() => {
+const inputNasc = document.getElementById("data_nasc");
+let resp = $(".responsavel");
+let nasc = inputNasc.value.split("-").map(Number);
+let depois18Anos = new Date(nasc[0] + 18, nasc[1] - 1, nasc[2]);
+let agora = new Date();
+if (depois18Anos <= agora) {
+resp.css({"display": "none"});
+} else {
+resp.css({"display": "block"});
+}
+
+$("[type=file]").on("change", function(){
+  // Name of file and placeholder
+  var file = this.files[0].name;
+  var dflt = $(this).attr("placeholder");
+  if($(this).val()!=""){
+	$(this).next().text(file);	
+  } else {
+	$(this).next().text(dflt);
+  }
+});
+
+});
+		</script>
+	</head>
+	<body id='page-adicionais'>
+		<div class="alteracoes">
+			<img class="imgadd" src="/assets/images/fam2020.png">
+			<h2>Cadastro de Matrícula</h2>
+			<form id="form1" action="/inscricao/adicionais" method="post" enctype="multipart/form-data">
+				{{ csrf_field() }}
+				<input type="hidden" name="cpf" value="{{ aluno.cpf }}"/>
+				<input class="form-control" name="candidato[nome]" type="text" value="{{ aluno.nome }}" readonly required/><br>
+				<input class="form-control" name="candidato[sobrenome]" type="text" value="{{ aluno.sobrenome }}" readonly required/><br>
+				<input class="form-control" name="candidato[cpf]" type="tel" value="{{ aluno.cpf }}" readonly required/><br>
+				<input class="form-control" name="candidato[data_nascimento]" id="data_nasc" type="tel" value="{{ aluno.data_nascimento }}" readonly required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*RG:  00.000.000-0" type="tel" name="rg" required onkeypress="MascaraRG(this);" maxlength="12"/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*CEP: 00.000-000" type="tel" name="cep" required onkeypress="MascaraCep(this);" maxlength="10" onblur="if(pesquisacep(this.value)==false){this.value=''}"/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Endereço:" type="text" name="endereco" id="rua" required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Bairro:" type="text" name="bairro" id="bairro" required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Número" type="tel" name="numero" required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Complemento:" type="text" name="complemento" required/><br>
+				<input class="form-control" type="text" name="cidade" id="cidade" readonly value="{{ aluno.cidade.nome }}/{{ aluno.cidade.estado.uf }}"/><br>
+				<hr><br>
+				<input class="form-control" name="candidato[email]" type="email" value="{{ aluno.email }}" readonly required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" name="dados_adicionais[email_secundario]" onpaste="return false" ondrop="return false" type="email" placeholder="E-Mail Secundário" onblur="if(ValidaMail(this)==false){this.value=''}"/><br>
+				<input class="form-control" name="candidato[celular]" type="tel" value="{{ aluno.celular }}" readonly required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" name="dados_adicionais[telefone_secundario]" onpaste="return false" ondrop="return false" type="tel" placeholder="Telefone Fixo" onkeypress="MascaraFixo(this);"/><br>
+				<hr><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" type="text" name="dados_adicionais[nome_escola]" placeholder="*Nome da Escola que concluiu Ensino Médio" required/><br>
+				<select class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" name="dados_adicionais[ensino_medio]" required>
+					<option value="">* Tipo de Ensino ?</option>
+					<option value="publica" {% if aluno.dados_adicionais.ensino_medio == 'publica' %} selected="selected" {% endif %}>Pública</option>
+					<option value="particular" {% if aluno.dados_adicionais.ensino_medio == 'particular' %} selected="selected" {% endif %}>Particular</option>
+				</select>
+				<br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" type="text" name="dados_adicionais[cidade_escola]" placeholder="* Cidade de conclusão do Ensino Médio" required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" type="tel" name="dados_adicionais[ano_conclusao]" placeholder="* Ano de conclusão do Ensino Médio" required/><br>
+				<hr><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="* Nome completo do Pai:" type="text" name="dados_adicionais[nome_pai]" required/><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="* Nome completo da Mãe:" type="text" name="dados_adicionais[nome_mae]" required/><br>
+				<hr><br>
+				<div class="responsavel">
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r1" name="dados_adicionais[responsavel_nome]" type="text" placeholder="* Nome do Responsável"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r2" name="dados_adicionais[responsavel_nascimento]" type="tel" placeholder="* Data de Nascimento do Responsável" onkeypress="MascaraData(this);"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r3" name="dados_adicionais[responsavel_telefone]" type="tel" placeholder="* Telefone do Responsável" onkeypress="MascaraFixo(this);"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r4" name="dados_adicionais[responsavel_celular]" type="tel" placeholder="* Celular do Responsável" onkeypress="MascaraTelefone(this);"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r5" name="dados_adicionais[responsavel_cpf]" maxlength="14" type="tel" placeholder="* CPF do Responsável" onkeypress="MascaraCPF(this);" onblur="if(ValidarCPF(this)==false){this.value=''}"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r6" name="dados_adicionais[responsavel_rg]" placeholder="*RG:  00.000.000-0" type="tel" onkeypress="MascaraRG(this);" maxlength="12"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="r7" name="dados_adicionais[responsavel_cep]" placeholder="*CEP: 00.000-000" type="tel" onkeypress="MascaraCep(this);" maxlength="10" onblur="if(pesquisacepR(this.value)==false){this.value=''}"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Endereço:" type="text" id="r8" name="dados_adicionais[responsavel_endereco]"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Número" type="tel" id="r9" name="dados_adicionais[responsavel_endereco_num"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Complemento:" type="text" id="r10" name="dados_adicionais[responsavel_endereco_compl]"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Bairro:" type="text" id="r11" name="dados_adicionais[responsavel_bairro]"/><br>
+					<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" placeholder="*Cidade/UF:" type="text" id="r12" name="dados_adicionais[responsavel_cidade_uf]"/><br>
+					<br>
+					
+					<input id="r13" name="arquivos[cpf_responsavel]" type="file" style="display:none" placeholder="Envie CPF do Responsável *" />
+					<label class="arquivo" for="r13" onclick="amarelo(this);">Envie CPF do Responsável *</label><br><br>
+				
+					<input id="r14" name="arquivos[rg_responsavel]"  type="file" style="display:none" placeholder="Envie RG do Responsável *" />
+					<label class="arquivo" for="r14" onclick="amarelo(this);">Envie RG do Responsável *</label><br>
+
+				</div>
+				<hr>				
+				<p>Atendendo à Portaria Normativa não 21, de 28 de agosto de 2013, com relação à raça/cor, o candidato se autodeclara:</p>
+				<select class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" name="dados_adicionais[raca]">
+					<option value="">Autodeclaração de raça/cor:</option>
+					{% for raca in racas %}
+						<option value="{{ raca.codigo }}" {% if aluno.dados_adicionais.raca == raca.codigo %} selected="selected" {% endif %}>{{ raca.raca }}</option>
+					{% endfor %}
+				</select><br>
+				<br><hr><br>
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" name="nome_social" type="text" placeholder="Nome Social (opcional)"/><br>
+				<hr><br>
+				<!--ARQUIVO ; Obs.: php artisan storage:link -->
+				<p><b>Envie seus arquivos; Utilize formato PDF.<br>(Máx.: 2Mb / arquivo)<b></p>												
+				<input type="hidden" name="MAX_FILE_SIZE" value="3145728">				
+				
+				<input required id="cpf" name="arquivos[cpf]" type="file" style="display:none" placeholder="Envie seu CPF *" />
+				<label class="arquivo" for="cpf" onclick="amarelo(this);">Envie seu CPF *</label><br><br>
+				
+				<input required id="rg" name="arquivos[rg]"  type="file" style="display:none" placeholder="Envie seu RG *" />
+				<label class="arquivo" for="rg" onclick="amarelo(this);">Envie seu RG *</label><br><br>
+
+				<input required id="titulo" name="arquivos[titulo]"  type="file" style="display:none" placeholder="Título de Eleitor *" />
+				<label class="arquivo" for="titulo" onclick="amarelo(this);">Título de Eleitor *</label><br><br>
+				
+				<input required id="end" name="arquivos[endereco]"  type="file" style="display:none" placeholder="Comprovante de Endereço *" />
+				<label class="arquivo" for="end" onclick="amarelo(this);">Comprovante de Endereço *</label><br><br>
+				
+				<input required id="cert" name="arquivos[certidao]"  type="file" style="display:none" placeholder="Certidão de Nascimento ou Casamento *" />
+				<label class="arquivo" for="cert" onclick="amarelo(this);">Certidão de Nascimento ou Casamento *</label><br><br>
+				
+				<input required id="hist" name="arquivos[diploma_medio]"  type="file" style="display:none" placeholder="Histórico e Diploma do Ensino Médio *" />
+				<label class="arquivo" for="hist" onclick="amarelo(this);">Histórico e Diploma do Ensino Médio *</label><br><br>
+
+				<input required id="foto" name="arquivos[foto]"  type="file" style="display:none" placeholder="Foto 3X4 *" />
+				<label class="arquivo" for="foto" onclick="amarelo(this);">Foto 3X4 *</label><br><br>
+				
+				 {% if aluno.ingresso == "enem" %}
+				 <input id="enem" name="arquivos[enem]"  type="file" style="display:none" placeholder="Boletim Enem *" />
+				 <label class="arquivo" for="enem" onclick="amarelo(this);">Boletim Enem *</label><br><br>
+				 {% endif %}
+
+				 {% if aluno.ingresso == "segunda_graduacao" %}
+				 <input id="diploma" name="arquivos[diploma_superior]"  type="file" style="display:none" placeholder="Diploma Ensino Superior *" />
+				 <label class="arquivo" for="diploma" onclick="amarelo(this);">Diploma Ensino Superior *</label><br><br>
+				 {% endif %}
+
+				<input id="militar" name="arquivos[militar]"  type="file" style="display:none" placeholder="Certificado Militar (se houver)" />
+				<label class="arquivo" for="militar" onclick="amarelo(this);">Certificado Militar (se houver)</label><br><br>
+				
+				<input id="cnh" name="arquivos[cnh]"  type="file" style="display:none" placeholder="CNH (se houver)" />
+				<label class="arquivo" for="cnh" onclick="amarelo(this);">CNH (se houver)</label><br><br>
+
+				<input id="programa" name="arquivos[programa]"  type="file" style="display:none" placeholder="Conteúdo Programático (se houver)" />
+				<label class="arquivo" for="programa" onclick="amarelo(this);">Conteúdo Programático (se houver)</label><br><br>
+				
+				<br><hr>
+				<br><p>
+					<a class="aceita" href="/assets/docs/Termo-de-Aceite_Graduacao_190620_PDF.pdf" target="_blank">Aceita o Contrato de Serviços Educacionais ?</a>&emsp;<input type="checkbox" id="aceito1"></p>
+				<br><p>
+					<a class="aceita" href="/assets/docs/Termo_LGPD.pdf" target="_blank">Aceita Termo para Tratamento de Dados Pessoais ?</a>&emsp;<input type="checkbox" id="aceito2"></p>
+				<br><hr><br>
+				<br><input type="button" onclick="aceitar()" class="add" value="Concluir Inscrição"/><br>
+				<br><br><br>
+			</form>
+		</div>
+	</body>
+</html>

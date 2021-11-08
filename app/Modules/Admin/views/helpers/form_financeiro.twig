@@ -1,0 +1,337 @@
+{% macro editar_fornecedor (fornecedor, midias) %}
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+
+<form id="demo-form" method="post" action="/financeiro/fornecedores/{% if fornecedor %}{{ fornecedor.id }}/edit{% else %}new{% endif %}" data-parsley-validate>
+  {{ csrf_field() }}
+  <div class="row">
+    
+    <!-- Editar Módulo -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{% if fornecedor %}Editar{% else %}Inserir{% endif %} Fornecedor</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% if fornecedor %}
+          <label for="id">ID (não mutável) :</label>
+          <input type="text" id="id" class="form-control" name="id" readonly value="{{ fornecedor.id }}" />
+          <br />
+          {% endif %}
+
+          <div class="row">
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="cnpj">CNPJ * :</label>
+            {% if fornecedor %}
+              <div>{{ fornecedor.cnpj }}</div>
+            {% else %}
+              <input type="text" id="cnpj" class="form-control" name="cnpj" required value="{{ fornecedor.cnpj }}" data-parsley-pattern="^([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})$" />
+            {% endif %}
+            </div>
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="razao_social">Razão Social * :</label>
+              <input type="text" id="razao_social" class="form-control" name="razao_social" required value="{{ fornecedor.razao_social }}" />
+            </div>
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="nome_fantasia">Nome Fantasia * :</label>
+              <input type="text" id="nome_fantasia" class="form-control" name="nome_fantasia" required value="{{ fornecedor.nome_fantasia }}" />
+            </div>
+          </div>
+          <br />
+
+      <hr />
+          <h2>Informações de Contato</h2>
+          <div class="clearfix"></div>
+
+          <div class="row">
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="c_nome">Nome do Contato * :</label>
+              <input type="text" id="c_nome" class="form-control" name="c_nome" required value="{{ fornecedor.c_nome }}" />
+            </div>
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="c_cargo">Cargo do Contato :</label>
+              <input type="text" id="c_cargo" class="form-control" name="c_cargo" value="{{ fornecedor.c_cargo }}" />
+            </div>
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="c_gerente">Gerente do Contato :</label>
+              <input type="text" id="c_gerente" class="form-control" name="c_gerente" value="{{ fornecedor.c_gerente }}" />
+            </div>
+          </div>
+          <br />
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="fone">Telefone * :</label>
+              <input type="text" id="fone" class="form-control" name="fone" required value="{{ fornecedor.fone }}" />
+            </div>
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="fone_alt">Telefone Alt. :</label>
+              <input type="text" id="fone_alt" class="form-control" name="fone_alt" value="{{ fornecedor.fone_alt }}" />
+            </div>
+          </div>
+          <br />
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="email">E-mail * :</label>
+              <input type="text" id="email" class="form-control" name="email" required value="{{ fornecedor.email }}" />
+            </div>
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="email_alt">E-mail Alt. :</label>
+              <input type="text" id="email_alt" class="form-control" name="email_alt" value="{{ fornecedor.email_alt }}" />
+            </div>
+          </div>
+          <br />
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+          
+          {# <br /><br /> #}
+        </div>
+    </div>
+    </div>
+  </div>
+    
+{% if midias %}
+  <div class="row">
+    <!-- Editar Mídias -->
+     <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Mídias</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {{ tabela.listar_midias_select (midias, fornecedor) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+</form>
+
+{% endmacro %}
+
+{% macro editar_midia (midia, midias) %}
+
+<form id="demo-form" method="post" action="/financeiro/midias/{% if midia %}{{ midia.id }}/edit{% else %}new{% endif %}" data-parsley-validate>
+  {{ csrf_field() }}
+  <div class="row">
+    
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{% if midia %}Editar{% else %}Inserir{% endif %} Tipo de Mídia</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% if midia %}
+          <label for="id">ID (não mutável) :</label>
+          <input type="text" id="id" class="form-control" name="id" readonly value="{{ midia.id }}" />
+          <br />
+          {#<label>Categoria :</label>
+          <div>{% if midia.categoria %}{{ midia.categoria_arvore()|raw }}{% endif %}</div>
+          <br />#}
+          {% endif %}
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="nome">Nome * :</label>
+              <input type="text" id="nome" class="form-control" name="nome" required value="{{ midia.nome }}" />
+            </div>
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="codigo">Código * :</label>
+              <input type="text" id="codigo" class="form-control" name="codigo" required value="{{ midia.codigo }}" />
+            </div>
+          </div>
+          <br />
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 com-xs-12">
+              <label for="categoria">Categoria * :</label>
+              <select class="form-control" name="categoria" id="sel_categoria">
+                <option>Nenhuma</option>
+              {% for cat in midias %}
+              {% if cat.id != midia.id %}
+                <option value="{{ cat.id }}" {% if cat.id == midia.categoria.id %}selected{% endif %}>{{ cat.categoria_arvore(true, ' > ') }}</option>
+              {% endif %}
+              {% endfor %}
+              </select>
+            </div>
+          </div>
+          <br />
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+        </div>
+    </div>
+  </div>
+
+  <script>$(document).ready(function () { sortSelect($('#sel_categoria')); });</script>
+    
+    <!-- Editar Subtipos de Mídia -->
+    {# <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Opções do Módulo</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% for option in fornecedor.info.options %}
+          {{ option|getOptionsField(fornecedor, 'options')|raw }}
+          {% endfor %}
+        </div>
+    </div>#}
+  </div>
+</div>
+</form>
+
+{% endmacro %}
+
+{% macro editar_nota (nota, notas, campanhas, midias) %}
+
+{# Nos casos de não existir nota (criação de nova), o argumento 'midias' se torna 'fornecedores' #}
+{% if not nota %}{% set fornecedores = midias %}{% endif %}
+
+{% import 'Admin::helpers.link_display' as exibir %}
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+<form action="{% if nota %}{{ exibir.url_admin('financeiro/notas', nota.id, 'edit') }}{% else %}{{ exibir.url_admin('financeiro/notas', null, 'new') }}{% endif %}" method="post">
+{{ csrf_field() }}
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>{% if nota %}Editando{% else %}Inserir{% endif %} Nota Fiscal</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            <div class="row">
+              <div class="col-md-2 col-sm-12 col-xs-12">
+                <label>Número:</label>
+              {% if nota %}
+                <div>{{ nota.numero }}</div>
+              {% else %}
+                <input type="number" class="form-control no-spin" name="numero" />
+              {% endif %}
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <label>Fornecedor:</label>
+              {% if nota %}
+                <div>{{ exibir.nota_fornecedor(nota) }}</div>
+              {% else %}
+                <select name="fornecedor" class="select2 form-control" data-placeholder="Selecione um fornecedor">
+                  <option></option>
+                {% for fornecedor in fornecedores %}
+                  <option value="{{ fornecedor.id }}">{{ exibir.fornecedor_nome(fornecedor) }}</option>
+                {% endfor %}
+                </select>
+              {% endif %}
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6">
+                <label>Data:</label>
+              {% if nota %}
+                <div>{{ exibir.data(nota.data) }}</div>
+              {% else %}
+                <div class="col-md-12">
+                  <input class="form-control" type="date" name="data" />
+                </div>
+              {% endif %}
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6">
+                <label>Data Vcto.:</label>
+              {% if nota %}
+                <div>{{ exibir.data(nota.vencimento) }}</div>
+              {% else %}
+                <div class="col-md-12">
+                  <input class="form-control" type="date" name="vencimento" />
+                </div>
+              {% endif %}
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6">
+                <label>Valor:</label>
+              {% if nota %}
+                <div>R$ {{ nota.valor|number_format(2, ',', '.') }}</div>
+              {% else %}
+                <div class="col-md-12">
+                  <input class="form-control no-spin has-feedback-left" type="number" step="any" min="0" name="valor" />
+                  <span class="form-control-feedback left" aria-hidden="true">R$</span>
+                </div>
+              {% endif %}
+              </div>
+              <div class="col-md-2 col-sm-6 col-xs-6">
+              {% if nota %}
+                <label>Valor Total:</label>
+                <div>R$ {{ nota.valor_somado|number_format(2, ',', '.') }}</div>
+              {% else %}
+                <label>&nbsp;</label>
+                <input type="submit" class="form-control btn btn-success" value="Salvar" />
+              {% endif %}
+              </div>
+            </div>
+            <br />
+
+          {% if nota %}
+            <div class="row">
+              <div class="col-md-10 col-sm-12 col-xs-12">
+                <label>Descrição:</label>
+                <input class="form-control" type="text" name="descricao" value="{{ nota.descricao }}" />
+              </div>
+              <div class="col-md-2 col-sm-12 col-xs-12">
+                <label>&nbsp;</label>
+                <input type="submit" class="form-control btn btn-success" value="Salvar" />
+              </div>
+            </div>
+            <br />
+          {% endif %}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+{% if nota %}
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Notas Relacionadas <small><input type="checkbox" class="flat" name="somar_relacionadas" id="somar_relacionadas" {% if nota.somar_relacionadas %}checked{% endif %} /> <label for="somar_relacionadas">Somar Notas Relacionadas</label></small></h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            {{ tabela.listar_notas (nota.notas_relacionadas, notas) }}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Campanhas</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            {{ tabela.listar_nota_campanhas (nota, true, campanhas, midias) }}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+{% endif %}
+
+</form>
+
+{% endmacro %}

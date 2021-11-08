@@ -1,0 +1,383 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-inscricao' %}
+
+{% block body %}
+
+<!-- Principal -->
+<form method="post" action="/inscricao/finaliza" class="js-form">
+	{{ csrf_field() }}
+	{% verbatim %}
+	<main id="page-inscricao">
+
+		<!-- Cabeçalho -->
+		<header class="fit-height">
+			<div class="container fit fit-height">
+				<div class="fit align-items-end">
+					<!-- Tela: Opções de Curso -->
+					<div id="acfam-inscricao-opcoes-curso" class="col-md-12 mb-2">
+						<h2>Opções de Curso</h2>
+						<div class="row">
+							<!-- Primeira Opção -->
+							<div class="opcao-curso col-xs-12 col-md-4">
+								<label for="acfam-inscricao-opcoes-curso-1">Primeira Opção *:</label>
+
+								<!-- Listagem de Cursos -->
+								<select required name="opcoes_curso[]" v-model="opcao1" v-on:change="opcao2 = opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-1">
+									<option selected :value="null">Selecione um curso...</option>
+									<option v-for="curso in cursos_sort" :value="curso.id">{{ curso.nome }}</option>
+								</select>
+
+								<!-- Detalhes do Curso -->
+								<transition name="fade_resize">
+									<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao1">
+										<strong>Mensalidade</strong>
+										<span>R$ {{ cursos[opcao1].valor|currency }}</span>
+										<strong>Modalidade</strong>
+										<span>{{ cursos[opcao1].dados_adicionais
+.modalidade }}</span>
+										<strong>Duração</strong>
+										<span>{{ cursos[opcao1].duracao }} semestres</span>
+										<strong>Modo/Período</strong>
+										<span>{{ cursos[opcao1].dados_adicionais
+.modo }} {{ cursos[opcao1].dados_adicionais
+.periodo }}</span>
+									</div>
+								</transition>
+							</div>
+
+							<!-- Segunda Opção -->
+							<transition name="fade">
+								<div class="opcao-curso col-xs-12 col-md-4" v-if="opcao1">
+									<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+
+									<!-- Listagem de Cursos -->
+									<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+										<option></option>
+										<option v-for="curso in cursos2" :value="curso.id">{{ curso.nome }}</option>
+									</select>
+
+									<!-- Detalhes do Curso -->
+									<transition name="fade_resize">
+										<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao2">
+											<strong>Mensalidade</strong>
+											<span>R$ {{ cursos[opcao2].valor|currency }}</span>
+											<strong>Modalidade</strong>
+											<span>{{ cursos[opcao2].dados_adicionais
+.modalidade }}</span>
+											<strong>Duração</strong>
+											<span>{{ cursos[opcao2].duracao }} semestres</span>
+											<strong>Modo/Período</strong>
+											<span>{{ cursos[opcao2].dados_adicionais
+.modo }} {{ cursos[opcao2].dados_adicionais
+.periodo }}</span>
+										</div>
+									</transition>
+								</div>
+							</transition>
+
+							<!-- Terceira Opção -->
+							<transition name="fade">
+								<div class="opcao-curso col-xs-12 col-md-4" v-if="opcao2">
+									<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+
+									<!-- Listagem de Cursos -->
+									<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-3">
+										<option></option>
+										<option v-for="curso in cursos3" :value="curso.id">{{ curso.nome }}</option>
+									</select>
+
+									<!-- Detalhes do Curso -->
+									<transition name="fade_resize">
+										<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao3">
+											<strong>Mensalidade</strong>
+											<span>R$ {{ cursos[opcao3].valor|currency }}</span>
+											<strong>Modalidade</strong>
+											<span>{{ cursos[opcao3].dados_adicionais
+.modalidade }}</span>
+											<strong>Duração</strong>
+											<span>{{ cursos[opcao3].duracao }} semestres</span>
+											<strong>Modo/Período</strong>
+											<span>{{ cursos[opcao3].dados_adicionais
+.modo }} {{ cursos[opcao3].dados_adicionais
+.periodo }}</span>
+										</div>
+									</transition>
+								</div>
+							</transition>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Informações da Campanha -->
+		<!--<section id="acfam-inscricao-infos" class="container">
+			<span class="inicio-aulas">Início das Aulas Agosto 2018</span>
+			<strong class="desconto-regressivo">Desconto Regressivo</strong>
+			<img src="./assets/images/inscricao-desconto-regressivo.png" />
+			<strong>Aproveite os Descontos na Matrícula</strong>
+			<p>
+				O desconto regressivo refere-se ao pagamento da matrícula (1ª mensalidade) realizada dentro do mês indicado na figura.<br />
+				** Exceto para cursos de Tecnologia e Letras.
+			</p>
+		</section>-->
+
+		<!-- Formulário de Inscrição -->
+		<section id="acfam-inscricao-form" class="container">
+			<div class="row">
+				<!-- Nome -->
+				<div class="col-xs-12 col-md-6 v-spacing">
+					<input class="form-control" name="candidato[primeiro_nome]" type="text" placeholder="Nome" required v-model="aluno.primeiro_nome" />
+				</div>
+				<!-- Sobrenome -->
+				<div class="col-xs-12 col-md-6 v-spacing">
+					<input class="form-control" name="candidato[sobrenome]" type="text" placeholder="Sobrenome" required v-model="aluno.sobrenome" />
+				</div>
+
+				<!-- Estado -->
+				<div class="col-xs-12 col-md-4 v-spacing">
+					<select size required class="form-control" name="candidato[estado]" v-model="estado">
+						<option selected :value="null">Selecione um estado...</option>
+						<option value="AC">Acre</option>
+						<option value="AL">Alagoas</option>
+						<option value="AM">Amazonas</option>
+						<option value="AP">Amapá</option>
+						<option value="BA">Bahia</option>
+						<option value="CE">Ceará</option>
+						<option value="DF">Distrito Federal</option>
+						<option value="ES">Espírito Santo</option>
+						<option value="GO">Goiás</option>
+						<option value="MA">Maranhão</option>
+						<option value="MG">Minas Gerais</option>
+						<option value="MS">Mato Grosso do Sul</option>
+						<option value="MT">Mato Grosso</option>
+						<option value="PA">Pará</option>
+						<option value="PB">Paraíba</option>
+						<option value="PE">Pernambuco</option>
+						<option value="PI">Piauí</option>
+						<option value="PR">Paraná</option>
+						<option value="RJ">Rio de Janeiro</option>
+						<option value="RN">Rio Grande do Norte</option>
+						<option value="RO">Rondônia</option>
+						<option value="RR">Roraima</option>
+						<option value="RS">Rio Grande do Sul</option>
+						<option value="SC">Santa Catarina</option>
+						<option value="SE">Sergipe</option>
+						<option value="SP">São Paulo</option>
+						<option value="TO">Tocantins</option>
+					</select>
+				</div>
+
+				<!-- Cidade -->
+				<div class="col-xs-12 col-md-8 v-spacing">
+					<select size required class="form-control" name="candidato[cidade]" v-model="cidade">
+						<option :value="cidade" v-if="!estado">Selecione uma cidade...</option>
+						<option selected :value="null" v-if="estado">Selecione uma cidade...</option>
+						<option v-for="cidade in cidades_estado" :value="cidade.id">{{ cidade.nome }}</option>
+					</select>
+				</div>
+
+				<!-- CPF -->
+				<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+					<the-mask readonly class="form-control" name="candidato[cpf]" type="text" placeholder="CPF" required :mask="['###.###.###-##']" :value="aluno.cpf" />
+				</div>
+
+				<!-- E-mail -->
+				<div class="col-xs-12 col-md-6 col-lg-8 v-spacing">
+					<input class="form-control" name="candidato[email]" type="email" placeholder="E-mail" required v-model="aluno.email" />
+				</div>
+
+				<!-- RG -->
+				<!--<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+					<the-mask class="form-control" name="candidato[rg]" type="text" placeholder="RG" required :mask="['##.###.###-X']" v-model="aluno.rg" />
+				</div>-->
+
+				<!-- Data Nascimento -->
+				<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+					<the-mask class="form-control" name="candidato[data_nascimento]" type="tel" placeholder="Data de Nascimento" required :mask="['##/##/####']" v-model="aluno.data_nascimento" />
+				</div>
+
+				<!-- WhatsApp / Celular -->
+				<div class="col-xs-12 col-md-2 col-lg-1 v-spacing">
+					<the-mask class="form-control" name="candidato[celular_ddd]" type="tel" placeholder="DDD" required :mask="['(##)']" v-model="aluno.celular_ddd" />
+				</div>
+				<div class="col-xs-12 col-md-4 col-lg-3 v-spacing">
+					<the-mask class="form-control" name="candidato[celular_numero]" type="tel" placeholder="WhatsApp / Celular" required :mask="['####-####', '#####-####']" v-model="aluno.celular_numero" />
+				</div>
+
+				<!-- Telefone Residencial -->
+				<div class="col-xs-12 col-md-2 col-lg-1 v-spacing">
+					<the-mask class="form-control" name="candidato[telefone_ddd]" type="tel" placeholder="DDD" :mask="['(##)']" v-model="aluno.telefone_ddd" />
+				</div>
+				<div class="col-xs-12 col-md-4 col-lg-3 v-spacing">
+					<the-mask class="form-control" name="candidato[telefone_numero]" type="tel" placeholder="Telefone Residencial" :mask="['####-####']" v-model="aluno.telefone_numero" />
+				</div>
+
+				<!-- Sexo -->
+				<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+					<select size required class="form-control" name="candidato[sexo]" v-model="aluno.sexo">
+						<option :value="null" selected>Sexo:</option>
+						<option value="Masculino">Masculino</option>
+						<option value="Feminino">Feminino</option>
+					</select>
+				</div>
+
+				<!-- PCD -->
+				<div class="col-xs-12 col-md-12 col-lg-8 v-spacing">
+					<select size required class="form-control" name="dados_adicionais[deficiencia]" v-model="lead.dados_adicionais.deficiencia">
+						<option :value="null">Possui alguma deficiência?</option>
+						<option value="nao">Não</option>
+						<option value="sim">Sim</option>
+					</select>
+				</div>
+				<transition name="fade">
+					<div class="col-xs-12 col-md-12 col-lg-12 v-spacing" v-if="lead.dados_adicionais.deficiencia && lead.dados_adicionais.deficiencia == 'sim'">
+						<select size required class="form-control" name="dados_adicionais[deficiencia_qual]" v=model="lead.dados_adicionais.deficiencia_qual">
+							<option :value="null">Qual deficiência?</option>
+							<!--<option value="0">Sem deficiência</option>-->
+							<option value="1">Cegueira</option>
+							<option value="2">Baixa Visão</option>
+							<option value="3">Surdez</option>
+							<option value="4">Deficiência Auditiva</option>
+							<option value="5">Deficiência fisica</option>
+							<option value="6">Surdocegueira</option>
+							<option value="7">Deficiência Múltipla</option>
+							<option value="8">Deficiência Mental</option>
+						</select>
+					</div>
+				</transition>
+				<!-- Necessidades Educacionais Especiais (Distúrbios /Transtornos/Síndromes) -->
+				<div class="col-xs-12 col-md-12 v-spacing">
+					<input class="form-control" name="dados_adicionais[necessidades_especiais]" type="text" placeholder="Necessidades Educacionais Especiais (Distúrbios /Transtornos/Síndromes)" v-model="lead.dados_adicionais.necessidades_especiais" title="Descreva aqui suas necessidades educacionais especiais, como alguém para acompanhar a leitura, tempo extra de prova, folha de prova especial e etc." />
+				</div>
+
+				<!-- Tipo de Prova -->
+				<div class="col-xs-12 col-md-6 col-lg-6 v-spacing">
+					<select size required class="form-control" name="dados_adicionais[usar_enem]" v-model="lead.dados_adicionais.usar_enem">
+						<option :value="null">Deseja ingressar através de:</option>
+						<option value="nao">Vestibular</option>
+						<option value="sim">Nota do ENEM</option>
+						<option value="segunda_graduacao">Segunda Graduação</option>
+					</select>
+				</div>
+
+				<!-- Como conheceu a FAM? -->
+				<div class="col-xs-12 col-md-6 col-lg-6 v-spacing">
+					<select size required class="form-control" name="como_conheceu" v-model="lead.midia_id">
+						<option :value="null">Como nos conheceu?</option>
+						<option v-for="midia in midias" :value="midia.id">{{ midia.nome }}</option>
+					</select>
+				</div>
+
+				<!-- Aviso Vestibular/ENEM/Segunda Graduação -->
+				<div class="col-md-8 offset-md-2 v-spacing">
+					<transition name="fade_resize">
+						<div v-if="lead.dados_adicionais.usar_enem == 'nao'">
+							<p class="align center text-white">
+								Vejo que você escolheu prestar vestibular, certo? Então vamos lá...<br />
+								A prova consiste em uma redação, o tema é sobre atualidades, portanto fique atento a nova ortografia, pontuação e não fuja do tema proposto.
+							</p>
+						</div>
+						<div v-if="lead.dados_adicionais.usar_enem == 'sim'" class="row">
+						{% endverbatim %}
+							<div style="position:relative;padding:1em;padding-bottom:56%;width:100%;margin-bottom:1em;border-radius:4px;overflow:hidden">
+								<iframe style="position:absolute;top:0px;left:0px;width:100%;height:100%" src="https://www.youtube.com/embed/rwcOxLOrRz0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							<p class="align center text-white">
+								Você sabia que com a nota da redação do ENEM você fica isento de fazer a prova do vestibular e ainda pode ganhar um desconto de até 100% em todas as mensalidades?
+							</p>
+							<p class="align center text-white">
+								Se você tirou nota acima de 400 pontos na redação basta agendar aqui a data para fazer a sua matrícula e fazer a requisição para análise da bolsa de estudos.<br>
+								Não se esqueça de trazer cópias de todos os documentos e o resultado do ENEM impresso. Só não vale ser treineiro, ok?
+							</p>
+							<p class="align center text-white">
+								Digite abaixo suas notas do ENEM:
+							</p>
+							
+						{% for campo in aluno.campos_enem %}
+							<div class="col-md-12">
+								<input class="form-control" name="candidato[enem][{{campo.name}}]" type="number" max="1000" min="0" step=".1" placeholder="{{campo.label}}" v-model="aluno.enem.{{campo.name}}" />
+							</div>
+						{% endfor %}
+						{% verbatim %}
+						</div>
+						<div v-if="lead.dados_adicionais.usar_enem == 'segunda_graduacao'">
+							<p class="align center text-white">
+								Se você já é graduado e deseja fazer outro curso superior, você não precisa prestar vestibular, basta agendar aqui a data para fazer sua matricula. Para isso traga todos os documentos impressos e a cópia de um comprovante da sua graduação como diploma e certificado.
+							</p>
+						</div>
+					</transition>
+				</div>
+
+			{% endverbatim %}
+				<!-- Data da Prova -->
+				<div class="col-xs-12 col-md-12 col-lg-12 v-spacing">
+					<select size required class="form-control" name="data_prova" v-model="data_prova">
+						<option :value="null" v-if="!lead.dados_adicionais.usar_enem || lead.dados_adicionais.usar_enem == 'nao'">Escolher data e local da prova:</option>
+						<option :value="null" v-if="lead.dados_adicionais.usar_enem == 'sim'">Escolher data e local para entrega da documentação:</option>
+						{% for local in locais_prova %}
+						{% if local.datas_provas_disponiveis %}
+							<optgroup label="{{ local.local }}">
+							{% for data in local.datas_provas_disponiveis.splice(0, 10) %}
+								<option value="{{ data.id }}">{{ data.hora|date('d/m/Y') }} - {{ data.hora|date('H:i') }}{% if data.hora_final %} às {{ data.hora_final|date('H:i') }}{% endif %} - {{ data.hora|date('w')|dia_semana }}</option>
+							{% endfor %}
+							</optgroup>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+			{% verbatim %}
+
+				<!-- Finalizar Inscrição -->
+				<div class="col-xs-12 col-md-12 col-lg-12 v-spacing align center">
+					<input class="btn cta large centered btn-concluir" type="submit" value="Concluir Inscrição" />
+				</div>
+			</div>
+		</section>
+
+	</main>
+	{% endverbatim %}
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+	<!-- Variáveis (BI -> VueJS) -->
+	<script type="text/javascript">
+	window.history.forward(1);
+	let midias = {{ campanha.midias|json_encode|raw }};
+	let aluno = {{ aluno|json_encode|raw }};
+	let lead = {{ lead|json_encode|raw }};
+	let curso = {{ curso }};
+	
+	if (Array.isArray(lead.dados_adicionais)) delete lead.dados_adicionais;
+	lead = Object.assign({
+		dados_adicionais: {
+			deficiencia: null,
+			deficiencia_qual: null,
+			usar_enem: null
+		}
+	}, lead);
+
+	if (typeof aluno.data_nascimento !== "undefined")
+        aluno.data_nascimento = aluno.datanascimento.split('-').reverse().join('/');
+
+    window.onload = function() {
+        $(".js-form").on("submit", function() {
+            $(".btn-concluir").attr("disabled", "true");
+            setTimeout(function() {
+                $(".btn-concluir").removeAttr("disabled");
+            }, 5000);
+        });
+    }
+
+	</script>
+
+	<!-- Script da Página -->
+	<script type="text/javascript" src="./assets/js/page-inscricao.js"></script>
+
+	{% if error %}
+		<script>alert('{{ error }}');</script>
+	{% endif %}
+{% endblock %}

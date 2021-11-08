@@ -1,0 +1,177 @@
+$color-one : #23717f; // text & radio button border/checked state
+$color-two: #c3ddda; // answer and button hover state
+$color-three: #a5c4c9; // static: radio, button, progress outline
+$light-background: #f7f7f7; // inert: background
+$white: #fff;
+$gray: #ccc;
+$light-gray: #ededed;
+
+body{
+  /* background-color:#4c7a82; */
+}
+#container{
+  width:80%;
+  max-width:700px;
+  margin:60px auto 0 auto;
+  text-align: center;
+}
+#questions{
+  font-family:arial;
+  box-shadow: inset 2px -1px 5px 0px $gray;
+  color: $color-one;
+  position:relative;
+  width:100%;
+  height:300px;
+  /* border: 1px solid $light-gray; */ 
+  border-radius:20px;
+  overflow:hidden; 
+  background-color:$light-background;
+}
+
+#progress{
+  list-style-type: none;
+  display: inline-table;
+  width:100%;
+  margin: 5px 0;
+  padding:0;
+  li{
+    display:inline-block;
+    /*background-color:#fff;*/
+    border: 1px solid $color-one;
+    min-width:20px;
+    height:6px;
+    margin:0 0 0 0;
+    opacity: .175;
+  }
+  .status{
+    background-color: $color-three;
+  }
+}
+
+.content{
+  padding:10px 20px;
+}
+
+.question{
+  text-align:left;
+  position:absolute;
+  top: 5px;
+  width:100%;
+   /* border:1px solid #000; */ 
+
+  ol{
+    list-style-type:none;
+    margin: 0px;
+    padding: 0;
+    li{
+      border-radius:10px;
+      margin:0 0 10px 0;
+      padding:8px;
+      cursor: pointer;
+      -webkit-transition: all .8s ease-in-out;
+      &:hover{
+        background-color: $color-two;
+        /* color: #f2f2f2; */
+      }
+      input{
+        margin: 0 10px 0 0;
+        
+      }
+    }
+  }
+}
+
+.buttons{
+  display:block;
+  width:94%;
+  padding: 0 15px 15px 15px;
+  margin:0 auto 15px auto;
+  overflow:hidden;
+  border-bottom: 3px dotted $light-gray;
+  button{
+    cursor: pointer;
+  }
+}
+
+button{
+  font-family:arial;
+  border-radius:80px;
+  background-color: $color-two;
+  border:0;
+  height:40px;
+  width:40px;
+  padding:0;
+  margin:0;
+  color: $color-one;
+  font-size:30px;
+  outline:none;
+  /*-webkit-transition: all .5s ease-in-out;*/
+  &:hover{
+    background-color: $color-three;
+    /*-webkit-transition: all .5s ease-in-out;*/
+  }
+}
+
+button.wide{
+  border-radius:10px;
+  font-size:16px;
+  padding:0 15px;
+  width:auto;
+  height:40px;
+}
+
+#reset, #submit{
+  display:block;
+  float:right;
+  margin-left:10px;
+}
+#submit{
+  /*display:none;*/
+}
+
+.disabled{
+    background-color: $light-gray;
+    color: $gray;
+  &:hover{
+    background-color: $light-gray;
+  }
+}
+
+#previous{
+  float:left;
+}
+
+#next{
+  float:right;
+}
+
+input[type=radio]{
+  display:none;
+}
+
+input[type=radio] + label span {
+    display:inline-block;
+    float:left;
+    width:15px;
+    height:15px;
+    background-color: $color-three;
+    border-radius:20px;
+    border:2px solid;
+    margin:0 10px 0 0;
+    padding:0;
+    font-size:0;
+}
+
+input[type=radio]:checked + label span {
+  background-color: $color-one;
+}
+
+#error{
+  display:none;
+  position:absolute;
+  bottom:10px;
+  left:0;
+  text-align:center;
+  width:100%;
+  font-size:12px;
+}

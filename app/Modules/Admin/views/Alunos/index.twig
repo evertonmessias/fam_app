@@ -1,0 +1,93 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Alunos' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Alunos</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table id="tabela_alunos" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th style="width:30px !important;">#</th>
+                        <th class="all" style="width:80px !important;">Nome</th>
+                        <th style="width:150px !important;">Sobrenome</th>
+                        <th style="width:150px !important;">E-Mail</th>
+                        <th style="width:50px !important;">Ingresso</th> 
+                        <th style="width:100px !important;">CPF</th>                         
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css" media="screen">
+/*#tabela_alunos { min-height: 100em; }*/
+#tabela_alunos tr { cursor: pointer; }
+#tabela_alunos tr:hover {}
+</style>
+<script>
+$(document).ready(function () {
+	$('#tabela_alunos').DataTable( {
+        // serverSide: true,
+        // ordering: false,
+        // searching: false,
+        ajax: {
+			url: '/ajax/alunos',
+		    dataSrc: function ( alunos ) {
+		    	var out = [];
+		    	var aluno = {};
+		    	for ( var i=0, ien=alunos.length ; i<ien ; i++ ) {
+		    		aluno = alunos[i];
+		    		out.push([
+		    			aluno.id,
+              aluno.nome || '-[ SEM NOME ]-',
+              aluno.sobrenome || '-[ SEM NOME ]-',
+		    			aluno.email,
+              aluno.ingresso,
+              aluno.cpf,              
+		    			aluno.cpf.replace(/\./gi, "").replace(/\-/gi, "")            
+		    		]);
+		    	}
+		    	return out;
+		    }
+		},
+        scrollY: '50vh',
+        scrollCollapse: true,
+        scroller: {
+            loadingIndicator: true
+        },
+  		responsive: true,
+      order: [[ 0, 'desc' ]],
+      columnDefs: [
+        { targets: 6, visible: false, searchable: true }
+      ]
+    } );
+
+    $('#tabela_alunos').on('click', 'tr', function () {
+    	var id = $($(this).find('td')[0]).html();
+      // document.location.href = '/alunos/' + id;
+    	window.open ('/alunos/' + id);
+    });
+});
+</script>
+{% endblock %}

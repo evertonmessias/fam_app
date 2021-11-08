@@ -1,0 +1,335 @@
+{% set class = 'inscricao' %}
+
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<header class="banner-inscricao">
+	<div class="layout">
+		<h2 id="vc-no-topo">Você no <span>topo!</span></h2>
+		<h2 id="nome-curso">{{ curso.nome }}</h2>
+	</div>
+	<h2 id="nome-curso-mobile">{{ curso.nome }}</h2>
+</header>
+<main>
+	<div class="layout">
+		<div class="center">
+			<div id="info-curso">
+				<div>
+					<span><span class="icon modalidade"></span><span class="title">Modalidade</span></span>
+					<span>{{ curso.dados_adicionais.modalidade }}</span>
+				</div>
+				<div>
+					<span><span class="icon duracao"></span><span class="title">Dura&ccedil;&atilde;o</span></span>
+					<span>{{ curso.duracao }} semestres</span>
+				</div>
+				<div>
+					<span><span class="icon campus"></span><span class="title">Campus</span></span>
+					<span>{{ unidade.nome }}<br /></span>
+				</div>
+				<div>
+					<span><span class="icon taxa"></span><span class="title">Taxa de Inscrição</span></span>
+					<span>{% if curso.taxa %}{{ curso.taxa }}{% else %}Grátis!{% endif %}</span>
+				</div>
+				<div>
+					<span><span class="icon taxa"></span><span class="title">Parcelas</span></span>
+					<span>R$ {{ curso.valor|number_format(2, ',', '.') }}</span>
+				</div>
+				<div>
+					<span><span class="icon modo"></span><span class="title">{{ curso.dados_adicionais.modo }}</span></span>
+					<span>FAM-Americana</span>
+				</div>
+			</div>
+		</div>
+		<h3 id="inicio-aulas">{{ campanha.textos.inicio_aulas }}</h3>
+		<div id="desconto-regressivo" class="center">
+			{# <h3>Desconto Regressivo</h3> #}
+			<img src="{{ url_root }}/img/desconto-regressivo.png" />
+			{# <h4>Aproveite os descontos na matr&iacute;cula</h4> #}
+			{# <p>O desconto regressivo refere-se ao pagamento da matr&iacute;cula (1&ordf; mensalidade) realizada dentro do m&ecirc;s indicado na figura. #}
+{# <br />**Exceto para cursos de Tecnologia, Ci&ecirc;ncias Cont&aacute;beis e Letras.</p> #}
+			<p>&nbsp;</p>
+		</div>
+		<div id="detalhes-curso">
+			<div class="tab-container">
+				<section class="tab active" title="Introdução">
+					<div class="video-container full-width">
+						<div class="youtube video" data-video="{{ curso.dados_adicionais.video }}"></div>
+					</div>
+				</section>
+				<section class="tab" title="Sobre o Curso">
+					<h3>Sobre o Curso</h3>
+					{{ curso.dados_adicionais.descricao|raw }}
+				</section>
+				<section class="tab" title="Mercado de Trabalho">
+					<h3>Mercado de Trabalho</h3>
+					<p>{{ curso.dados_adicionais.mercado|raw }}</p>
+				</section>
+				<section class="tab" title="Grade Curricular">
+					<h3>Grade Curricular</h3>
+					<p>{{ curso.dados_adicionais.grade|raw }}</p>
+				</section>
+				<section class="tab" title="Coordenador do Curso">
+					<h3>Coordenador do Curso</h3>
+					<p>{{ curso.dados_adicionais.coordenador|raw }}</p>
+				</section>
+			</div>
+			<div class="center">
+				<h2 id="inscricao-continuar">Preencher dados adicionais</h2>
+			</div>
+		</div>
+		<div id="inscricao-dados">
+			<h4>Voc&ecirc; escolheu:</h4>
+			<h5 class="center">{{ curso.nome }}</h5>
+			<form action="/inscricao/finaliza" method="post">
+				{{ csrf_field() }}
+				<div class="input half">
+					<input required="required" type="text" name="aluno[nome_oficial]" value="{{ aluno.nome_oficial }}">
+				</div>
+				<div class="input half">
+					<input placeholder="Nome Social*" type="text" name="aluno[nome_social]" value="{{ aluno.nome_social }}">
+				</div>
+				<div class="input full">
+					<p>* De acordo com o Decreto nº 8.727, de 28 de abril de 2016, que "Dispõe sobre o uso do NOME SOCIAL e o reconhecimento da identidade de gênero de pessoas travestis e transexuais no âmbito da administração pública federal direta, autárquica e fundacional".</p>
+				</div>
+				<div class="input half responsive-full">
+					<input required="required" placeholder="CPF" type="text" readonly="readonly" value="{{ aluno.cpf }}" />
+				</div>
+				<div class="input half responsive-full">
+					<input placeholder="RG" type="text" name="aluno[rg]" data-mask="99.999.999-*" value="{{ aluno.rg }}" />
+				</div>
+				<div class="input third responsive-full">
+					<input required="required" placeholder="Data de Nasc." type="text" name="aluno[datanascimento]" data-mask="99/99/9999" value="{% if aluno.datanascimento %}{{ aluno.datanascimento|date('d/m/Y') }}{% endif %}" />
+				</div>
+				<div class="input third">
+					<input placeholder="Telefone" type="text" name="aluno[telefone]" data-mask="(99) 9999-9999" value="{{ aluno.telefone }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="Celular" type="text" name="aluno[celular]" data-mask="(99) 99999-9999" value="{{ aluno.celular }}" />
+				</div>
+				<div class="input fourth responsive-full">
+					<!-- <input required="required" placeholder="UF" type="text" name="uf" value="{{ aluno.uf }}" /> -->
+					<div class="select">
+						<select id="uf" required="required" name="uf">
+							<option value="">UF</option>
+							{% for estado in estados %}
+							<option value="{{ estado.uf }}">{{ estado.nome }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="input fourth fill responsive-full">
+					<!-- <input required="required" placeholder="Cidade" type="text" name="cidade" value="{{ aluno.cidade }}" /> -->
+					<div class="select">
+						<select id="cidade" required="required" name="cidade">
+							<option value="">Selecione um estado...</option>
+						</select>
+					</div>
+				</div>
+				<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="conheceu">
+							<option value="">Como nos conheceu?</option>
+						{% for midia in campanha.midias %}
+							<option value="{{ midia.id }}" {% if lead.midia.id == midia.id %}selected{% endif %}>{{ midia.nome }}</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="aluno[sexo]">
+							<option value="">Sexo:</option>
+							<option value="Masculino" {% if aluno.sexo == 'Masculino' %} selected="selected" {% endif %}>Masculino</option>
+							<option value="Feminino" {% if aluno.sexo == 'Feminino' %} selected="selected" {% endif %}>Feminino</option>
+						</select>
+					</div>
+				</div>
+				{# Campo de ENEM e Tipo de Escola removidos em favor das opções de campanha #}
+				{#<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="enem">
+							<option value="">Utilizar nota do ENEM?</option>
+							<option value="sim" {% if aluno.usarenem == 'sim' %} selected="selected" {% endif %}>Ingressar com nota do ENEM</option>
+							<option value="nao" {% if aluno.usarenem == 'nao' %} selected="selected" {% endif %}>Ingressar com Vestibular</option>
+						</select>
+					</div>
+				</div>#}
+			{% for campo in campanha.campos_personalizados %}
+				<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="dados_adicionais[{{ campo.nome }}]">
+							<option value="">{{ campo.label }}</option>
+						{% for option in campo.valores %}
+							<option value="{{ option.valor }}" {% if lead.dados_adicionais[campo.nome] == option.valor %}selected{% endif %}>{{ option.label }}</option>}
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			{% endfor %}
+				<div class="input full">
+					<div class="select">
+						<select required="required" name="dados_adicionais[newsletter]">
+							<option value="">Receber novidades e informações de cursos por e-mail e Whatsapp?</option>
+							<option value="sim" {% if lead.dados_adicionais['newsletter'] == 'sim' %}selected{% endif %}>Sim, quero receber novidades e informa&ccedil;&otilde;es de cursos por e-mail e Whatsapp.</option>
+							<option value="nao" {% if lead.dados_adicionais['newsletter'] == 'nao' %}selected{% endif %}>N&atilde;o gostaria de receber novidades e informa&ccedil;&otilde;es de cursos por e-mail e Whatsapp.</option>
+						</select>
+					</div>
+				</div>
+				<div class="input full">
+					<p>Candidatos com boletim do ENEM (realizados ap&oacute;s 2010) com nota de reda&ccedil;&atilde;o superior a 400 pontos n&atilde;o necessitam prestar vestibular, por&eacute;m &eacute; necess&aacute;rio selecionar uma data para apresenta&ccedil;&atilde;o do boletim (exceto notas do ENEM realizadas como treineiro).</p>
+				</div>
+			{% if lead.prova and lead.prova.data.exibir %}
+				<div id="current_place">
+					<div class="input fourth fill responsive-full">
+						<div class="select">
+							<select readonly required="required" name="data">
+								<option value="{{ lead.prova.data.id }}">Agendamento Realizado: {{ lead.prova.data.hora|date('d/m/Y') }} às {{ lead.prova.data.hora|date('H:i') }}, {{ lead.prova.local.local }}</option>
+							</select>
+						</div>
+					</div>
+					<div class="input fourth responsive-full">
+						<input class="button-cta" type="button" value="Alterar" />
+					</div>
+				</div>
+				<div id="change_place" style="display:none">
+					<div class="input fourth fill responsive-full">
+						<div class="select">
+							<select disabled required="required" name="data">
+								<option value="">Escolher novo local e data da prova:</option>
+							{% for local in locais_prova %}
+							{% if local.datas_provas_disponiveis %}
+								<optgroup label="{{ local.local }}">
+								{% for data in local.datas_provas_disponiveis.splice(0, 10) %}
+									<option value="{{ data.id }}">{{ data.hora|date('d/m/Y') }} - {{ data.hora|date('H:i') }} - {{ data.hora|date('w')|dia_semana }}</option>
+								{% endfor %}
+								</optgroup>
+							{% endif %}
+							{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="input fourth responsive-full">
+						<input class="button-cta" type="button" value="Manter Atual" />
+					</div>
+				</div>
+			{% else %}
+				<div class="input full">
+					<div class="select">
+						<select required="required" name="data">
+							<option value="">Escolher local e data da prova:</option>
+						{% for local in locais_prova %}
+						{% if local.datas_provas_disponiveis %}
+							<optgroup label="{{ local.local }}">
+							{% for data in local.datas_provas_disponiveis.splice(0, 10) %}
+								<option value="{{ data.id }}">{{ data.hora|date('d/m/Y') }} - {{ data.hora|date('H:i') }} - {{ data.hora|date('w')|dia_semana }}</option>
+							{% endfor %}
+							</optgroup>
+						{% endif %}
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			{% endif %}
+				{% if erro %}
+				<div id="error_msg" class="input full">
+					<div class="center">
+						<p>
+							{% if erro == 'data' %}
+							Por favor, selecione uma data para a prova!
+							{% elseif erro == 'dados' %}
+							Por favor, preencha todos os dados!
+							{% endif %}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+				<div class="input full">
+					<p><strong>ATENÇÃO CANDIDATOS ENEM ou JÁ GRADUADOS: </strong><br/>O horário de atendimento é das 9 às 21 horas.</p>
+				</div>
+				<div class="input responsive-full">
+					<input type="submit" class="button-cta" value="Concluir Inscri&ccedil;&atilde;o" />
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">
+var app = window.app = new Vue({
+	el: 'main',
+	data: {
+		'aluno': {{ aluno|json_encode|raw }},
+		'nome_social': false
+	}
+});
+
+app.nome_social = (app.aluno.nome_social.length > 0) || false;
+</script>
+<script type="text/javascript">
+var cidades = {{ cidades|json_encode|raw }};
+var sel_uf = '{{ aluno.cidade.estado.uf }}';
+var sel_cidade = '{{ aluno.cidade.nome }}';
+
+var seleciona_uf = function (uf) {
+	var estado_id = uf;
+	var cidade_wrapper = $('#cidade');
+	var def = $('<option value="">Selecione um estado...</option>');
+
+	cidade_wrapper.html('');
+
+	if (cidades[estado_id]) {
+		var def = $('<option value="">Selecione uma cidade...</option>');
+		var estado = cidades[estado_id];
+		for (var i = 0; i < estado.length; i++) {
+			var cidade = estado[i];
+			var cidade = $('<option></option>').val(cidade.nome).html(cidade.nome);
+			cidade_wrapper.append(cidade);
+		}
+		
+		if (estado_id == 'SP')
+			$('#cidade').val('Americana');
+	}
+	cidade_wrapper.prepend(def);
+}
+
+if (sel_uf.length > 0) {
+	$('#uf').val(sel_uf);
+	seleciona_uf(sel_uf);
+	if (sel_cidade.length > 0)
+		$('#cidade').val(sel_cidade);
+}
+
+$('#uf').on('change', function () {
+	seleciona_uf($(this).val());
+});
+
+// Botão Mudar Local Prova
+
+$('#current_place input[type="button"]').click(() => {
+	$('#change_place')
+		.show()
+		.find('select')
+			.prop('disabled', false);
+
+	$('#current_place')
+		.hide()
+		.find('select')
+			.prop('disabled', true);
+});
+
+// Botão Local Prova Atual
+
+$('#change_place input[type="button"]').click(() => {
+	$('#current_place')
+		.show()
+		.find('select')
+			.prop('disabled', false);
+
+	$('#change_place')
+		.hide()
+		.find('select')
+			.prop('disabled', true);
+});
+</script>
+{% endblock %}

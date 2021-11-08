@@ -1,0 +1,91 @@
+
+<!--
+ -
+ - E-mail Marketing FAM
+ - por Matheus Pratta <pratta@b2smarketing.com>
+ -
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="margin:0;padding:0;">
+	<div style="width:800px;font-size:0px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;margin: 0px auto;">
+		<!-- Header -->
+		<div><img src="https://app.vestibularfam.com.br/imagens_email/cabecalho.png" width="100%" /></div>
+
+		<!-- Hero -->
+		<div style="padding:2rem 0em;background:#eee;border-bottom:2px solid #aaa;">
+			<div style="display:inline-block;width:25%;text-align:center;position:relative;">
+				<!-- Spacer -->
+				<!-- <div style="padding-bottom:75%;"></div> -->
+				
+				<!-- Title -->
+				<strong style="display:block;width:100%;padding:1em 0em;bottom:0px;text-transform:uppercase;opacity:0.6;font-size:1.2rem;text-align:center;">Leads (dia)</strong>
+
+				<!-- Number -->
+				<div style="top:50%;width:100%;text-align:center;font-size:4rem;">{{ leads_hoje.count() }}</div>
+			</div>
+			<div style="display:inline-block;width:25%;text-align:center;position:relative;">
+				<!-- Spacer -->
+				<!-- <div style="padding-bottom:75%;"></div> -->
+				
+				<!-- Title -->
+				<strong style="display:block;width:100%;padding:1em 0em;bottom:0px;text-transform:uppercase;opacity:0.6;font-size:1.2rem;text-align:center;">Inscritos (dia)</strong>
+
+				<!-- Number -->
+				<div style="top:50%;width:100%;text-align:center;font-size:4rem;">{{ inscritos_hoje.count() }}</div>
+			</div>
+			<div style="display:inline-block;width:25%;text-align:center;position:relative;">
+				<!-- Spacer -->
+				<!-- <div style="padding-bottom:75%;"></div> -->
+				
+				<!-- Title -->
+				<strong style="display:block;width:100%;padding:1em 0em;bottom:0px;text-transform:uppercase;opacity:0.6;font-size:1.2rem;text-align:center;">Inscritos (total)</strong>
+
+				<!-- Number -->
+				<div style="top:50%;width:100%;text-align:center;font-size:4rem;">{{ inscritos.count() }}</div>
+			</div>
+			<div style="display:inline-block;width:25%;text-align:center;position:relative;">
+				<!-- Spacer -->
+				<!-- <div style="padding-bottom:75%;"></div> -->
+				
+				<!-- Title -->
+				<strong style="display:block;width:100%;padding:1em 0em;bottom:0px;text-transform:uppercase;opacity:0.6;font-size:1.2rem;text-align:center;">Matriculados (total)</strong>
+
+				<!-- Number -->
+				<div style="top:50%;width:100%;text-align:center;font-size:4rem;">{{ matriculados.count() }}</div>
+			</div>
+		</div>
+
+		<h2 style="text-align:center;font-weight:normal;text-transform:uppercase;font-size:2rem;padding:1em 0em;">An&aacute;lise de Cursos</h2>
+
+		<!-- Tabela -->
+		<table style="font-size:1rem;width:100%;" cellpadding="10" cellspacing="0">
+			<thead style="background:#162f51;color:#fff;">
+				<tr>
+					<th>Curso</th>
+					<th>Leads (dia)</th>
+					<th>Inscritos (dia)</th>
+					<th>Inscritos (total)</th>
+					<th>Matriculados (total)</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for curso in cursos %}
+				<tr style="background-color:#f0f0f0;">
+					<td>{{ curso.curso.nome }}</td>
+					<td style="text-align:center;">{{ curso.leads }}</td>
+					<td style="text-align:center;">{{ curso.inscritos }}</td>
+					<td style="text-align:center;">{{ curso.inscritos_total }}</td>
+					<td style="text-align:center;">{{ curso.matriculados_total }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
+

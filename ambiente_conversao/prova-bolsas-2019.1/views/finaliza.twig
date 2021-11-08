@@ -1,0 +1,79 @@
+{% set class = 'finaliza' %}
+
+{% extends 'AmbienteConversao::layout.twig' %}
+{% block pagina %}
+<header class="banner-finalizado">
+	<div class="layout">
+		<h2 id="welcome">Parab&eacute;ns! <span>{{ aluno.primeiro_nome }}</span></h2>
+		<p id="nome-curso">Seu pedido de inscri&ccedil;&atilde;o foi realizado com sucesso.<br />
+Esperamos por voc&ecirc; no centro de uma poderosa estrutura de ensino.<br />Enviamos um e-mail com mais detalhes sobre sua inscri&ccedil;&atilde;o.</p>
+	</div>
+	<h2 id="nome-curso-mobile"><p>Seu pedido de inscri&ccedil;&atilde;o foi realizado com sucesso.<br />
+Esperamos por voc&ecirc; no centro de uma poderosa estrutura de ensino.<br />Enviamos um e-mail com mais detalhes sobre sua inscri&ccedil;&atilde;o.</p><h2>
+</header>
+<div class="layout">
+	<main id="main-finaliza">
+		<h3>INSCRI&Ccedil;&Atilde;O</h3>
+		<p>Curso: {{ curso.nome }}</p>
+		{# <p>Periodo: {{ curso.periodo }}</p> #}
+		<p>Data da prova: {{ prova.data.hora|date('w')|dia_semana }}, {{ prova.data.hora|date('d/m/Y') }}</p>
+		<p>Hora da prova: {{ prova.data.hora|date('H:i') }}</p>
+		<p>Local da prova: {{ prova.local.local }}<br />{{ prova.local.endereco }}</p>
+
+		{# <p>Obs: Para os candidatos menores de 18 anos &eacute; necess&aacute;ria a presen&ccedil;a do respons&aacute;vel legal com fotoc&oacute;pias da Carteira de Identidade e do CPF, para a assinatura do Contrato de Presta&ccedil;&atilde;o de Servi&ccedil;os Educacionais.</p> #}
+
+		{# <p>Os cursos de Letras, Tecnologia em Log&iacute;stica, Tecnologia em Redes de Computadores, Tecnologia em Marketing, Tecnologia em Recursos Humanos, Tecnologia em Design Gr&aacute;fico e Tecnologia em Petr&oacute;leo e G&aacute;s possuem 50% de desconto nas mensalidades durante todo o curso mediante o preenchimento do PSE (Perfil S&oacute;cio Econ&ocirc;mico) e entrega dos documentos requeridos no Depto. Social.</p> #}
+
+		<p>Esperamos por voc&ecirc;!</p>
+
+		<p>Veja como chegar:</p>
+
+		<div class="google-map" data-title="{{ prova.local.local }}" data-zoom="15" data-marker="true" data-location="{{ prova.local.coordenadas.latitude }}, {{ prova.local.coordenadas.longitude }}" data-zoom="17"></div>
+	</main>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoxTqf7g0Vb1N4AjMyjxMAUGbn43Dc2EE&#038;callback=initMap" async defer></script>
+<script type="text/javascript" src="{{ url_root }}/js/google-map.js"></script>
+
+<!-- Google Code for Convers&otilde;es cliques no site Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 858546155;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "KOkbCKav3W8Q67-xmQM";
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/858546155/?label=KOkbCKav3W8Q67-xmQM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<!-- Google Code for Cliques no site V&iacute;deos YouTube Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 858546155;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "Rpt1CJeh128Q67-xmQM";
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/858546155/?label=Rpt1CJeh128Q67-xmQM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<style type="text/css">footer { color: #1b4459; }</style>
+
+{% endblock %}

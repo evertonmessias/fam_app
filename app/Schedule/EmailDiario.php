@@ -1,0 +1,2 @@
+<?php
+// veja o desativado

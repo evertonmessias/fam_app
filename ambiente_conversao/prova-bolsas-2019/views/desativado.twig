@@ -1,0 +1,52 @@
+{% set class = "home open" %}
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+{# <link rel="stylesheet" href="/css/home.css" /> #}
+<header class="banner-home">
+	<div class="layout">
+		<div id="home-form">
+			<div class="center">
+				<div class="title">
+					<!--<h1>Faculdade de Americana</h1>
+					<em>#VOCÊNOTOPO</em>
+					<h2>Vestibular de verão 2017</h2>-->
+					<img src="{{ url_root }}/img/banner-logo.png" />
+				</div>
+			</div>
+		</div>
+		{# <div id="home-logo"><img src="{{ url_root }}/img/logo-ead.png" /></div> #}
+	</div>
+</header>
+<main></main>
+<div id="modal">
+	<div class="content">
+		<p>Os resultados da Prova de Bolsas FAM estar&atilde;o dispon&iacute;veis neste site &agrave; partir de 24/01 (Quarta-feira) &agrave;s 17:30.</p>
+	</div>
+</div>
+<style type="text/css">
+#modal {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: rgba(0,0,0,0.8);
+	z-index: 99999999;
+}
+#modal .content {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	max-width: 900px;
+	max-height: 90%;
+	overflow-y: auto;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 1em;
+	text-align: center;
+	box-shadow: 0px 2px 16px rgba(0,0,0,0.8);
+}
+</style>
+{% endblock %}

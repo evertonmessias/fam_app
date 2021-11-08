@@ -1,0 +1,5 @@
+/vendor
+.env
+/storage/framework/*
+/storage/logs/laravel.log
+/public/documentos/*

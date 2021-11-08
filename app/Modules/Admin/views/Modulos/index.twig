@@ -1,0 +1,60 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_modulo' as form %}
+
+{% set title = 'Módulos' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Módulos Ativos</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Domínio</th>
+                        <th>Usar WWW?</th>
+                        <th>Sempre usar HTTPS/SSL?</th>
+                        <th>Diretório</th>
+                        <th>Módulo</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for module in modulos %}
+                      <tr>
+                        <th scope="row">{{ module.id }}</th>
+                        <td><a href="http://{{ module.domain }}{{ module.root }}" target="_blank">{{ module.domain }}</a></td>
+                        <td>{% if module.www %}Sim{% else %}Não{% endif %}</td>
+                        <td>{% if module.force_ssl %}Sim{% else %}Não{% endif %}</td>
+                        <td>{{ module.root }}</td>
+                        <td>{{ modulos_disponivel[module.namespace].name }}</td>
+                        <td>
+                        	<a href="/modulos/{{ module.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                        	<a href="/modulos/{{ module.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                        </td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    	{{ form.editar_modulo (null, modulos_disponivel) }}
+
+    </div>
+</div>
+{% endblock %}

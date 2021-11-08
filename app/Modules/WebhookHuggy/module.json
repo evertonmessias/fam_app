@@ -1,0 +1,13 @@
+{
+	"name": "Webhook: Huggy",
+	"options": {
+		"codigo_empresa": {
+			"type": "text",
+			"label": "Código da empresa :"
+		},
+		"token": {
+			"type": "text",
+			"label": "Token :"
+		}
+	}
+}

@@ -1,0 +1,100 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Outros Dados' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Outros Dados</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table id="tabela_alunos" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th class="all">Identificador</th>
+                        <th class="all">Nome</th>
+                        <th class="all">E-mail</th>
+                        <th class="all">Cadastro (BI)</th>
+                        <th class="all">Qtd. Campos</th>
+                        <th class="all">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css" media="screen">
+/*#tabela_alunos { min-height: 100em; }*/
+#tabela_alunos tr { cursor: pointer; }
+#tabela_alunos tr:hover {}
+</style>
+<script>
+$(document).ready(function () {
+	var table = $('#tabela_alunos').DataTable( {
+        // serverSide: true,
+        // ordering: false,
+        // searching: false,
+        ajax: {
+			url: '/datastore/api/',
+		    dataSrc: function ( result ) {
+          let entradas = result.entradas;
+		    	var out = [];
+		    	var entrada = {};
+		    	for ( var i=0, ien=entradas.length ; i<ien ; i++ ) {
+		    		entrada = entradas[i];
+		    		out.push([
+		    			entrada.id,
+                        `<a style="font-weight:bold;" target="_blank" href="/datastore/identificador/${entrada.identifier}">${entrada.identifier}</a>`,
+                        entrada.nome,
+                        entrada.email,
+                        (entrada.aluno) ? (`<a style="font-weight:bold;" target="_blank" href="/alunos/${entrada.aluno.id}">${entrada.aluno.nome}</a>`) : '',
+                        entrada.qtd_campos,
+                        `<a style="font-weight:bold;" target="_blank" href="/datastore/entrada/${entrada.id}">Visualizar</a>`
+		    		]);
+		    	}
+		    	return out;
+		    }
+		},
+        scrollY: '50vh',
+        scrollCollapse: true,
+        scroller: {
+            loadingIndicator: true
+        },
+  		responsive: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        initComplete: function () {
+            console.log('LOADED', table);
+            table.buttons().container()
+                .appendTo( $('#tabela_alunos_filter').parent() );
+                {# .appendTo( $('.col-md-6:eq(0)', table.table().container() ) ); #}
+        }
+    } );
+
+    $('#tabela_alunos').on('click', 'tr', function () {
+    	var id = $($(this).find('td')[0]).html();
+      // document.location.href = '/alunos/' + id;
+    	//window.open ('/alunos/' + id);
+    });
+});
+</script>
+{% endblock %}

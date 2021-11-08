@@ -1,0 +1,107 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Migrations' %}
+
+{% block content %}
+<div class="right_col" role="main">
+  <div class="">
+    <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Servidor</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+        
+                  <div>
+                    <p>Funções relacionadas ao servidor. Use com cuidado.</p>
+                    <form target="_blank" method="post" action="/dev/server/flush-pagespeed-cache">
+                      {{ csrf_field() }}
+                      <input type="submit" class="btn btn-danger" value="Limpar Cache do Pagespeed" />
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+	<div class="">
+    <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Migrações de Base</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+        
+                  <div>
+                    <form method="post" action="/dev/migrations/base">
+                      {{ csrf_field() }}
+                      <p>As migrações de base são executadas automaticamente pelo sistema, mas podem ser forçadas através deste botão, em alguma eventualidade.</p>
+                      <input type="submit" class="btn btn-primary" value="Migrar Bases" />
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Migrations</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Migration</th>
+                        <th>Lote/Batch</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for migration in migrations %}
+                      <tr>
+                        <th scope="row">{{ migration.id }}</th>
+                        <td>{{ migration.migration }}</td>
+                        <td>{{ migration.batch }}</td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+        
+                  <div>
+                    <form method="post" action="/dev/migrations">
+                      {{ csrf_field() }}
+                      <input type="submit" class="btn btn-primary" value="Rodar Migrations" />
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

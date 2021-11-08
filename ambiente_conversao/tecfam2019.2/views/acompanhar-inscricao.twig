@@ -1,0 +1,120 @@
+{% extends 'AmbienteConversao::layout.twig' %}
+
+{% set page_id = 'page-acompanhar-inscricao' %}
+
+{% block body %}
+<main class="container">
+	<div class="row">
+		<div class="row-header col-md-12">
+			<h1>{{ aluno.nome }}</h1>
+		</div>
+		<div class="row-header-cursos col-md-12">
+			<div class="row">
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso principal fit {% if lead.isMatriculado(opcoes_curso[0]) %}matriculado{% endif %}">
+						<h2>Primeira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[0].nome }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Detalhes da Inscrição</h2>
+					<p>
+						<strong>Data da matrícula:</strong><br />
+						{{ prova.data.hora|date('w')|dia_semana }}, {{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Horário:</strong><br />
+						Das 13h às 21h de segunda à sexta ou das 08h30 às 11h aos sábados.
+					</p>
+					<p>
+						<strong>Local da matrícula:</strong><br />
+						{{ prova.local.local }}<br />{{ prova.local.endereco }}
+					</p>
+
+					<p>
+						Para alterações de dados cadastrais, datas ou locais de prova, entre em contato com nossa Central de Atendimento.
+					</p>
+
+					{# Só irá estar visível quando a prova for realizada #}
+					{% if prova.status_id %}
+						<h3>Resultados da Prova</h3>
+
+						<p>
+						{% if prova.status_id == 1 %}
+							{# Dados Indisponíveis #}
+							No momento estamos processando os resultados de sua prova!<br />
+							Volte mais tarde para conferir o resultado!
+						{% elseif prova.status_id == 2 %}
+							{# Faltou #}
+							Parece que você não compareceu no dia da prova!<br />
+							Você pode reagendar sua prova abaixo ou entrando em contato via chat, telefone ou WhatsApp!
+						{% elseif prova.status_id == 3 %}
+							{# Reprovou #}
+							<strong>Resultado:</strong>
+							{{ prova.status }}<br />
+							Hey, você merece uma segunda chance! A Faculdade de Americana oferece uma nova oportunidade para você alcançar o topo.<br />
+							Basta realizar o reagendamento online ou entrar em contato via chat, telefone ou WhatsApp e agendar uma nova prova!<br />
+							Estamos te esperando!
+						{% elseif prova.status_id == 4 %}
+							{# Aprovado #}
+							<strong>Resultado:</strong>
+							{{ prova.status }}<br />
+							<strong>Nota:</strong>
+							{{ prova.nota }}<br />
+							Parabéns! Seu caminho rumo ao topo já começou!<br />
+						{% if lead.isMatriculado() %}
+						{% if lead.status_id == 'MATR' %}
+							{# Matriculado #}
+							Estaremos te esperando no início das aulas. Seja bem-vindo!
+						{% else %}
+							{# Pré-Matriculado #}
+							Realize o pagamento da sua matrícula e aguarde o início das aulas. Seja bem-vindo!
+						{% endif %}
+						{% else %}
+							{# Não Matriculado #}
+							Venha até a FAM e faça agora a sua matrícula!<br />
+							Estamos te esperando!
+						{% endif %}
+						{% endif %}
+
+						{# Condicional de Reagendamento #}
+						{% if prova.status_id == 2 or prova.status_id == 3 %}
+							<br>
+							<form action="/inscricao/reagendar" method="post">
+								{{csrf_field()}}
+								<strong>REAGENDAMENTO ONLINE</strong><br>
+								<p>Para reagendar sua prova ou entrega de documentação, por favor, utilize o campo abaixo.</p>
+								<select class="form-control" name="data">
+									<option value="">Escolha uma nova data para seu reagendamento:</option>
+								{% for local in locais_prova %}
+								{% if local.datas_provas_disponiveis %}
+									<optgroup label="{{ local.local }}">
+									{% for data in local.datas_provas_disponiveis.splice(0, 10) %}
+										<option value="{{ data.id }}">{{ data.hora|date('d/m/Y') }} - {{ data.hora|date('H:i') }} - {{ data.hora|date('w')|dia_semana }}</option>
+									{% endfor %}
+									</optgroup>
+								{% endif %}
+								{% endfor %}
+								</select>
+								<br>
+								<input type="submit" class="btn" value="Confirmar Reagendamento" />
+							</form>
+						{% endif %}
+						</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Alunos: ' ~ aluno.nome %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+		<form method="post" action="/alunos/{{ aluno.id }}/edit">
+			{{ csrf_field() }}
+			
+			<div class="row">
+				<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>{{ aluno.nome }}</h2>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+
+							<div class="row">
+								<div class="col-md-2 col-sm-2 col-xs-3">
+									<label>ID :</label>
+									<div><input readonly type="text" class="form-control" value="{{ aluno.id }}" /></div>
+								</div>
+								<div class="col-md-5 col-sm-5 col-xs-9">
+									<label>Nome :</label>
+									<div><input name="nome_oficial" type="text" class="form-control" value="{{ aluno.nome_oficial }}" />
+									</div>
+								</div>
+								<div class="col-md-5 col-sm-5 col-xs-12">
+									<label>Nome Social :</label>
+									<div><input name="nome_social" type="text" class="form-control" value="{{ aluno.nome_social }}" />
+									</div>
+								</div>
+							</div>
+							<br />
+
+							<div class="row">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>CPF :</label>
+									<div><input readonly type="text" class="form-control" value="{{ aluno.cpf }}" /></div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>RG :</label>
+									<div><input name="rg" type="text" class="form-control" value="{{ aluno.rg }}" /></div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>Nascimento :</label>
+									<div><input name="datanascimento" type="date" class="form-control"
+											value="{{ aluno.datanascimento|date('Y-m-d') }}" /></div>
+								</div>
+							</div>
+							<br />
+
+							<div class="clearfix"></div>
+
+							<div class="row">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>E-mail :</label>
+									<div><input name="email" type="email" class="form-control" value="{{ aluno.email }}" /></div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>Telefone :</label>
+									<div><input name="telefone" type="text" class="form-control" value="{{ aluno.telefone }}" /></div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<label>Celular :</label>
+									<div><input name="celular" type="text" class="form-control" value="{{ aluno.celular }}" /></div>
+								</div>
+							</div>
+							<br />
+
+							<div class="clearfix"></div>
+
+							<div class="row">
+								<div class="col-md-3 col-sm-3 col-xs-7">
+									<label>Endereço :</label>
+									<div><input name="endereco" type="text" class="form-control" value="{{ aluno.endereco }}" /></div>
+								</div>
+								<div class="col-md-1 col-sm-1 col-xs-1">
+									<label>Nº :</label>
+									<div><input name="numero" type="text" class="form-control" value="{{ aluno.numero }}" /></div>
+								</div>
+								<div class="col-md-2 col-sm-2 col-xs-4">
+									<label>Compl. :</label>
+									<div><input name="complemento" type="text" class="form-control" value="{{ aluno.complemento }}" />
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-8">
+									<label>Bairro :</label>
+									<div><input name="bairro" type="text" class="form-control" value="{{ aluno.bairro }}" /></div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-4">
+									<label>Cidade :</label>
+									<div><input readonly type="text" class="form-control" value="{{ aluno.cidade.nome }}" /></div>
+								</div>
+							</div>
+							<br />
+
+							<div class="clearfix"></div>
+
+							<div class="row">
+								<div class="col-xs-12">
+									<input type="submit" class="btn btn-success" value="Salvar" />
+									<input type="reset" class="btn btn-warning" value="Reverter" />
+								</div>
+							</div>
+							<br />
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>Dados do ENEM</h2>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+
+							<table class="table striped">
+								<thead>
+									<tr>
+										<th style="text-align:right;width:60%">Descritivo</th>
+										<th>Nota</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for campo in aluno.getCamposEnem() %}
+									<tr>
+										<td style="text-align:right;"><strong>{{ campo.label }}</strong></td>
+										<td><input class="form-control" type="number" min="0" max="1000" step=".1"
+												name="enem[{{campo.name}}]" value="{{ aluno.enem[campo.name] }}" /></td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							<br />
+
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+
+		</form>
+	</div>
+</div>
+{% endblock %}

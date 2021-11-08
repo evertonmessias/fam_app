@@ -1,0 +1,302 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Alunos: ' ~ aluno.nome %}
+{% set lead_color = {
+    LEAD: 'danger',
+    INSC: 'warning',
+    MATR: 'success',
+    APROVADO: 'info',
+    PREMATR: 'primary',
+
+    AUSENTE: 'warning',
+    REPROVADO: 'warning',
+    BOLETOVENC: 'warning',
+    EVADIDO: 'danger',
+
+    PROSPECT: 'info'
+} %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+			<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>{{ aluno.nome }}</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<div class="row">
+							<div class="col-md-2 col-sm-2 col-xs-3">
+								<label>ID :</label>
+								<div>{{ aluno.id }}</div>
+							</div>
+							<div class="col-md-5 col-sm-5 col-xs-9">
+								<label>Nome :</label>
+								<div>{{ aluno.nome }}</div>
+							</div>
+							<div class="col-md-5 col-sm-5 col-xs-12">
+								<label>Nome Social :</label>
+								<div>{{ aluno.nome_social }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>CPF :</label>
+								<div>{{ aluno.cpf }}</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>RG :</label>
+								<div>{{ aluno.rg }}</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>Nascimento :</label>
+								{% if aluno.datanascimento %}
+								<div>{{ aluno.datanascimento|date('d/m/Y') }}</div>
+								{% endif %}
+							</div>
+						</div>
+						<br />
+
+						<div class="clearfix"></div>
+
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>E-mail :</label>
+								<div>{{ aluno.email }}</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>Telefone :</label>
+								<div>{{ aluno.telefone }}</div>
+							</div>
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<label>Celular :</label>
+								<div>{{ aluno.celular }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="clearfix"></div>
+
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-8">
+								<label>Endereço :</label>
+								<div>{{ aluno.endereco }}, {{ aluno.numero }}</div>
+							</div>
+							<div class="col-md-2 col-sm-2 col-xs-4">
+								<label>Compl. :</label>
+								<div>{{ aluno.complemento }}</div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-8">
+								<label>Bairro :</label>
+								<div>{{ aluno.bairro }}</div>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-4">
+								<label>Cidade :</label>
+								<div>{{ aluno.cidade.nome }}</div>
+							</div>
+						</div>
+						<br><hr>
+						<div class="row">
+						<div style="margin-left:15px;">
+								<label>Aceite:</label>
+								<div>{{ aluno.aceite }}</div>
+						</div>
+						</div>
+						<br><hr>
+						<div class="row">
+							<div class="col-xs-12">
+								<a class="btn btn-warning" href="/alunos/{{ aluno.id }}/edit">Editar</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			{% if aluno.enem %}
+			<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Dados do ENEM</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<table class="table striped">
+							<thead>
+								<tr>
+									<th style="text-align:right;width:75%">Descritivo</th>
+									<th>Nota</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for campo in aluno.getCamposEnem() %}
+								<tr>
+									<td style="text-align:right;"><strong>{{ campo.label }}</strong></td>
+									<td>{{ aluno.enem[campo.name] }}</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+						<br />
+
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+			{% if aluno.dados_adicionais and aluno.dados_adicionais.responsavel_cpf %}
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Dados do Responsável</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<label>Nome do Responsável :</label>
+								<div>{{ aluno.dados_adicionais.responsavel_nome }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<label>CPF do Responsável :</label>
+								<div>{{ aluno.dados_adicionais.responsavel_cpf }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<label>Telefone do Responsável :</label>
+								<div>{{ aluno.dados_adicionais.responsavel_telefone }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<label>Data de Nascimento do Responsável :</label>
+								<div>{{ aluno.dados_adicionais.responsavel_nascimento }}</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="clearfix"></div>
+
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Histórico do Aluno</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<div class="dashboard-widget-content">
+							<ul class="list-unstyled timeline widget">
+								<table class="table striped">
+									<thead>
+										<tr>
+											<th class="col-md-2">Data/Hora</th>
+											<th class="col-md-6">Evento/Curso</th>
+											<th class="col-md-2">Status Atual/Antigo</th>
+											<th class="col-md-1">Controles</th>
+											<th class="col-md-1">LeadID</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for lead in leads %}
+										<tr>
+											<td>
+												<div>{{ lead.at('-3')|date('d/m/Y') }}</div>
+												<div>{{ lead.at('-3')|date('H:i:s') }}</div>
+											</td>
+											<td>
+												<div><strong>{{ lead.title }}</strong></div>
+												<div><small>{{ lead.curso.nome }}</small></div>
+											</td>
+											<td>
+												<div style="text-align: center; color: #000; text-shadow: 0px 1px 2px #FFF;"
+													class="alert-{{ lead_color[lead.status_new] }}">{{ lead.status_new }}</div>
+												<div style="text-align: center; color: #000; text-shadow: 0px 1px 2px #FFF;"
+													class="alert-{{ lead_color[lead.status_was] }}">{{ lead.status_was }}</div>
+											</td>
+											<td>
+												<a title="Editar Lead" href="/alunos/{{ aluno.id }}/lead/{{ lead.lead_id }}"><i
+														class="fa fa-edit"></i>
+											</td>
+											<td>
+												<div>#{{ lead.lead_id }}</div>
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</ul>
+						</div>
+
+						{# <div class="dashboard-widget-content">
+                    <ul class="list-unstyled timeline widget">
+		              {% for lead in aluno.leads %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                              <a>{{ lead.curso.nome }} - {{ lead.campanha.nome }}</a>
+                            </h2>
+                            <div class="byline">
+                              <span>Atualizado para {{ lead.status.nome }} em {{ lead.updated_at|date('d/m/Y') }} às {{ lead.updated_at|date('H:i') }}</span>, em <a href="/campanhas/{{ lead.campanha.id }}" target="_blank">{{ lead.campanha.nome }}</a>
+                            </div>
+                            <p class="excerpt">
+                        	{% if lead.prova %}
+                            	<div>
+                            		<label>Prova:</label>
+                            		{{ lead.prova.data.hora|date('d/m/Y H:i') }} - {{ lead.prova.status }} 
+                            	</div>
+                            {% endif %}
+                            	<div>
+                            		<label>Histórico:</label>
+                        		{% for evento in lead.historico %}
+                        			<div class="row">
+                        				<div class="col-md-2">{{ evento.at|date('d/m/Y H:i:s') }}</div>
+                        				<div class="col-md-7">{{ evento.title }}</div>
+                        				<div class="col-md-3" style="font-family:monospace;">{{ evento.status_was }} -> {{ evento.status_new }}</div>
+                        			</div>
+                        		{% endfor %}
+                            	</div>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+		              {% endfor %}
+                    </ul>
+            	  </div> #}
+
+						<div class="clearfix"></div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

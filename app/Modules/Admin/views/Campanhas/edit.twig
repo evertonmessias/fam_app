@@ -1,0 +1,24 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_campanha' as form %}
+
+{% set title = 'Editando: ' ~ campanha.nome %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div style="padding: 1em 0em">
+          <a href="./"><i class="fa fa-eye"></i> Visualizar</a>
+        </div>
+      </div>
+    </div>
+
+    {{ form.editar_campanha (campanha, cursos, unidades, campanhas) }}
+    
+  </div>
+</div>
+
+{% endblock %}

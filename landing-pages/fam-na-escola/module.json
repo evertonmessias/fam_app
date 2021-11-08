@@ -1,0 +1,71 @@
+{
+    "name": "FAM na Escola",
+    "identifier": "fam-na-escola",
+    "pages": {
+        "inscricao": {
+            "view": "inscricao",
+            "rules": {
+                "requires-session": false,
+                "requires-datastore": true
+            }
+        },
+        "inscricao/obrigado": {
+            "view": "obrigado",
+            "rules": {
+                "requires-session": false,
+                "requires-datastore": true
+            }
+        }
+    },
+    "endpoints": {
+        "inscricao": {
+            "settings": {
+                "datastore-mode": "fetch-or-create",
+                "fetch-rules": {
+                    "email": "email"
+                }
+            },
+            "validation": {
+                "nome": "required|max:255",
+                "email": "required|email|max:255"
+            },
+            "callback": "/inscricao"
+        },
+        "inscricao/fam-na-escola": {
+            "settings": {
+                "debug": false,
+                "identifier": "fam-na-escola",
+                "conversion": "FAM na Escola",
+                "conversion_user": "responsavel_email",
+                "datastore-mode": "update"
+            },
+            "validation": {
+                "escola": "required|max:255",
+                "cidade": "required|max:255",
+                "responsavel": "required|max:255",
+                "responsavel_email": "required|email|max:255",
+                "responsavel_telefone": "required|max:255",
+                "data": "required|date"
+            },
+            "callback": "/inscricao/obrigado"
+        },
+        "inscricao/fabrica-dos-sonhos": {
+            "settings": {
+                "debug": false,
+                "identifier": "fabrica-dos-sonhos",
+                "conversion": "Fábrica dos Sonhos",
+                "conversion_user": "responsavel_email",
+                "datastore-mode": "update"
+            },
+            "validation": {
+                "escola": "required|max:255",
+                "escola_alunos": "required|max:255",
+                "cidade": "required|max:255",
+                "responsavel": "required|max:255",
+                "responsavel_email": "required|email|max:255",
+                "data": "required|date"
+            },
+            "callback": "/inscricao/obrigado"
+        }
+    }
+}

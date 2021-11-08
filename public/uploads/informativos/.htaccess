@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(.*)$ http://fam.br/informativos/$1 [R=301,L]

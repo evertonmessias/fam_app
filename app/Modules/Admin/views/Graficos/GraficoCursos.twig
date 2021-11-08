@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph x_panel">
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>{{ title }}</h3>
+        </div>
+      </div>
+      <div class="x_content">
+        <div>
+          <div id="grafico_{{ id }}" style="width: 100%;">
+            <table class="panorama_cursos table-striped">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Curso</th>
+                  <th>Inscritos</th>
+                  <th>Matriculados</th>
+                  <th>Aproveitamento</th>
+                  <th>Conversão</th>
+                </tr>
+              </thead>
+              <tbody>
+            {% set last = '' %}
+            {% for id, total in data %}
+            {% set linha = helpers.cursos[id] %}
+                <tr>
+                  <td class="codigo">{{ linha.curso.codigo }}</td>
+                  <td class="nome">{{ linha.curso.nome }}</td>
+                  <td class="valor inscritos">{{ linha.inscritos }}</td>
+                  <td class="valor matriculados">{{ linha.matriculados }}</td>
+                  <td class="valor aproveitamento">{{ linha.aproveitamento|number_format(2) }}%</td>
+                  <td class="valor conversao">{{ linha.conversao|number_format(2) }}%</td>
+                </tr>
+            {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css" media="screen">
+
+.panorama_cursos { width: 100%; }
+.panorama_cursos td,
+.panorama_cursos th {
+  padding: 1em;
+  text-align: center;
+}
+.panorama_cursos td.valor {
+  position: relative;
+  z-index: 1;
+}
+.panorama_cursos td.valor:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 1em);
+  height: calc(100% - 1em);
+  z-index: -1;
+  border: 1px solid;
+  border-radius: 0.8em;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+<script defer type="text/javascript">
+(() => {
+  $(document).ready(() => {
+    $('.panorama_cursos').dataTable({
+      'paging': false,
+      'columnDefs': [
+        { 'type' : 'html-num-fmt', 'targets': [2, 3] }
+      ],
+      'order': [[ 2, 'desc' ]]
+    });
+  });
+})();
+</script>

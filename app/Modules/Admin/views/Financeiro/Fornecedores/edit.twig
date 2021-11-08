@@ -1,0 +1,18 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+
+{% set title = 'Editar Fornecedor' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+    <div class="row">
+
+        {{ form.editar_fornecedor (fornecedor, midias) }}
+
+        <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

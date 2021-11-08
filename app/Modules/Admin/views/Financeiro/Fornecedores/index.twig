@@ -1,0 +1,82 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+
+{% set title = 'Fornecedores' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Fornecedores</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped" id="tabela_locais">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>CNPJ</th>
+                        <th>Nome Fantasia</th>
+                        <th>Razão Social</th>
+                        <th>E-Mail</th>
+                        <th>Telefone</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for fornecedor in fornecedores %}
+                          <tr>
+                            <th scope="row">{{ fornecedor.id }}</th>
+                            <td>{{ fornecedor.cnpj }}</td>
+                            <td>{{ fornecedor.nome_fantasia }}</td>
+                            <td>{{ fornecedor.razao_social }}</td>
+                            <td>{{ fornecedor.email }}</td>
+                            <td>{{ fornecedor.fone }}</td>
+                            <td>
+                            	<a href="/financeiro/fornecedores/{{ fornecedor.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                            	<a href="/financeiro/fornecedores/{{ fornecedor.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                            </td>
+                          </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+	    	{{ form.editar_fornecedor (null) }}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- FullCalendar -->
+<script>
+  $(window).load(function() {
+
+    $('#tabela_locais').DataTable( {
+      responsive: true
+    });
+
+    $('#cnpj').on('blur', () => {
+      // Validar CNPJ
+      let cnpj = $('#cnpj').val();
+      if (helpers.validarCNPJ(cnpj))
+        helpers.error('#cnpj', null);
+      else
+        helpers.error('#cnpj', 'CNPJ Inválido!', 'remove');
+    });
+  });
+</script>
+<!-- /FullCalendar -->
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+
+{% set title = 'Notas Fiscais' %}
+
+{% block content %}
+<style type="text/css" media="screen">
+#root { opacity: 0; }	
+</style>
+
+<div class="right_col" role="main">
+	<div class="">
+          
+	{% if not print %}
+		<div class="row">
+			<div class="col-md-12" style="padding-top: 1em; padding-bottom: 1em">
+				<button class="btn" onclick="window.open('/financeiro/roi/print');"><i class="fa fa-print"></i> Imprimir Relatório</button>
+			</div>
+		</div>
+	{% endif %}
+
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>ROI</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+				{# Preloader AJAX + VUE #}
+				<div id="loader">
+					<p style="text-align:center">Carregando relatórios...</p>
+					<div class="progress progress-striped active">
+						<div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						</div>
+					</div>
+				</div>
+
+				{# VUE Root #}
+				<div id="root">
+				{% verbatim %}
+					<h3 class="no-print">Resumo</h3>
+
+					<table class="table table-striped datatable">
+						<thead><tr class="print-only">
+							<th><h3>Resumo</h3></th>
+						</tr><tr>
+							<th>Campanha</th>
+							<th>Budget</th>
+							<th>Consumido</th>
+							<th>Candidatos</th>
+							<th>Leads</th>
+							<th>Inscritos</th>
+							<th>Matriculados</th>
+							<th>R$ / Candidato</th>
+							<th>R$ / Matrícula</th>
+						</tr></thead>
+						<tbody>
+							<tr v-for="campanha in campanhas">
+								<td><span>{{ campanha.nome }}</span></td>
+								<td>R$ <span>{{ campanha.budget | money }}</span></td>
+								<td>R$ <span>{{ campanha.budget_consumido | money }}</span></td>
+								<td><span>{{ campanha.qtd_candidatos }}</span></td>
+								<td><span>{{ campanha.qtd_leads }}</span></td>
+								<td><span>{{ campanha.qtd_inscritos }}</span></td>
+								<td><span>{{ campanha.qtd_matriculados }}</span></td>
+								<td>R$ <span>{{ campanha | calcular_gasto('qtd_candidatos') }}</span></td>
+								<td>R$ <span>{{ campanha | calcular_gasto('qtd_matriculados') }}</span></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3 class="no-print">Detalhamento das Campanhas</h3>
+                    <!-- start accordion -->
+                    <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                      <div class="panel" v-for="campanha in campanhas">
+                        <a class="panel-heading collapsed" role="tab" id="headingTwo1" data-toggle="collapse" data-parent="#accordion1" :href="'#collapse_campanha_' + campanha.id + '_1'" aria-expanded="false" :aria-controls="'collapse_campanha_' + campanha.id">
+                          <h4 class="panel-title no-print">{{ campanha.nome }}</h4>
+                        </a>
+                        <div :id="'collapse_campanha_' + campanha.id + '_1'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                          <div class="panel-body">
+
+                            <p class="no-print"><strong>Mídias</strong>
+                            </p>
+							<table class="table table-striped">
+								<thead><tr class="print-only">
+									<th>{{ campanha.nome }}: Mídias</th>
+								</tr><tr>
+									<th>Mídia</th>
+									<th>Gastos</th>
+									<th>Candidatos</th>
+									<th>Leads</th>
+									<th>Inscritos</th>
+									<th>Matriculados</th>
+									<th>R$ / Candidato</th>
+									<th>R$ / Matrícula</th>
+								</tr></thead>
+								<tbody>
+									<tr v-for="midia in campanha.midias">
+										<td><span>{{ midia.nome }}</span></td>
+										<td>R$ <span>{{ midia.gastos | money }}</span></td>
+										<td><span>{{ midia.candidatos }}</span></td>
+										<td><span>{{ midia.leads }}</span></td>
+										<td><span>{{ midia.inscritos }}</span></td>
+										<td><span>{{ midia.matriculados }}</span></td>
+										<td>R$ <span>{{ midia | calcular_gasto('candidatos', 'gastos') }}</span></td>
+										<td>R$ <span>{{ midia | calcular_gasto('matriculados', 'gastos') }}</span></td>
+									</tr>
+								</tbody>
+							</table>
+
+                            <p class="no-print"><strong>Fornecedores</strong>
+                            </p>
+							<table class="table table-striped">
+								<thead><tr class="print-only">
+									<th>{{ campanha.nome }}: Fornecedores</th>
+								</tr><tr>
+									<th>Fornecedor</th>
+									<th>Gastos</th>
+								</tr></thead>
+								<tbody>
+									<tr v-for="fornecedor in campanha.fornecedores">
+										<td><span>{{ fornecedor.nome_fantasia }}</span></td>
+										<td>R$ <span>{{ fornecedor.gastos | money }}</span></td>
+									</tr>
+								</tbody>
+							</table>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of accordion -->
+				{% endverbatim %}
+				</div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+@media screen {
+	.print-only { display: none; }
+	.no-print { display: block; }
+}
+@media print {
+	@page {
+		size: A4 portrait;
+	 }
+
+	body { font-size: 8pt; }
+
+	.print-only { display: block; }
+	.no-print { display: none; }
+
+	.left_col { display: none !important; }
+	.right_col { margin: 0px !important; }
+	.nav_menu { display: none !important; }
+	.x_title { display: none !important; }
+	.x_panel {
+	    width: 100% !important;
+	    margin: 0px !important;
+	    display: block !important;
+	    background: #fff !important;
+	    border: 0px none !important;
+	}
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+		padding: 2px;
+	}
+	.accordion .panel {
+		page-break-before: always;
+		page-break-after: always;
+		min-width: 100%;
+		min-height: 100%;
+	}
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+(() => {
+	var $ = jQuery;
+
+	$(document).ready(() => {
+		$.get('/financeiro/roi/api/campanhas').then((campanhas) => {
+
+			var fn_money = (value) => {
+				return parseFloat(value).toFixed(2);
+			};
+
+			var fn_calcular_gasto = (campanha, campo, campo_gastos) => {
+				var campo_gastos = campo_gastos || 'budget_consumido';
+				var investido = campanha[campo_gastos];
+				var qtd = campanha[campo];
+				var valor = 0;
+
+				valor = investido / qtd;
+
+				if (qtd == 0 || investido == 0 || isNaN(valor))
+					valor = 0;
+
+				return fn_money(valor);
+			}
+
+			// Formatar dinheiro
+			Vue.filter("money", fn_money);
+
+			// Calcular Gastos
+			Vue.filter("calcular_gasto", fn_calcular_gasto);
+
+			var app = window.app = new Vue({
+				el: '#root',
+				data: {
+					'campanhas': campanhas
+				}
+			});
+
+		{% if print %}
+			$('#root').css({'opacity': 1});
+			$('#loader').hide();
+
+			$('#root .collapse').collapse('show');
+
+			setTimeout(() => {
+				window.print();
+				window.close();
+			}, 1000);
+		{% else %}
+
+			$('#root .datatable').DataTable({
+				responsive: true
+			});
+
+			console.log(campanhas);
+
+			$('#loader').fadeOut(300);
+			$('#root').animate({'opacity': 1}, 300);
+		{% endif %}
+		});
+	});
+})();
+</script>
+{% endblock %}

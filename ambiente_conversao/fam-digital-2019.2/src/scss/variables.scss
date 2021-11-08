@@ -1,0 +1,39 @@
+@import 'breakpoints';
+
+// Fonte
+$font-main: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+// Altura total do Rodapé. Medir no DevTools, pegando a altura em pixels e dividindo por 16 (ex: 80px / 16 = 5, portanto 5em)
+$size-footer-height: 5em;
+
+// Desfoque
+$blur-size: 16px;
+$blur-scale: 1.2;
+$blur-opacity: 0.1;
+
+// Mixin Desfoque
+@mixin enable-glass-background ($image) {
+	// Efeito de Desfoque
+	&:before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		z-index: -1;
+
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		transform: scale($blur-scale);
+
+		opacity: $blur-opacity;
+
+		// Fundo
+		background-image: $image;
+		background-position: top center;
+		background-size: cover;
+
+		// Desfoque
+		filter: blur($blur-size);
+	}
+}

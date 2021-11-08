@@ -1,0 +1,136 @@
+@import 'variables';
+
+// Espaço para Artwork da Campanha
+#acfam-home-artwork {
+	position: relative;
+	min-height: 80vh;
+
+	.art {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: 5%;
+		max-width: 50%;
+
+		// Usar esta classe para permitir largura até 75% do contêiner
+		&.allow-larger-width {
+			max-width: 75%;
+		}
+
+		// Usar esta classe para permitir largura até 100% do contêiner
+		&.allow-full-width {
+			max-width: 100%;
+		}
+
+		// Classes de posicionamento
+		&.top {
+			top: 0px;
+		}
+		&.left {
+			left: 0px;
+		}
+		&.right {
+			left: auto;
+			right: 0px;
+		}
+		&.bottom {
+			top: auto;
+			bottom: 0px;
+		}
+
+		// Classes de posicionamento relativo
+		&.center {
+			transform: translate(-50%, -50%);
+		}
+		&.center-h {
+			transform: translateX(-50%);
+		}
+		&.center-v {
+			transform: translateY(-50%);
+		}
+
+		// Classes para vazar conteúdo
+		&.overflow {
+			transform: translateX(50%);
+		}
+		&.overflow-full {
+			transform: translateX(100%);
+		}
+	}
+}
+
+body {
+	background-color: $scheme-page-home-background;
+	color: $scheme-page-home-text;
+}
+
+// Formulário
+#acfam-home-form {
+    .apoio {
+        @media (max-width: $bp-medium) {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+	form {
+		text-align: center;
+
+		// Logo da Campanha
+		img {
+            margin-bottom: 2em;
+            margin-left: -15px;
+		}
+
+		input, select {
+            margin: 0.5em auto;
+            max-width: 272px;
+            border-radius: 4px;
+            @media (max-width: $bp-medium) {
+                display: block;
+                max-width: unset;
+                margin: .5em auto .5em;
+                &:last-child {
+                    margin: .5em auto 2.5em;
+                }
+            }
+            &.cpf {
+                margin-bottom: 0!important;
+            }
+		}
+
+		input[type="text"] {
+			width: 100%;
+		}
+	}
+}
+
+// Desfocar fundo no Mobile
+@media (max-width: $bp-small) {
+	body#page-home {
+		background-image: url('../images/institucional-background.png')!important;
+	}
+	main {
+		position: relative;
+		z-index: 999;
+		overflow: hidden;
+		background-color: none;
+	}
+}
+
+// Placeholders
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	color: $scheme-form-placeholder-text-home !important;
+	font-weight: 300;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	color: $scheme-form-placeholder-text-home !important;
+	font-weight: 300;
+}
+:-ms-input-placeholder { /* IE 10+ */
+	color: $scheme-form-placeholder-text-home !important;
+	font-weight: 300;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color: $scheme-form-placeholder-text-home !important;
+	font-weight: 300;
+}

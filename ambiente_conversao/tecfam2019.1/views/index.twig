@@ -1,0 +1,108 @@
+{% set class = "home open" %}
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<link rel="stylesheet" href="/css/home.css" />
+<header class="banner-home">
+	<div class="layout">
+		<div id="home-form">
+			<div class="center">
+				<div class="title">
+					<!--<h1>Faculdade de Americana</h1>
+					<em>#VOCÊNOTOPO</em>
+					<h2>Vestibular de verão 2017</h2>-->
+					<img src="{{ url_root }}/img/mais-chances.png" class="img-fam-1"/>
+					<img src="{{ url_root }}/img/cursos-tecnicos.png" class="img-fam-2"/>
+				</div>
+				<div class="form">
+				{% if error %}
+					<p>
+						<strong>Erro:</strong>
+						<span>{{ error }}</span>
+					</p>
+				{% endif %}
+					<input onclick="oneclick_start();" class="input" type="submit" value="Inscreva-se!" />
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<main>
+	<div id="loader"><div class="uil-ripple-css"><div></div><div></div></div></div>
+	<form action="/inscricao" method="post" class="middle-container">
+		{{ csrf_field() }}
+		<div class="container">
+			<section class="step-1">
+				<div class="content center">
+					<img class="logo" src="{{ url_root }}/img/mais-chances.png" />
+					<img class="logo" src="{{ url_root }}/img/cursos-tecnicos.png" />
+					<input id="input-nome" required type="text" name="aluno[nome]" placeholder="Nome Completo" />
+					<div style="font-style:italic;margin:2em;">- ou -</div>
+					<fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+				</div>
+			</section>
+			<section class="step-2">
+				<div class="content center">
+					<input id="input-email" required type="email" name="aluno[email]" placeholder="E-mail" />
+				</div>
+			</section>
+			<section class="step-3">
+				<div class="content center">
+					<input id="input-cpf" required type="text" name="aluno[cpf]" placeholder="Insira seu CPF" data-mask="999.999.999-99" maxlength="14" />
+				</div>
+			</section>
+			<section class="step-4">
+				<div class="content center">
+					<div class="select">
+						<select id="home-curso" name="curso">
+							<option>Escolha seu curso</option>
+							{% for curso in cursos %}
+							<option value="{{ curso.codigo }}">{{ curso.nome }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</section>
+		</div>
+	</form>
+</main>
+<div id="popup-video">
+	<div class="outer">
+		<div class="inner">
+			<span id="popup-close"><i class="fa fa-close"></i></span>
+			<iframe></iframe>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function () {
+	var sliderVideos = new Swiper ('#slider-videos', {
+      slidesPerView: 5,
+      direction: 'horizontal',
+      loop: true,
+      spaceBetween: 50,
+      autoplay: 10000,
+      prevButton: '.swiper-button-prev',
+      nextButton: '.swiper-button-next',
+      breakpoints: {
+      	1900: {
+      		slidesPerView: 4
+      	},
+      	1600: {
+      		slidesPerView: 3
+      	},
+      	950: {
+      		slidesPerView: 1,
+      		autoplay: false
+      	}
+      }
+    });
+});
+</script>
+<script src="/js/home.js"></script>
+{% if error %}
+<script>alert('{{ error }}');</script>
+{% endif %}
+{% endblock %}

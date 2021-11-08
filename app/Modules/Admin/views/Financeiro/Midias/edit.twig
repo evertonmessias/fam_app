@@ -1,0 +1,32 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+
+{% set title = 'Tipos de Mídia' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+
+      {{ form.editar_midia (midia, midias) }}
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- FullCalendar -->
+<script>
+  $(window).load(function() {
+
+    $('#tabela_locais').DataTable( {
+      responsive: true,
+      order: [[2, 'asc'],[1, 'asc']] // Ordenar por categoria e nome
+    });
+  });
+</script>
+<!-- /FullCalendar -->
+{% endblock %}

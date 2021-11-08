@@ -1,0 +1,46 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-home' %}
+
+{% block body %}
+<!-- Principal -->
+<main id="page-home" class="container fit-height">
+	<div class="row fit">
+		<div id="acfam-home-artwork" class="col-md-8 full-height d-none d-md-block">
+			<!-- Aqui serão inseridas as artes de campanha (roupagem) -->
+			{# <img src="/assets/images/home-campanha-logo.png" class="art top right overflow allow-larger-width" /> #}
+		</div>
+		<div id="acfam-home-form" class="col-md-4 full-height">
+			<!-- Centralizar verticamente o formulário -->
+			<div class="row full-height align-items-center">
+				<div class="col">
+					<!-- Aqui é o formulário padrão de cadastro -->
+					<form action="/inscricao" method="post">
+						{{ csrf_field() }}
+						<div class="d-none d-md-block" style="margin-bottom: 2em;">
+							<img src="/assets/images/home-campanha-logo.png" />
+						</div>
+
+						<img src="/assets/images/home-campanha-logo.png" class="d-block d-md-none" />
+						<the-mask required name="cpf" class="form-control" type="text" placeholder="Insira seu CPF" :mask="['###.###.###-##']"></the-mask>
+						<input class="btn cta" type="submit" value="Continuar" />
+
+						<div class="d-none d-md-block" style="margin-top: 2em;">
+							<img src="/assets/images/home-desconto-regressivo.png" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+	<!-- Script da Página -->
+	<script type="text/javascript" src="/assets/js/page-index.js"></script>
+
+	{% if error %}
+		<script>alert('{{ error }}');</script>
+	{% endif %}
+{% endblock %}

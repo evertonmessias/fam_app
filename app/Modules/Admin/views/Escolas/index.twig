@@ -1,0 +1,91 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_campanha' as form %}
+
+{% set title = 'Escolas' %}
+
+{% block content %}
+	<div class="right_col" role="main">
+		<div class="">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>Escolas</h2>
+
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<!--<th class="id">ID</th>-->
+										 <th class="all">Nome</th>
+										<th class="min-tablet">Cidade</th>
+										<th class="min-tablet">Responsavel</th>
+										<th class="min-tablet">E-Mail</th>
+										<th class="min-tablet">Telefone</th>
+										<th class="min-tablet">Data</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if escolas|length > 0 %}
+										{% for escola in escolas %}
+											<tr>
+												<!--<td class="id">{#{ escola.id|e }#}</td>-->
+												<td>{{ escola.nome|e }}</td>
+												<td>{{ escola.cidade|e }}</td>
+												<td>{{ escola.responsavel|e }}</td>
+												<td>{{ escola.responsavel_email|e }}</td>
+												<td>{{ escola.responsavel_telefone|e }}</td>
+												<td>{{ escola.data|e }}</td>
+											</tr>
+										{% endfor %}
+									{% endif %}
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+
+		$('table').DataTable({
+title: '{{ escola.nome }}',
+dom: "Bfrtip",
+buttons: [
+{
+extend: "copy",
+className: "btn-sm"
+},
+{
+extend: "csv",
+className: "btn-sm"
+},
+{
+extend: "excel",
+className: "btn-sm"
+},
+{
+extend: "pdfHtml5",
+className: "btn-sm"
+}, {
+extend: "print",
+className: "btn-sm"
+},
+],
+responsive: true
+});
+	</script>
+{% endblock %}

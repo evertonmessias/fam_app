@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>Vestibular FAM</title>
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/update.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/js/update.js"></script>
+		<script type="text/javascript" src="/assets/js/validador.js"></script>
+
+		<script type="text/javascript">
+		function matricula() {
+			var cpf = $("#cpf").val();
+			if(cpf != ""){
+			window.location.href = "https://vestibularfam.com.br/inscricao/adicionais?cpf="+cpf;			
+			}else{
+				alert ("Digite seu CPF !");
+			}
+		}
+		</script>
+		
+	</head>
+	<body id='page-adicionais'>
+		<div class="alteracoes vmatricula">
+			<img class="imgadd" src="/assets/images/fam2020.png">
+			<h3>Você está iniciando o processo de Matrícula na FAM - Faculdade de Americana.
+			Digite seu CPF e clique em Prosseguir</h3>
+			<form id="form1">
+				{{ csrf_field() }}
+				<input class="form-control afazer" onfocus="mudacor(this);" onfocusout="mudacor(this);" id="cpf" maxlength="14" type="tel" placeholder="* Digite seu CPF" onkeypress="MascaraCPF(this);" onblur="if(ValidarCPF(this)==false){this.value=''}"/><br>				
+				<br><input type="button" onclick="matricula()" class="add" value="Prosseguir"/><br>
+				<br><br><br>
+			</form>
+		</div>
+	</body>
+</html>

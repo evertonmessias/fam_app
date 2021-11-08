@@ -1,0 +1,37 @@
+{
+	"name": "Ambiente de Conversão 2.0",
+	"options": {
+		"campanha": {
+			"type": "model",
+			"model": "Campanha",
+			"value": "id",
+			"display": "{{ nome }}",
+			"label": "Campanha * :",
+			"control": "select"
+		},
+		"url_edital": {
+			"type": "text",
+			"label": "URL do Edital :"
+		},
+		"url_cursos": {
+			"type": "text",
+			"label": "URL do Guia de Cursos :"
+		},
+		"diretorio": {
+			"type": "text",
+			"label": "Pasta (assets, templates, etc) :"
+		},
+		"desativar": {
+			"type": "radio",
+			"label": "Desativar Inscrições?",
+			"values": [
+				{ "label": "Não", "default": true, "value": "0" },
+				{ "label": "Sim", "value": "1" }
+			]
+		},
+		"redirecionar": {
+			"type": "text",
+			"label": "Redirecionar para (se desativado):"
+		}
+	}
+}

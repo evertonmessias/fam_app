@@ -1,0 +1,84 @@
+/******************PC******************/
+@media (min-width: 1001px){
+.acompanhar {
+    margin-top: 430px;
+    transform: scale(0.8);
+}
+
+.coluna {
+    z-index: 999;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    height: 170px;
+    top:-50px !important;
+    transform: scale(0.8);    
+    margin-left: -580px;
+}
+
+.inscricao {
+    margin-top: 500px !important;
+    transform: scale(0.8);
+}
+
+.finaliza {
+    margin-top: -100px !important;
+    transform: scale(0.8);
+}
+
+.rodape {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+}
+
+/******************Tablet******************/
+
+@media (min-width: 769px) and (max-width: 1000px) {
+    body#page-home {
+        background-image: url("../images/mobile-background.jpg"); 
+    }
+    body#page-finalizar-inscricao {
+        height: 2000px;
+        background-image: url("../images/mobile-institucional-background.jpg");
+    }
+    .coluna {
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        top:0px !important;
+        margin-top: 500px;
+        left: -480px;
+    }
+    .finaliza {
+        margin-top: 600px !important;
+        transform: scale(0.8);
+    }
+}
+
+/******************Celular******************/
+
+@media (max-width: 768px) {
+    body#page-finalizar-inscricao {
+        background-image: url("../images/mobile-institucional-background.jpg");}
+    
+
+    .coluna {
+        z-index: 999;
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        top: 0px !important;
+        margin-top: 0px !important;
+        left: 0;
+    }
+
+    .acompanhar {
+        margin-top: 350px;
+    }
+    .finaliza {
+        margin-top: 600px !important;
+    }
+}

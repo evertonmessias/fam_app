@@ -1,0 +1,49 @@
+/* Logos */
+
+.branding.logo {
+    display: block;
+    background: url('logo.png');
+    background-image: url('logo.svg'), none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    margin: 1em 3em;
+}
+.branding.logo:before {
+	content: ' ';
+	display: block;
+	padding-bottom: 50%;
+}
+
+/* Login */
+
+.login_form {
+    background: #162f51;
+    color: #fff;
+    padding: 0em 2em;
+    border-radius: 1em;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.35);
+}
+.login_content { text-shadow: none; }
+.login_content a { color: inherit; }
+
+/* Skin */
+
+.nav-md,
+.left_col {
+	background: #162f51;
+}
+
+.nav.side-menu>li.current-page>a, .nav.side-menu>li.active>a,
+.nav.child_menu>li.current-page>a, .nav.child_menu>li.active>a,
+.nav.side-menu>li.current-page a, .nav.side-menu>li.active a,
+.nav.child_menu>li.current-page a, .nav.child_menu>li.active a {
+    color: inherit !important;
+    background: inherit !important;
+}
+.nav.side-menu>li.current-page, .nav.side-menu>li.active,
+.nav.child_menu>li.current-page, .nav.child_menu>li.active {
+    color: #162f51;
+    background-color: #fff;
+}

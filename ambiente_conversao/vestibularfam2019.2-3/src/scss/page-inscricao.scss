@@ -1,0 +1,93 @@
+@import 'variables';
+
+main {
+    margin-top: calc(100% / (1903 / 767));
+    padding-bottom: 10em;
+    @media (max-width: $bp-medium) {
+        padding-bottom: 0;
+        margin-top: calc(100% / (1003 / 767));
+    }
+}
+
+// Cabeçalho
+header {
+	position: relative;
+}
+
+footer {
+    bottom: 3em;
+}
+
+// Opções de Curso
+#acfam-inscricao-opcoes-curso {
+	padding: 1em;
+	background-color: $scheme-page-inscricao-curso-background;
+    color: $scheme-page-inscricao-curso-text;
+    box-shadow: -1px 1px 5px rgba($color: #000000, $alpha: .15);
+	border-radius: 0.25rem;
+
+	h2 {
+		text-transform: uppercase;
+		font-size: 1.2em;
+	}
+
+	.curso-info {
+		strong {
+			display: block;
+			margin-top: 1em;
+			font-size: 0.9em;
+			text-transform: uppercase;
+		}
+	}
+
+	@media (max-width: $bp-large) {
+		.opcao-curso {
+			border-top: 1px solid darken($scheme-page-inscricao-curso-background, 10%);
+			padding-top: 1em;
+			padding-bottom: 1em;
+		}
+	}
+}
+
+// Informações Gerais
+#acfam-inscricao-infos {
+	text-align: center;
+
+	span, strong {
+		text-transform: uppercase;
+		display: block;
+		margin: 1em auto;
+		font-size: 1.5em;
+	}
+
+	.inicio-aulas {
+	    font-size: 3.5em;
+	    font-style: italic;
+	    font-weight: 600;
+	    letter-spacing: -0.04em;
+	    color: $scheme-page-inscricao-inicio-aulas;
+	}
+
+	.desconto-regressivo {
+	    font-size: 2.5em;
+	    font-style: italic;
+	    font-weight: 600;
+	    letter-spacing: -0.04em;
+	    color: $scheme-page-inscricao-desconto-regressivo;
+	}
+}
+
+.btn-concluir {
+    width: 50%;
+    margin: 3em 0px;
+    background-color: $scheme-page-inscricao-btn-background;
+    color: $scheme-page-inscricao-btn-text;
+    font-weight: bold;
+    font-style: italic;
+    transition: .2s ease;
+    &:hover {
+        transform: translateY(-2px);
+        background-color: $scheme-page-inscricao-btn-background-hover;
+    }
+    @media (max-width: $bp-medium) { width: 100% }
+}

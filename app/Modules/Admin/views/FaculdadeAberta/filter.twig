@@ -1,0 +1,126 @@
+{% extends ('Admin::layout') %}
+
+{% set opcoes =
+[
+    {"id": "out_21_manha", "data": "21/10/2019", "horario": "8h às 11h", "alunos": out_21_manha },
+    {"id": "out_21_noite", "data": "21/10/2019", "horario": "19h às 22h", "alunos": out_21_noite },
+    {"id": "out_22_manha", "data": "22/10/2019", "horario": "8h às 11h", "alunos": out_22_manha },
+    {"id": "out_22_noite", "data": "22/10/2019", "horario": "19h às 22h", "alunos": out_22_noite },
+    {"id": "out_23_manha", "data": "23/10/2019", "horario": "8h às 11h", "alunos": out_23_manha },
+    {"id": "out_23_noite", "data": "23/10/2019", "horario": "19h às 22h", "alunos": out_23_noite },
+    {"id": "out_24_manha", "data": "24/10/2019", "horario": "8h às 11h", "alunos": out_24_manha },
+    {"id": "out_24_noite", "data": "24/10/2019", "horario": "19h às 22h", "alunos": out_24_noite },
+    
+    {"id": "out_29_manha", "data": "29/10/2019", "horario": "8h às 11h", "alunos": out_29_manha },
+    {"id": "out_29_noite", "data": "29/10/2019", "horario": "19h às 22h", "alunos": out_29_noite },
+    {"id": "out_30_manha", "data": "30/10/2019", "horario": "8h às 11h", "alunos": out_30_manha },
+    {"id": "out_30_noite", "data": "30/10/2019", "horario": "19h às 22h", "alunos": out_30_noite },
+    {"id": "out_31_manha", "data": "31/10/2019", "horario": "8h às 11h", "alunos": out_31_manha },
+    {"id": "out_31_noite", "data": "31/10/2019", "horario": "19h às 22h", "alunos": out_31_noite },
+    {"id": "nov_01_manha", "data": "01/11/2019", "grupo_liberacao": "2", "horario": "8h às 11h", "alunos": nov_01_manha },
+    {"id": "nov_01_noite", "data": "01/11/2019", "grupo_liberacao": "2", "horario": "19h às 22h", "alunos": nov_01_noite },
+    {"id": "nov_04_manha", "data": "04/11/2019", "grupo_liberacao": "2", "horario": "8h às 11h", "alunos": nov_04_manha },
+    {"id": "nov_04_noite", "data": "04/11/2019", "grupo_liberacao": "2", "horario": "19h às 22h", "alunos": nov_04_noite },
+]
+%}
+{% set nomePeriodo = "Data inválida" %}
+{% for opcao in opcoes %}
+    {% if opcao.id == data %}
+        {% set nomePeriodo = opcao.data ~ " - " ~ opcao.horario ~ " (" ~ opcao.id ~ ")" %}
+    {% endif %}
+{% endfor %}
+
+{% set title = nomePeriodo ~ ': Revisaço ENEM' %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <img src="/images/logo-faculdadeaberta.png" style="display: block;width: auto;max-width: 100%;margin: 2em auto;">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Faculdade Aberta: {{ nomePeriodo }}</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table id="tabela_alunos" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th class="all">Escola</th>
+                        <th class="all">Coordenador pedagógico</th>
+                        <th class="all">Responsável pelo cadastro</th>
+                        <th class="all">Endereço da escola</th>
+                        <th class="all">Estado</th>
+                        <th class="all">Cidade</th>
+                        <th class="all">Telefone do resp.</th>
+                        <th class="all">E-mail do resp.</th>
+                        <th class="all">Qtd. alunos</th>
+                        <th class="all">Data e período</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for inscrito in inscritos %}
+                        <tr>
+                            <td>{{ inscrito.id|number_format }}</td>
+                            <td>{{ inscrito.data.nome_escola }}</td>
+                            <td>{{ inscrito.data.nome_coordenador_pedagogico }}</td>
+                            <td>{{ inscrito.data.nome_responsavel_cadastro }}</td>
+                            <td>{{ inscrito.data.endereco_escola }}</td>
+                            <td>{{ inscrito.data.estado_escola }}</td>
+                            <td>{{ inscrito.data.cidade_escola }}</td>
+                            <td>{{ inscrito.data.telefone_responsavel }}</td>
+                            <td>{{ inscrito.data.email_responsavel }}</td>
+                            <td>{{ inscrito.data.nro_alunos }}</td>
+                            <td>{{ inscrito.data.data_e_periodo }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <a href="/faculdadeaberta" class="btn btn-primary" style="padding: .6em 3em; margin-top: 1em;">Voltar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css" media="screen">
+    .x_option {
+        font-size: 1.1em;
+        line-height: 1.5;
+        margin-bottom: 1.25em;
+    }
+    #tabela_alunos tr:hover {}
+</style>
+<script>
+$(document).ready(function () {
+	var table = $('#tabela_alunos').DataTable( {
+        scrollY: '50vh',
+        scrollCollapse: true,
+        scroller: {
+            loadingIndicator: true
+        },
+  		responsive: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        initComplete: function () {
+            console.log('LOADED', table);
+            table.buttons().container()
+                .appendTo( $('#tabela_alunos_filter').parent() );
+                {# .appendTo( $('.col-md-6:eq(0)', table.table().container() ) ); #}
+        }
+    } );
+});
+</script>
+{% endblock %}

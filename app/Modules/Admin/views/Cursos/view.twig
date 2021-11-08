@@ -1,0 +1,142 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.link_display' as exibir %}
+
+{% if curso %}
+{% set title = 'Editando: ' ~ curso.nome %}
+{% else %}
+{% set title = 'Novo curso' %}
+{% endif %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+    <form method="post" action="/cursos/{% if curso %}{{ curso.id }}{% else %}new{% endif %}">
+      {{ csrf_field() }}
+          
+      <div class="row">
+        <div class="col-md-12" style="padding-top: 1em; padding-bottom: 1em">
+            <input type="submit" class="btn btn-primary" value="Salvar Curso" />
+        </div>
+      </div>
+      
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>{% if curso %}Editar Curso{% else %}Novo Curso{% endif %}</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <label for="nome">Nome</label>
+                        <input id="nome" name="nome" value="{{ curso.nome }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-2 col-sm-6 col-xs-4">
+                        <label for="codigo">Código</label>
+                        <input id="codigo" name="codigo" value="{{ curso.codigo }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-4 col-sm-6 col-xs-8">
+                        <label for="valor">Mensalidade</label>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                          <input id="valor" name="valor" value="{{ curso.valor|number_format(2, '.', '') }}" class="form-control no-spin has-feedback-left" type="number" step="any" min="0" />
+                          <span class="form-control-feedback left" aria-hidden="true">R$</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <label for="modo">Modo</label>
+                        <input id="modo" name="dados_adicionais[modo]" value="{{ curso.dados_adicionais.modo }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <label for="periodo">Período</label>
+                        <input id="periodo" name="dados_adicionais[periodo]" value="{{ curso.dados_adicionais.periodo }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label for="video">Vídeo do Curso</label>
+                        <input id="video" name="dados_adicionais[video]" value="{{ curso.dados_adicionais.video }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label for="modalidade">Modalidade</label>
+                        <input id="modalidade" name="dados_adicionais[modalidade]" value="{{ curso.dados_adicionais.modalidade }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label for="duracao">Semestres</label>
+                        <input id="duracao" name="duracao" value="{{ curso.duracao }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label for="vagas">Vagas</label>
+                        <input id="vagas" name="vagas" value="{{ curso.vagas }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label for="landing_page">Landing Page</label>
+                        <input id="landing_page" name="landing_page" value="{{ curso.landing_page }}" type="text" class="form-control" />
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label for="descricao">Descrição do Curso</label>
+                        <textarea id="descricao" name="dados_adicionais[descricao]" rows="10" class="form-control">{{ curso.dados_adicionais.descricao }}</textarea>
+                      <br /></div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label for="mercado">Mercado de Trabalho</label>
+                        <textarea id="mercado" name="dados_adicionais[mercado]" rows="10" class="form-control">{{ curso.dados_adicionais.mercado }}</textarea>
+                      <br /></div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label for="grade">Grade do Curso</label>
+                        <textarea id="grade" name="dados_adicionais[grade]" rows="10" class="form-control">{{ curso.dados_adicionais.grade }}</textarea>
+                      <br /></div>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label for="coordenador">Coordenador do Curso</label>
+                        <textarea id="coordenador" name="dados_adicionais[coordenador]" rows="10" class="form-control">{{ curso.dados_adicionais.coordenador }}</textarea>
+                      <br /></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+
+      </form>
+    </div>
+</div>
+
+<style type="text/css" media="screen">
+.form-control-feedback.left {
+  top: -2px;
+  left: 4px;
+}
+.form-group {
+  padding: 0px;
+}
+textarea { resize: none; }
+</style>
+
+<!-- WYSWYG -->
+<link rel="stylesheet" href="/wysiwyg/bootstrap3-wysihtml5.min.css" />
+<script src="/wysiwyg/wysihtml5x-toolbar.min.js"></script>
+<script src="/wysiwyg/handlebars.runtime.min.js"></script>
+<script src="/wysiwyg/bootstrap3-wysihtml5.min.js"></script>
+
+<!-- Aplicar WYSWYG -->
+
+<script type="text/javascript">
+$('textarea').wysihtml5({
+  locale: 'pt-BR',
+  toolbar: {
+    'color': false,
+    'image': false,
+    'blockquote': false,
+    'ident-left': false,
+    'Outdent': false,
+    'small': false
+  }
+});
+</script>
+
+{% endblock %}

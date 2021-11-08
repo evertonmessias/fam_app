@@ -1,0 +1,109 @@
+{# <div class="row"> #}
+  <div class="col-md-8 col-sm-12 col-xs-12">
+    <div class="dashboard_graph x_panel">
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>{{ title }}</h3>
+        </div>
+      </div>
+      <div class="x_content">
+        <div class="demo-container" style="height:250px">
+          <div id="grafico_{{ id }}" class="demo-placeholder" style="width: 100%; height:250px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{# </div> #}
+<script>
+$(document).ready(function() {
+
+
+  {% if charts %}
+  var data = [];
+
+  {% for chart in charts %}
+  data.push({
+    data: {{ chart.data|array2js(true)|raw }},
+    label: '{{ chart.title }}',
+    lines: {
+      // fillColor: "rgba(150, 202, 89, 0.12)"
+      fill: true
+    }, //#96CA59 rgba(150, 202, 89, 0.42)
+    points: {
+      fillColor: "#fff"
+    }
+  });
+  {% endfor %}
+  {% else %}
+  
+  var data = [];
+  
+  {% endif %}
+
+  var d1 = [
+    [0, 1],
+    [1, 9],
+    [2, 6],
+    [3, 10],
+    [4, 5],
+    [5, 17],
+    [6, 6],
+    [7, 10],
+    [8, 7],
+    [9, 11],
+    [10, 35],
+    [11, 9],
+    [12, 12],
+    [13, 5],
+    [14, 3],
+    [15, 4],
+    [16, 9]
+  ];
+
+  //flot options
+  var options = {
+    xaxis: { tickSize: 1, tickDecimals: 0 },
+    series: {
+      curvedLines: {
+        apply: true,
+        active: true,
+        monotonicFit: true
+      }
+    },
+    colors: ["#0b2f7f", "#9b59b6","#26B99A"],
+    grid: {
+      hoverable: true,
+      borderWidth: {
+        top: 0,
+        right: 0,
+        bottom: 1,
+        left: 1
+      },
+      borderColor: {
+        bottom: "#7F8790",
+        left: "#7F8790"
+      }
+    },
+    tooltip: {
+      show: true,
+      content: '%x: %y'
+    }
+  };
+
+  if (charts_settings.time) {
+      options.xaxis.min = charts_settings.time.min;
+      options.xaxis.max = charts_settings.time.max;
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    var array = data[i].data;
+    array.sort(function(x, y) {
+      if(x[0] == y[0]) return 0;
+      else return (x[0] > y[0]) ? 1 : -1;
+    });
+    console.log(array);
+  }
+
+  var plot = $.plot($("#grafico_{{ id }}"), data, options);
+});
+</script>

@@ -1,0 +1,19 @@
+// Ícones
+.icone {
+    display: inline-block;
+    background-size: contain;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+
+	// Logo da FAM em SVG
+	&.logo-fam {
+	    background-image: url(../images/logo-fam.svg), none;
+	    width: 203px;
+	    height: 51px;
+	}
+	&.texto-fam {
+	    background-image: url(../images/texto-fam.svg), none;
+	    width: 100%;
+	    height: auto;
+	}
+}

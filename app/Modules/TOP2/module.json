@@ -1,0 +1,13 @@
+{
+	"name": "Teste de Orientação Profissional 2.0",
+	"options": {
+		"api_key": {
+			"type": "text",
+			"label": "Chave da API :"
+		},
+		"custom_branding": {
+			"type": "text",
+			"label": "Branding Personalizado :"
+		}
+	}
+}

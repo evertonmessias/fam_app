@@ -1,0 +1,166 @@
+img {
+    max-width: 100%;
+}
+
+/* Inputs */
+.form-control {
+    font: 'Lato', sans-serif;
+    border: 0px none;
+    border-radius: 0px;
+    background: #fff;
+    color: #0348b2;
+}
+
+::-webkit-input-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    color: #004a85 !important;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/********************************************************************/
+
+.home, .inscricao {
+    font-family: 'Varela Round', sans-serif;
+    position: relative;
+    
+    background-image: url(../img/home-bg.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.home > .container,
+.inscricao > .container {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Home */
+.home .logo {
+    margin: 2em auto;
+}
+
+.home form .form-control {
+    margin: 0.5em auto;
+}
+
+@media (min-width: 768px) {
+    .home .logo {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        margin-top:20%;
+    }
+    .home form {
+        margin-top: 60%;
+        position: absolute;
+        right: 20%;
+    }
+}
+
+/* Inscrição */
+.inscricao {
+    color: #fff;
+    padding-top:5%;
+}
+.inscricao .logo {
+    margin: 2em auto;
+    max-width:500px;
+}
+.inscricao .chamada h2 {
+    font-size: 2.4em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.inscricao .chamada p {
+    font-size: 1.1em;
+    margin: 2em 0em;
+}
+.inscricao .section {
+    padding: 2.5em 0px;
+}
+.inscricao .section .title-wrapper {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+.inscricao .section h3 {
+    position: relative;
+    padding: 0.5em 1em;
+    display: inline-block;
+    font-size: 1.5em;
+    color: #017485;
+}
+.inscricao .section h3:before,
+.inscricao .section h3:after {
+    content: ' ';
+    display: block;
+    width: 100vw;
+    height: 17px;
+    background: url(../img/insc-title-bg.png);
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.inscricao .section h3:before { right: 100%; }
+.inscricao .section h3:after { left: 100%; }
+.inscricao .section a.btn-cool {
+    display: inline-block;
+    background-color: #f172ac;
+    background-image: linear-gradient(
+        rgba(255,255,255,0.6) 0%,
+        rgba(255,255,255,0) 40%,
+        rgba(0,0,0,0) 60%,
+        rgba(0,0,0,0.2) 100%
+    );
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+
+    font-size: 1.6em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.inscricao .section p,
+.inscricao .section p.big {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.inscricao p.big {
+    font-size: 1.3em;
+}
+
+.inscricao form {
+    padding: 0.5em 0px;
+}
+.inscricao form .form-control {
+    margin: 0.5em auto;
+}
+
+@media (min-width: 768px) {
+    .inscricao .skatista {
+        margin-top: -8em;
+    }
+}

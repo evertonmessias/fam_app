@@ -1,0 +1,49 @@
+{% if color %}{% set color_start = color %}{% set color_end = color %}{% endif %}
+<div class="col-md-2 col-sm-3 col-xs-12">
+  <div class="x_panel fixed_height_320">
+    <div class="row x_title">
+      <div class="col-md-6">
+        <h2>{{ title }}</h2>
+      </div>
+    </div>
+    <div class="x_content">
+      <div class="sidebar-widget" id="grafico_{{ id }}" style="text-align:center;">
+        <canvas width="150" height="80" class="grafico" style="width: 160px; height: 100px;"></canvas>
+        <div class="goal-wrapper">
+          <span class="gauge-value pull-left">{{ prefix }}</span>
+          <span class="gauge-value pull-left gauge-text">{{ value|number_format(2, '.', ',') }}</span>
+          <span class="goal-value pull-right">{{ prefix }}{{ max|number_format(2, '.', ',') }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  var opts = {
+    lines: 12,
+    angle: 0,
+    lineWidth: 0.4,
+    pointer: {
+      length: 0.75,
+      strokeWidth: 0.042,
+      color: '#1D212A'
+    },
+    limitMax: 'false',
+    colorStart: '{% if color_start %}{{ color_start }}{% else %}#1ABC9C{% endif %}',
+    colorStop: '{% if color_end %}{{ color_end }}{% else %}#1ABC9C{% endif %}',
+    strokeColor: '#F0F3F3',
+    generateGradient: true
+  };
+
+  var el = $('#grafico_{{ id }}');
+
+  var target = el.find('.grafico')[0],
+      gauge = new Gauge(target).setOptions(opts);
+
+  gauge.maxValue = {{ max }};
+  gauge.animationSpeed = 32;
+  gauge.set({{ value }});
+  gauge.setTextField(el.find(".gauge-text")[0]);
+});
+</script>

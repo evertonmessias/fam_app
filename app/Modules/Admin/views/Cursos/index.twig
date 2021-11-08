@@ -1,0 +1,64 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.link_display' as exibir %}
+
+{% set title = 'Cursos' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+    <form method="get" action="/cursos/new">
+      {{ csrf_field() }}
+          
+      <div class="row">
+        <div class="col-md-12" style="padding-top: 1em; padding-bottom: 1em">
+            <input type="submit" class="btn btn-primary" value="Novo Curso" />
+        </div>
+      </div>
+      
+      <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Cursos</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Código</th>
+                          <th>Nome</th>
+                          <th>Vagas</th>
+                          <th>Semestres</th>
+                          <th>Mensalidade</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    {% for curso in cursos %}
+                        <tr>
+                          <th scope="row">{{ curso.id }}</th>
+                          <td>{{ curso.codigo }}</td>
+                          <td><a href="/cursos/{{ curso.id }}">{{ curso.nome }}</a></td>
+                          <td>{{ curso.vagas }}</td>
+                          <td>{{ curso.duracao }}</td>
+                          <td>{{ exibir.reais(curso.valor) }}</td>
+                        </tr>
+                    {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+
+      </form>
+    </div>
+</div>
+
+{% endblock %}

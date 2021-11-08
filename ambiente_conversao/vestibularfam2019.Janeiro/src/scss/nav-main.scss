@@ -1,0 +1,35 @@
+@import 'breakpoints';
+
+@media (max-width: $bp-small) {
+	padding: 1em auto;
+}
+
+// Botões do Menu
+li a {
+	// Formatar como botão
+	display: block;
+	padding: 0.5em 1em;
+	border-radius: 0.2em;
+	background-color: $scheme-nav-button-background;
+	color: $scheme-nav-button-text;
+	transition: all 0.2s ease;
+
+	// Margens responsivas
+	@media (min-width: $bp-small) {
+		margin-left: 1em;
+	}
+	@media (max-width: $bp-small) {
+		margin: 0.5em auto;
+	}
+
+	// Estado Hover
+	&:hover, &:focus, &:active {
+		background-color: $scheme-nav-button-hover-background;
+		color: $scheme-nav-button-hover-text;
+	}
+}
+
+// Botão Menu Mobile
+.navbar-toggler {
+	color: inherit;
+}

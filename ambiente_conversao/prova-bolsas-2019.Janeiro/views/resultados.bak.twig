@@ -1,0 +1,34 @@
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<div class="layout" id="resultados-vestibular">"
+	<div class="resultados">
+		<div class="inner">
+			{% if busca %}
+			{% if resultado.encontrado %}
+			{% if resultado.compareceu %}
+			{% if resultado.aprovado %}
+			<h3>Parab&eacute;ns <span class="nome">{{ aluno.nome }}</span>, você foi aprovado(a)!</h3>
+			<p class="half"><strong>Classifica&ccedil;&atilde;o</strong>{{ detalhes.classificacaogeral }} º</p>
+			<p class="half"><strong>Nota</strong>{{ detalhes.pontuacao }}</p>
+			{% endif %}
+			{% else %}
+			<p>Voc&ecirc; n&atilde;o compareceu a sua prova, reagende a sua prova.</p>
+			{% endif %}
+			{% else %}
+			<p>Resultado n&atilde;o encontrado.</p>
+			{% endif %}
+			{% else %}
+			<h3>Confira aqui o resultado de sua prova!</h3>
+			{% endif %}
+		</div>
+		<form action="resultados.php" method="post">
+			<div class="input full">
+				<input type="text" name="cpf" data-mask='999.999.999-99' placeholder="CPF" value="{{ aluno.cpf }}" />
+			</div>
+			<div class="input full">
+				<input type="submit" value="OK" />
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

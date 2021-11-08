@@ -1,0 +1,94 @@
+{% extends 'AmbienteConversao::layout.twig' %}
+
+{% set page_id = 'page-finalizar-inscricao' %}
+
+{% block body %}
+<div id="pagefinaliza">
+<main class="container">
+	<div class="row finalizado">
+		<div class="row-header offset-md-1 col-md-7">
+			<h1>Parabéns<br/><span>{{ aluno.primeiro_nome }}!</span></h1>
+            <p>seu pedido de inscrição foi realizado com sucesso!</p>
+		</div>
+		<div class="row-header-cursos offset-md-1 col-md-7">
+			<div class="row">
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso principal fit {% if lead.isMatriculado(opcoes_curso[0]) %}matriculado{% endif %}">
+						<h2>Primeira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[0].nome }}
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso fit {% if lead.isMatriculado(opcoes_curso[1]) %}matriculado{% endif %}">
+						<h2>Segunda Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[1].nome }}
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso fit {% if lead.isMatriculado(opcoes_curso[2]) %}matriculado{% endif %}">
+						<h2>Terceira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[2].nome }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content offset-md-1 col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Detalhes da Inscrição</h2>
+					<p><strong>{{msgemail}}Enviamos um e-mail com mais detalhes sobre sua inscrição.</strong></p>
+
+					<p style="text-align:justify;">					
+					Durante a pandemia, a FAM - Faculdade de Americana está operacionalizando
+					as provas do vestibular de forma online. Após a conclusão de sua inscrição
+					você receberá em seu e-mail instruções adicionais sobre como proceder para
+					a realização da mesma.					
+					</p>
+<!-- ALTERÇÕES EVERTON 02-06-2020 -->
+					<!--
+			#% if dados_adicionais.usar_enem == 'sim' %}
+					<p>
+						<strong>Data entrega da documentação:</strong><br />
+						{#{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Horário:</strong><br />
+						{% if prova.data.hora|date('H') < 12 %}das 08:30 às 11:30{% else %}das 9:00 às 21:00{% endif %}
+						</p>
+					<p>Não se esqueça de trazer sua nota do ENEM válida.</p>
+				{% else %}
+					<p>
+						<strong>Data da prova:</strong><br />
+						{{ prova.data.hora|date('w')|dia_semana }}, {{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Hora da prova:</strong><br />
+						{{ prova.data.hora|date('H:i') }}{% if prova.data.hora_final %} às {{ prova.data.hora_final|date('H:i') }}{% endif %}
+					</p>
+				{% endif %}
+					<p>
+						<strong>Local da prova:</strong><br />
+						{{ prova.local.local }}<br />{{ prova.local.endereco }#}
+					</p>
+
+					-->
+
+					<p class="accent"><strong>Esperamos por você!</strong></p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!--<img src="/assets/images/home-campanha-logo.png" class="d-block d-md-none mt-4 apoio" alt="Faculdade é FAM"/>-->
+</main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

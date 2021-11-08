@@ -1,0 +1,105 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Resultados do TOP - Teste de Orientação Profissional' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Resultados do TOP - Teste de Orientação Profissional</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table id="tabela_alunos" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th class="all">E-mail</th>
+                        <th class="all">Candidato</th>
+                        <th class="all">Match/Área</th>
+                        <th title="Exatas">Exa.</th>
+                        <th title="Biológicas">Bio.</th>
+                        <th title="Humanas">Hum.</th>
+                        <th title="Engenharias">Eng.</th>
+                        <th title="Saúde">Sau.</th>
+                        <th title="Artes">Art.</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css" media="screen">
+/*#tabela_alunos { min-height: 100em; }*/
+#tabela_alunos tr { cursor: pointer; }
+#tabela_alunos tr:hover {}
+</style>
+<script>
+$(document).ready(function () {
+	var table = $('#tabela_alunos').DataTable( {
+        // serverSide: true,
+        // ordering: false,
+        // searching: false,
+        ajax: {
+			url: '/top/ajax/',
+		    dataSrc: function ( leads ) {
+		    	var out = [];
+		    	var lead = {};
+		    	for ( var i=0, ien=leads.length ; i<ien ; i++ ) {
+		    		lead = leads[i];
+		    		out.push([
+		    			lead.id,
+                        lead.email,
+                        (lead.aluno) ? ('<a style="font-weight:bold;" target="_blank" href="/alunos/' + lead.aluno.id + '">' + lead.aluno.nome + '</a>') : '',
+                        lead.match_area,
+                        lead.resultados.exatas || 0,
+                        lead.resultados.biologicas || 0,
+                        lead.resultados.humanas || 0,
+                        lead.resultados.engenharias || 0,
+                        lead.resultados.saude || 0,
+                        lead.resultados.artes || 0
+		    		]);
+		    	}
+		    	return out;
+		    }
+		},
+        scrollY: '50vh',
+        scrollCollapse: true,
+        scroller: {
+            loadingIndicator: true
+        },
+  		responsive: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        initComplete: function () {
+            console.log('LOADED', table);
+            table.buttons().container()
+                .appendTo( $('#tabela_alunos_filter').parent() );
+                {# .appendTo( $('.col-md-6:eq(0)', table.table().container() ) ); #}
+        }
+    } );
+
+    $('#tabela_alunos').on('click', 'tr', function () {
+    	var id = $($(this).find('td')[0]).html();
+      // document.location.href = '/alunos/' + id;
+    	//window.open ('/alunos/' + id);
+    });
+});
+</script>
+{% endblock %}

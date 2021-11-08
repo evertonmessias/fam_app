@@ -1,0 +1,105 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_prova' as form %}
+
+{% set title = 'Local de Prova' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Visualizando Local de Prova</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                <div class="row">
+        					<div class="col-md-6">
+        						<label>Local:</label>
+        						<div>{{ local.local }}</div>
+        					</div>
+        					<div class="col-md-6">
+        						<label>Unidade:</label>
+        						<div>{{ local.unidade.nome }}</div>
+        					</div>
+        					<div class="col-md-4">
+        						<label>Endereço:</label>
+        						<div>{{ local.endereco }}</div>
+        					</div>
+                  <div class="col-md-4">
+                    <label>Telefone:</label>
+                    <div>{{ local.telefone }}</div>
+                  </div>
+                  <div class="col-md-4">
+                    <label>E-mail:</label>
+                    <div>{{ local.email }}</div>
+                  </div>
+                </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Datas de Provas</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped" id="tabela_datas">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Ocupadas</th>
+                        <th>Máximo</th>
+                        <th>Restantes</th>
+                        <th>Aproveitamento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+					{% for data in local.datas_provas %}
+						<tr class="{% if data.lotado %}info{% else %}{% if data.vagas_ocupadas < (data.maximo / 10) %}warning{% else %}success{% endif %}{% endif %}">
+							<th scope="row">{{ data.id }}</th>
+							<td><a target="_blank" href="/provas/datas/{{ data.id }}">{{ data.hora|date('d/m/Y H:i') }}</a></td>
+							<td>{{ data.status }}
+              <td>{{ data.vagas_ocupadas }}</td>
+              <td>{{ data.maximo }}</td>
+              <td>{{ data.vagas }}</td>
+							<td>{{ data.aproveitamento }}%</td>
+						</tr>
+					{% endfor %}
+                    </tbody>
+                  </table>
+
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+$(document).ready(function () {
+  $('#tabela_datas').DataTable( {
+    responsive: true
+  });
+});
+</script>
+
+{% endblock %}

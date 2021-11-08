@@ -1,0 +1,190 @@
+{% extends 'LP::layout' %}
+
+{% set title = 'Inscrição — Revisaço ENEM' %}
+{% set meta_desc = '' %}
+{% set meta_keyw = '' %}
+
+{# Iniciando números #}
+{% set red_14set_8_12 = 0 %}
+{% set red_14set_13_17 = 0 %}
+{% set por_21set_8_12 = 0 %}
+{% set mat_21set_13_17 = 0 %}
+{% set his_28set_8_12 = 0 %}
+{% set fil_28set_13_17 = 0 %}
+{% set geo_05out_8_12 = 0 %}
+{% set bio_05out_13_17 = 0 %}
+{% set qui_12out_8_12 = 0 %}
+{% set fis_12out_13_17 = 0 %}
+{% set atu_19out_8_11 = 0 %}
+{% set ing_19out_12_1430 = 0 %}
+{% set esp_19out_1530_18 = 0 %}
+
+{# Para cada inscrito #}
+{% for inscricao in data_requested %}
+    {# Verificar se tem opções escolhidas #}
+    {% if (inscricao.data.opcoes is defined) %}
+        {# Cada opção escolhida pelo inscrito acrescenta 1 #}
+        {% for opcaoEscolhida in inscricao.data.opcoes %}
+            {%     if (opcaoEscolhida == "red_14set_8-12") %} {% set red_14set_8_12 = red_14set_8_12 + 1 %}
+            {% elseif (opcaoEscolhida == "red_14set_13-17") %} {% set red_14set_13_17 = red_14set_13_17 + 1 %}
+            {% elseif (opcaoEscolhida == "por_21set_8-12") %} {% set por_21set_8_12 = por_21set_8_12 + 1 %}
+            {% elseif (opcaoEscolhida == "mat_21set_13-17") %} {% set mat_21set_13_17 = mat_21set_13_17 + 1 %}
+            {% elseif (opcaoEscolhida == "his_28set_8-12") %} {% set his_28set_8_12 = his_28set_8_12 + 1 %}
+            {% elseif (opcaoEscolhida == "fil_28set_13-17") %} {% set fil_28set_13_17 = fil_28set_13_17 + 1 %}
+            {% elseif (opcaoEscolhida == "geo_05out_8-12") %} {% set geo_05out_8_12 = geo_05out_8_12 + 1 %}
+            {% elseif (opcaoEscolhida == "bio_05out_13-17") %} {% set bio_05out_13_17 = bio_05out_13_17 + 1 %}
+            {% elseif (opcaoEscolhida == "qui_12out_8-12") %} {% set qui_12out_8_12 = qui_12out_8_12 + 1 %}
+            {% elseif (opcaoEscolhida == "fis_12out_13-17") %} {% set fis_12out_13_17 = fis_12out_13_17 + 1 %}
+            {% elseif (opcaoEscolhida == "atu_19out_8-11") %} {% set atu_19out_8_11 = atu_19out_8_11 + 1 %}
+            {% elseif (opcaoEscolhida == "ing_19out_12-1430") %} {% set ing_19out_12_1430 = ing_19out_12_1430 + 1 %}
+            {% elseif (opcaoEscolhida == "esp_19out_1530-18") %} {% set esp_19out_1530_18 = esp_19out_1530_18 + 1 %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+{# Inicia opções que serão mostradas #}
+{% set opcoes =
+[
+    {"id": "red_14set_8-12", "data": "14 de Setembro", "datacomp": "2019-09-14", "materia": "Redação", "horario": "8h às 12h", "inscritos": red_14set_8_12 },
+    {"id": "red_14set_13-17", "data": "14 de Setembro", "datacomp": "2019-09-14", "materia": "Redação", "horario": "13h às 17h", "inscritos": red_14set_13_17 },
+    {"id": "por_21set_8-12", "data": "21 de Setembro", "datacomp": "2019-09-21", "materia": "Português (Gramática e Literatura)", "horario": "8h às 12h", "inscritos": por_21set_8_12 },
+    {"id": "mat_21set_13-17", "data": "21 de Setembro", "datacomp": "2019-09-21", "materia": "Matemática", "horario": "13h às 17h", "inscritos": mat_21set_13_17 },
+    {"id": "his_28set_8-12", "data": "28 de Setembro", "datacomp": "2019-09-28", "materia": "História", "horario": "8h às 12h", "inscritos": his_28set_8_12 },
+    {"id": "fil_28set_13-17", "data": "28 de Setembro", "datacomp": "2019-09-28", "materia": "Filosofia e Sociologia", "horario": "13h às 17h", "inscritos": fil_28set_13_17 },
+    {"id": "geo_05out_8-12", "data": "05 de Outubro", "datacomp": "2019-10-05", "materia": "Geografia", "horario": "8h às 12h", "inscritos": geo_05out_8_12 },
+    {"id": "bio_05out_13-17", "data": "05 de Outubro", "datacomp": "2019-10-05", "materia": "Biologia", "horario": "13h às 17h", "inscritos": bio_05out_13_17 },
+    {"id": "qui_12out_8-12", "data": "12 de Outubro", "datacomp": "2019-10-12", "materia": "Química", "horario": "8h às 12h", "inscritos": qui_12out_8_12 },
+    {"id": "fis_12out_13-17", "data": "12 de Outubro", "datacomp": "2019-10-12", "materia": "Física", "horario": "13h às 17h", "inscritos": fis_12out_13_17 },
+    {"id": "atu_19out_8-11", "data": "19 de Outubro", "datacomp": "2019-10-19", "materia": "Atualidades", "horario": "8h às 11h", "inscritos": atu_19out_8_11, "congelar": true },
+    {"id": "ing_19out_12-1430", "data": "19 de Outubro", "datacomp": "2019-10-19", "materia": "Inglês", "horario": "12h às 14h30", "inscritos": ing_19out_12_1430, "congelar": true },
+    {"id": "esp_19out_1530-18", "data": "19 de Outubro", "datacomp": "2019-10-19", "materia": "Espanhol", "horario": "15h30 às 18h", "inscritos": esp_19out_1530_18, "congelar": true }
+]
+%}
+
+{% block body %}
+
+
+<div class="inscricao">
+    <div class="container pb-5">
+        <div class="row p-4">
+            <img class="logo mt-4 mb-4 ml-auto mr-auto d-block" alt="FAM na Escola" src="/assets/img/home-logo.png" />
+        </div>
+        <!-- Form -->
+        <form method="post" action="/inscricao/revisacoenem" class="js-form">
+            {{ csrf_field() }}
+            <div class="row pb-5">
+                <div class="col-md-6"><input required class="form-control" type="text" placeholder="Nome completo" name="nome" value="{{ datastore.nome }}" /></div>
+                <div class="col-md-6"><input required class="form-control" type="text" placeholder="CPF" value="{{ datastore.cpf }}" readonly /></div>
+                <div class="col-md-6"><input required class="form-control" type="tel" placeholder="Celular" name="celular" value="{{ datastore.celular }}" /></div>
+                <div class="col-md-6"><input required class="form-control" type="email" placeholder="E-mail" name="email" value="{{ datastore.email }}" /></div>
+                
+                <div class="col-md-6">
+                    <select size required class="form-control" name="estado">
+						<option selected disabled value="">Selecione seu estado...</option>
+						<option value="AC">Acre</option>
+						<option value="AL">Alagoas</option>
+						<option value="AM">Amazonas</option>
+						<option value="AP">Amapá</option>
+						<option value="BA">Bahia</option>
+						<option value="CE">Ceará</option>
+						<option value="DF">Distrito Federal</option>
+						<option value="ES">Espírito Santo</option>
+						<option value="GO">Goiás</option>
+						<option value="MA">Maranhão</option>
+						<option value="MG">Minas Gerais</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+						<option value="MT">Mato Grosso</option>
+						<option value="PA">Pará</option>
+						<option value="PB">Paraíba</option>
+						<option value="PE">Pernambuco</option>
+						<option value="PI">Piauí</option>
+						<option value="PR">Paraná</option>
+						<option value="RJ">Rio de Janeiro</option>
+						<option value="RN">Rio Grande do Norte</option>
+						<option value="RO">Rondônia</option>
+						<option value="RR">Roraima</option>
+						<option value="RS">Rio Grande do Sul</option>
+						<option value="SC">Santa Catarina</option>
+						<option value="SE">Sergipe</option>
+						<option value="SP">São Paulo</option>
+						<option value="TO">Tocantins</option>
+                        {% if datastore.estado %}
+                        <option value="{{ datastore.estado }}" selected>{{ datastore.estado }}</option>
+                        {% endif %}
+					</select>
+                </div>
+
+                <div class="col-md-6"><input required class="form-control" type="text" placeholder="Cidade" name="cidade" value="{{ datastore.cidade }}" /></div>
+
+                <div class="col-md-12">
+                    <p class="mt-4">Selecione as matérias e horários que deseja participar</p>
+                    {% for opcao in opcoes %}
+                        <div class="form-group form-check {% if opcao.inscritos >= 500 or "now"|date('Y-m-d') > opcao.datacomp|date('Y-m-d') %}full{% endif %}">
+                            {% if opcao.inscritos < 500 and "now"|date('Y-m-d') <= opcao.datacomp|date('Y-m-d') and opcao.congelar is not defined %}
+                            <input type="checkbox" class="form-check-input js-opcao" id="{{ opcao.id }}">
+                            {% else %}
+                            <span id="{{ opcao.id }}"></span>
+                            {% endif %}
+                            <label class="form-check-label" for="{{ opcao.id }}"><b>{{ opcao.materia }}</b> - {{ opcao.data }} - {{ opcao.horario }} - {{ opcao.inscritos }} {% if opcao.inscritos >= 500 %}<b>lotado</b>{% endif %}{% if opcao.congelar is defined %} - (inscrições congeladas){% endif %}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <input name="opcoesIniciais" class="js-opcoes-iniciais" value="{{ datastore.opcoes }}" type="hidden" required>
+                <input name="opcoes" class="js-opcoes" type="hidden" required>
+                
+            </div>
+            <input class="btn btn-primary enviar" type="submit" value="Inscrever-se" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{#
+Nome completo do inscrito
+CPF
+limite de 500 vagas por Matéria
+Celular
+Email
+Cidade
+Matéria de interesse
+#}
+
+{% block script %}
+<script>
+    window.onload = function() {
+        
+        // Ao selecionar uma opção, deixar em destaque
+        $(".form-check-input").on("change", function() {
+            $(this).parent(".form-check").toggleClass("checked");
+        });
+
+        // Ao enviar o formulário
+        $(".js-form").on("submit", function(e) {
+            e.preventDefault();
+            
+            // Pegar as opções que selecionou
+            let opcoes = [];
+            $(".js-opcao").each(function(i, e) {
+                if ($(e).is(':checked'))
+                    opcoes.push(e.getAttribute("id"));
+            })
+            // colocar em um campo como JSON
+            $(".js-opcoes").val(JSON.stringify(opcoes));
+
+            // Agora sim enviar
+            this.submit();
+        });
+
+        let opcoesIniciais = JSON.parse($(".js-opcoes-iniciais").val());
+        opcoesIniciais.forEach( function(e, i) {
+            $("#" + e + ".js-opcao").attr("checked", "true");
+            $("#" + e).parent(".form-check").toggleClass("checked");
+            $("#" + e).parent(".form-check").removeClass("full");
+            $("#" + e).toggleClass("d-none");
+        })
+    }
+</script>
+
+{% endblock %}

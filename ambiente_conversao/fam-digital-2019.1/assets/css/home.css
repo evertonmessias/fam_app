@@ -1,0 +1,148 @@
+main {
+	color: #fff;
+	position: absolute;
+	top: 11em;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 350px;
+	height: 450px;
+	overflow: hidden;
+	-webkit-mask: -webkit-linear-gradient(0deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+	transition: opacity 0.25s ease;
+}
+main:before {
+	content: ' ';
+	display: block;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+main .select,
+main input { width: 100%; }
+main .logo { display: none; }
+
+main .input { position: relative; z-index: 1; }
+
+main .input label {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	transition: top 0.35s ease;
+}
+main .input input:focus ~ label { top: -50%; }
+main .input input:focus::placeholder { opacity: 0; }
+
+.banner-home-layer {
+	position: absolute;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+#bg-info {
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	transform: translate(-50%, -50%);
+	background-image: url('../img/famdigital-anim-logo.png');
+}
+#bg-anim {
+	bottom: 0%;
+	left: 0%;   
+	width: 78%;
+    height: 55%;
+    transform: translateX(-20%);
+	background-image: url('../img/famdigital-anim-pessoa.png');
+	background-position: bottom left;
+}
+
+#home-form .form { display: none; }
+@media (max-width: 768px) {
+	main {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: 100vw;
+		height: 100vh;
+		opacity: 0;
+		z-index: 99999;
+		pointer-events: none;
+		-webkit-mask: none;
+	}
+	main:before {
+		background: #9f4fb3;
+		opacity: 0.85;
+	}
+	main .logo { display: block; margin-bottom: 2em; }
+
+	.banner-home-layer {
+		display: none;
+	}
+
+	#home-form .form { display: block; }
+
+	body.open header {
+		filter: blur(16px);
+	}
+	body.open main {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	body.open nav {
+	    z-index: 999999999;
+	}
+
+	#logo ~ h1 { display: none; }
+}
+
+main form { height: 100%; }
+
+main .container {
+	white-space: nowrap;
+	min-width: 100%;
+	height: 100%;
+	transition: all 0.35s ease;
+}
+
+main section {
+	position: relative;
+	display: inline-block;
+	width: 100%;	
+	height: 100%;
+}
+
+.step2 main .container { transform: translateX(-100%); }
+.step3 main .container { transform: translateX(-200%); }
+.step4 main .container { transform: translateX(-300%); }
+
+main section .content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 75%;
+}
+
+#loader {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 999999;
+	/* background-color: rgba(113, 52, 124, 0.95); */
+	/* background-color: rgba(255, 255, 255, 0.85); */
+}
+#loader .uil-ripple-css {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.5);
+}

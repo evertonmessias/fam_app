@@ -1,0 +1,89 @@
+{% extends ('Admin::layout') %}
+
+{% set title = entrada.nome ~ ' [' ~ entrada.id ~ '] : ' ~ entrada.identifier ~ ' : Outros Dados' %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{{ aluno.nome }}</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <label>Identificador, # :</label>
+                                <div>{{ entrada.identifier }}, {{ entrada.id }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <label>Nome :</label>
+                                <div>{{ entrada.nome }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <label>E-mail :</label>
+                                <div>{{ entrada.email }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <label>Registro no BI :</label>
+                                <div>
+                                    {% if entrada.aluno %}
+                                        <a target="_blank" href="/alunos/{{ entrada.aluno.id }}">
+                                            <i class="fa fa-link"></i>
+                                            {{ entrada.aluno.nome }}
+                                        </a>
+                                    {% else %}
+                                        - Nenhum -
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Detalhes</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dashboard-widget-content">
+                            <ul class="list-unstyled timeline widget">
+                                <table class="table striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-4">Campo</th>
+                                            <th class="col-md-8">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for campo, valor in entrada.data %}
+                                        <tr>
+                                            <td>{{ campo }}</td>
+                                            <td>{{ valor }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </ul>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

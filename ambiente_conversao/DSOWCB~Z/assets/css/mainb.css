@@ -1,0 +1,642 @@
+@charset "UTF-8";
+img {
+  max-width: 100%; }
+
+/********************************************************************************************
+ * Menu
+ *******************************************************************************************/
+/********************************************************************************************
+ * Footer
+ *******************************************************************************************/
+/********************************************************************************************
+ * Formul├írios
+ *******************************************************************************************/
+/********************************************************************************************
+ * P├ígina: Home
+ *******************************************************************************************/
+/********************************************************************************************
+ * P├ígina: Inscri├º├úo
+ *******************************************************************************************/
+/********************************************************************************************
+ * Layout Institucional
+ *******************************************************************************************/
+.icone {
+  display: inline-block;
+  background-size: contain;
+  vertical-align: middle;
+  background-repeat: no-repeat; }
+  .icone.logo-fam {
+    background-image: url(../images/logo-fam.svg), none;
+    width: 203px;
+    height: 51px; }
+  .icone.texto-fam {
+    background-image: url(../images/texto-fam.svg), none;
+    width: 100%;
+    height: auto; }
+
+input[type="text"].form-control, input[type="email"].form-control, input[type="number"].form-control, input[type="tel"].form-control, select.form-control {
+  display: block;
+  padding: .5em .75em;
+  color: #0348b2;
+  font-size: 1.25em;
+  border: none;
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 0 -1px 0 #29295f;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0px; }
+  #page-inscricao input[type="text"].form-control,
+  #page-inscricao input[type="email"].form-control,
+  #page-inscricao input[type="number"].form-control,
+  #page-inscricao input[type="tel"].form-control,
+  #page-inscricao select.form-control {
+    border-radius: 3px;
+    background-color: #1eade9;
+    color: #fff;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.15), 0 -1px 0 #29295f; }
+
+select:not([size]):not([multiple]).form-control {
+  font-size: 1em; }
+select:not([size]):not([multiple]).form-control.curso {
+  font-size: 1.25em; }
+
+.btn {
+  background-color: #ec008c;
+  color: #fff;
+  border-color: transparent; }
+  .btn:hover {
+    background-color: #d3007d;
+    color: #fff;
+    border-color: transparent; }
+  .btn.cta {
+    background-color: #2b347c;
+    color: #fff;
+    border-color: #2b347c; }
+    .btn.cta:hover {
+      background-color: #fff;
+      color: #2b347c;
+      border-color: #2b347c; }
+    @media (max-width: 768px) {
+      .btn.cta {
+        background-color: #f9e113;
+        color: #2b347c;
+        border-color: #f9e113; } }
+  .btn.large {
+    font-size: 1.5em;
+    padding: .375rem 1.5rem; }
+  .btn.uppercase {
+    text-transform: uppercase; }
+  .btn.centered {
+    margin-left: auto;
+    margin-right: auto; }
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff !important;
+  font-weight: 300; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff !important;
+  font-weight: 300; }
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff !important;
+  font-weight: 300; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff !important;
+  font-weight: 300; }
+
+.form-home {
+  margin-bottom: 4.5em; }
+  @media (max-width: 768px) {
+    .form-home {
+      margin-bottom: 0em; } }
+
+.fade_resize-enter-active, .fade_resize-leave-active {
+  transition: opacity .6s, max-height .6s;
+  max-height: 20em;
+  overflow: hidden; }
+
+.fade_resize-enter, .fade_resize-leave-to {
+  opacity: 0;
+  max-height: 0em; }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .6s; }
+
+.fade-enter, .fade-leave-to {
+  opacity: 0; }
+
+body {
+  position: relative;
+  background-position: top center;
+  background-size: cover;
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+
+main {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: calc(100vh - 5.375em);
+  padding-bottom: 6em; }
+  @media (max-width: 768px) {
+    main {
+      min-height: calc(86vh - 5.375em);
+      padding-bottom: 0; } }
+  #page-finalizar-inscricao main {
+    padding-bottom: 12em; }
+    @media (max-width: 768px) {
+      #page-finalizar-inscricao main {
+        padding-bottom: 2em; } }
+
+#acfam-nav-main {
+  position: relative;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff; }
+  @media (max-width: 576px) {
+    #acfam-nav-main {
+      padding: 1em auto; } }
+  #acfam-nav-main li a {
+    display: block;
+    padding: 0.5em 1em;
+    border-radius: 0.2em;
+    background-color: #004a85;
+    color: #fff;
+    transition: all 0.2s ease; }
+    @media (min-width: 576px) {
+      #acfam-nav-main li a {
+        margin-left: 1em; } }
+    @media (max-width: 768px) {
+      #acfam-nav-main li a {
+        border: 1px solid #fff; } }
+    @media (max-width: 576px) {
+      #acfam-nav-main li a {
+        margin: 0.5em auto; } }
+    #acfam-nav-main li a:hover, #acfam-nav-main li a:focus, #acfam-nav-main li a:active {
+      background-color: #2b347c;
+      color: #fff; }
+  #acfam-nav-main .navbar-toggler {
+    color: inherit; }
+  @media (max-width: 768px) {
+    #acfam-nav-main {
+      box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.2);
+      background-color: #46b6e4; }
+      #acfam-nav-main .navbar-brand {
+        margin-right: 0; }
+      #acfam-nav-main .navbar-toggler {
+        margin-left: .5em; }
+      #acfam-nav-main .fam-texto {
+        display: none; }
+      #acfam-nav-main .flex-mobile {
+        display: flex;
+        justify-content: space-around !important;
+        align-items: center; } }
+  @media (max-width: 768px) {
+    #acfam-nav-main:before {
+      content: ' ';
+      display: block;
+      position: absolute;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      transform: scale(1.2);
+      opacity: 0.1;
+      background-image: url("../images/bg.gif");
+      background-position: top center;
+      background-size: cover;
+      filter: blur(16px); } }
+  #page-inscricao #acfam-nav-main .navbar-brand,
+  #page-inscricao #acfam-nav-main .fam-texto, #page-finalizar-inscricao #acfam-nav-main .navbar-brand,
+  #page-finalizar-inscricao #acfam-nav-main .fam-texto {
+    filter: brightness(0) invert(1); }
+  #acfam-nav-main .container {
+    justify-content: center; }
+    #acfam-nav-main .container #acfam-nav-main-inner {
+      -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+      flex-grow: 0; }
+    #acfam-nav-main .container .fam-texto {
+      background-image: url("../images/fam-texto.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 238px;
+      height: 18px; }
+
+body#page-home {
+  background-image: url("../images/bg.gif"); 
+  background-color: #313171;
+  color: #fff;
+  background-size: cover;
+  min-height: 100vh; }
+  body#page-home #acfam-home-artwork {
+    position: relative;
+    min-height: 80vh; }
+    body#page-home #acfam-home-artwork .art {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 5%;
+      max-width: 50%; }
+      body#page-home #acfam-home-artwork .art.allow-larger-width {
+        max-width: 75%; }
+      body#page-home #acfam-home-artwork .art.allow-full-width {
+        max-width: 100%; }
+      body#page-home #acfam-home-artwork .art.top {
+        top: 0px; }
+      body#page-home #acfam-home-artwork .art.left {
+        left: 0px; }
+      body#page-home #acfam-home-artwork .art.right {
+        left: auto;
+        right: 0px; }
+      body#page-home #acfam-home-artwork .art.bottom {
+        top: auto;
+        bottom: 0px; }
+      body#page-home #acfam-home-artwork .art.center {
+        transform: translate(-50%, -50%); }
+      body#page-home #acfam-home-artwork .art.center-h {
+        transform: translateX(-50%); }
+      body#page-home #acfam-home-artwork .art.center-v {
+        transform: translateY(-50%); }
+      body#page-home #acfam-home-artwork .art.overflow {
+        transform: translateX(50%); }
+      body#page-home #acfam-home-artwork .art.overflow-full {
+        transform: translateX(100%); }
+  body#page-home body {
+    background-color: #313171;
+    color: #fff; }
+  @media (max-width: 768px) {
+    body#page-home #acfam-home-form .apoio {
+      display: block;
+      margin: 0 auto; } }
+  body#page-home #acfam-home-form form {
+    text-align: center; }
+    body#page-home #acfam-home-form form img {
+      margin-bottom: 2em;
+      margin-left: -15px; }
+    body#page-home #acfam-home-form form input, body#page-home #acfam-home-form form select {
+      margin: 0.5em auto;
+      max-width: 272px;
+      border-radius: 4px; }
+      @media (max-width: 768px) {
+        body#page-home #acfam-home-form form input, body#page-home #acfam-home-form form select {
+          display: block;
+          max-width: unset;
+          margin: .5em auto .5em; }
+          body#page-home #acfam-home-form form input:last-child, body#page-home #acfam-home-form form select:last-child {
+            margin: .5em auto 2.5em; } }
+      body#page-home #acfam-home-form form input.cpf, body#page-home #acfam-home-form form select.cpf {
+        margin-bottom: 0 !important; }
+    body#page-home #acfam-home-form form input[type="text"] {
+      width: 100%; }
+  @media (max-width: 576px) {
+    body#page-home body#page-home {
+      background-image: url("../images/institucional-background.png") !important; }
+    body#page-home main {
+      position: relative;
+      z-index: 999;
+      overflow: hidden;
+      background-color: none; } }
+  body#page-home ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #0348b2 !important;
+    font-weight: 300; }
+  body#page-home ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #0348b2 !important;
+    font-weight: 300; }
+  body#page-home :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #0348b2 !important;
+    font-weight: 300; }
+  body#page-home :-moz-placeholder {
+    /* Firefox 18- */
+    color: #0348b2 !important;
+    font-weight: 300; }
+  @media (max-width: 768px) {
+    body#page-home {
+      background-image: url("../images/bg.gif"); } }
+
+body#page-inscricao {
+  background-image: url("../images/img-home.gif"), url("../images/background-fam-2020.jpg");
+  background-color: #2b347c;
+  color: #2b347c;
+  background-size: contain;
+  background-repeat: no-repeat; }
+  @media (max-width: 768px) {
+    body#page-inscricao {
+      background-size: 155% !important;
+      background-repeat: no-repeat !important;
+      background-position: center 75px; } }
+  body#page-inscricao main {
+    margin-top: calc(100% / (1903 / 767));
+    padding-bottom: 10em; }
+    @media (max-width: 768px) {
+      body#page-inscricao main {
+        padding-bottom: 0;
+        margin-top: calc(100% / (1103 / 767)); } }
+  body#page-inscricao header {
+    position: relative; }
+  body#page-inscricao footer {
+    bottom: 3em; }
+  body#page-inscricao #acfam-inscricao-opcoes-curso {
+    padding: 1em;
+    background-color: #fff;
+    color: #2b347c;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem; }
+    body#page-inscricao #acfam-inscricao-opcoes-curso h2 {
+      text-transform: uppercase;
+      font-size: 1.2em; }
+    body#page-inscricao #acfam-inscricao-opcoes-curso .curso-info strong {
+      display: block;
+      margin-top: 1em;
+      font-size: 0.9em;
+      text-transform: uppercase; }
+    @media (max-width: 992px) {
+      body#page-inscricao #acfam-inscricao-opcoes-curso .opcao-curso {
+        border-top: 1px solid #e6e6e6;
+        padding-top: 1em;
+        padding-bottom: 1em; } }
+  body#page-inscricao #acfam-inscricao-infos {
+    text-align: center; }
+    body#page-inscricao #acfam-inscricao-infos span, body#page-inscricao #acfam-inscricao-infos strong {
+      text-transform: uppercase;
+      display: block;
+      margin: 1em auto;
+      font-size: 1.5em; }
+    body#page-inscricao #acfam-inscricao-infos .inicio-aulas {
+      font-size: 3.5em;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: #2b347c; }
+    body#page-inscricao #acfam-inscricao-infos .desconto-regressivo {
+      font-size: 2.5em;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: #727cce; }
+  body#page-inscricao .btn-concluir {
+    width: 50%;
+    margin: 3em 0px;
+    background-color: #1eade9;
+    color: #fbee2b;
+    font-weight: bold;
+    font-style: italic;
+    transition: .2s ease; }
+    body#page-inscricao .btn-concluir:hover {
+      transform: translateY(-2px);
+      background-color: #138ec1; }
+    @media (max-width: 768px) {
+      body#page-inscricao .btn-concluir {
+        width: 100%; } }
+
+body#page-finalizar-inscricao {
+  background-image: url("../images/institucional-background.jpg");
+  background-color: #2b347c;
+  color: #121215; }
+  @media (max-width: 1500px) {
+    body#page-finalizar-inscricao {
+      background-image: url("../images/institucional-background-1500.jpg"); } }
+  body#page-finalizar-inscricao main .row-header {
+    padding: 2em; }
+    body#page-finalizar-inscricao main .row-header h1 {
+      font-size: 2.5em;
+      color: #fff200;
+      text-shadow: 0px 1px 0px #ccc200;
+      text-align: center;
+      font-family: "Helvetica Neue", "Roboto", "Helvetica", "Arial", sans-serif;
+      text-transform: uppercase;
+      font-style: italic; }
+      body#page-finalizar-inscricao main .row-header h1 span {
+        font-family: "Helvetica Neue", "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 1.3em; }
+        @media (max-width: 768px) {
+          body#page-finalizar-inscricao main .row-header h1 span {
+            font-size: 1.1em; } }
+    body#page-finalizar-inscricao main .row-header p {
+      text-align: center;
+      color: #fff; }
+  body#page-finalizar-inscricao main .row-header-cursos .opcao-curso {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    margin: 0.5em 0;
+    border-radius: 0.5em;
+    background-color: #fff;
+    box-shadow: 0px 2px 1px #1e2456;
+    position: relative; }
+    @media (max-width: 768px) {
+      body#page-finalizar-inscricao main .row-header-cursos .opcao-curso {
+        margin: 0; } }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso.matriculado:after {
+      content: 'Matriculado';
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      padding: 0.5em 1em;
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso.principal {
+      background-color: #2b347c;
+      color: #ffffff;
+      box-shadow: 0px 4px 0px #1e2456; }
+    body#page-finalizar-inscricao main .row-header-cursos .opcao-curso h2 {
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+  body#page-finalizar-inscricao main .row-header-cursos .fit-height {
+    margin-bottom: 1em; }
+  body#page-finalizar-inscricao main .content {
+    display: block;
+    width: 100%;
+    padding: 2em;
+    margin-top: 1em;
+    color: #121215; }
+    body#page-finalizar-inscricao main .content .accent {
+      color: #2b347c; }
+    body#page-finalizar-inscricao main .content > .row {
+      border-radius: 0.5em;
+      box-shadow: 0px 4px 0px #1e2456;
+      background-color: #fff;
+      padding: 1EM; }
+  body#page-finalizar-inscricao main .apoio {
+    margin-left: -15px; }
+  body#page-finalizar-inscricao footer {
+    padding-top: 2.2em;
+    padding-bottom: 2.2em; }
+  @media (max-width: 768px) {
+    body#page-finalizar-inscricao {
+      background-image: unset; } }
+
+body#page-acompanhar-inscricao {
+  background-image: url("../images/background-acompanhar.jpg");
+  background-color: #2b347c;
+  color: #121215; }
+  @media (max-width: 1500px) {
+    body#page-acompanhar-inscricao {
+      background-image: url("../images/background-acompanhar-1500.jpg"); } }
+  body#page-acompanhar-inscricao main .row-header {
+    padding: 2em; }
+    body#page-acompanhar-inscricao main .row-header h1 {
+      color: #fff200;
+      text-shadow: 0px 1px 0px #ccc200;
+      font-size: 2.5em;
+      text-align: center;
+      font-family: "Helvetica Neue", "Roboto", "Helvetica", "Arial", sans-serif;
+      text-transform: uppercase;
+      font-style: italic; }
+  body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    background-color: #fff;
+    box-shadow: 0px 2px 1px #1e2456;
+    position: relative; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso.matriculado:after {
+      content: 'Matriculado';
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      padding: 0.5em 1em;
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso.principal {
+      background-color: #2b347c;
+      color: #ffffff;
+      box-shadow: 0px 4px 0px #1e2456; }
+    body#page-acompanhar-inscricao main .row-header-cursos .opcao-curso h2 {
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase; }
+  body#page-acompanhar-inscricao main .row-header-cursos .fit-height {
+    margin-bottom: 1em; }
+  body#page-acompanhar-inscricao main .content {
+    display: block;
+    width: 100%;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 0px #1e2456;
+    background-color: #fff;
+    color: #121215; }
+  body#page-acompanhar-inscricao main .apoio {
+    margin-left: -15px; }
+  @media (max-width: 768px) {
+    body#page-acompanhar-inscricao {
+      background-image: url("../images/bg.gif"); } }
+
+footer {
+  width: 100%;
+  padding-bottom: 1em;
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+  color: #fff; }
+  @media (min-width: 992px) {
+    footer {
+      position: absolute;
+      bottom: 0px; } }
+  footer a {
+    color: inherit; }
+    footer a:hover {
+      color: inherit;
+      text-decoration: none; }
+  footer .social {
+    margin-top: -0.5em; }
+    footer .social a {
+      display: inline-block;
+      margin: 0em 0.3em; }
+      footer .social a i {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        padding: 0.74em;
+        transition: .2s ease;
+        color: #020204; }
+        footer .social a i:after {
+          content: ' ';
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 2.5em;
+          height: 2.5em;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+          transition: .2s ease;
+          background-color: #fff;
+          border-radius: 50%; }
+        footer .social a i:hover {
+          color: #fff; }
+          footer .social a i:hover:after {
+            background-color: #3844a2;
+            color: #fff; }
+        @media (max-width: 768px) {
+          footer .social a i {
+            padding: 0.8em; } }
+      @media (max-width: 992px) {
+        footer .social a .has-text {
+          clear: both;
+          display: block; } }
+
+.fit-height {
+  display: flex; }
+  .fit-height .fit {
+    flex: 1; }
+
+.full-height {
+  min-height: 100%; }
+
+.row > .v-spacing {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
+.align.center {
+  text-align: center; }
+.align.left {
+  text-align: left; }
+.align.right {
+  text-align: right; }
+
+@media (max-width: 768px) {
+  .nav-container-mobile {
+    max-height: 77px;
+    overflow: visible; } }
+
+.esc{
+  display:none;
+} 
+
+.resp{
+  display: block;
+}   
+
+.img-home {
+  width:300px;
+  height:auto;
+  display:block;
+  margin:10px auto;
+}
+
+.img-home-person {
+  position:absolute;
+  bottom:0;
+  right:5%;
+}
+
+/*# sourceMappingURL=main.css.map */

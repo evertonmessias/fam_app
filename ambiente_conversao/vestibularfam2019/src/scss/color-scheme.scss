@@ -1,0 +1,102 @@
+/********************************************************************************************
+ * Menu
+ *******************************************************************************************/
+
+// Menu: Main Colors
+$scheme-nav-background: rgb(11, 47, 127);
+$scheme-nav-text: #fff;
+
+// Menu: Button Colors
+$scheme-nav-button-background: darken($scheme-nav-background, 5%);
+$scheme-nav-button-text: #fff;
+	// :hover
+	$scheme-nav-button-hover-background: $scheme-nav-button-text;
+	$scheme-nav-button-hover-text: $scheme-nav-button-background;
+
+/********************************************************************************************
+ * Footer
+ *******************************************************************************************/
+
+$scheme-footer-background: transparent;
+$scheme-footer-text: #0b2f7f;
+
+$scheme-footer-social-background: #0b2f7f;
+$scheme-footer-social-icon: #fff;
+$scheme-footer-social-text: #fff;
+
+/********************************************************************************************
+ * Formulários
+ *******************************************************************************************/
+
+// Input
+$scheme-form-input-background: #0b2f7f;
+$scheme-form-input-shadow: #e4ff00;
+$scheme-form-input-text: #fff;
+
+// Placeholders
+$scheme-form-placeholder-text: #fff;
+
+// Buttons: Normal
+$scheme-form-button-background: #0b2f7f;
+$scheme-form-button-text: #fff;
+$scheme-form-button-border: transparent;
+	// :hover
+	$scheme-form-button-hover-background: darken($scheme-form-button-background, 5%);
+	$scheme-form-button-hover-text: $scheme-form-button-text;
+	$scheme-form-button-hover-border: $scheme-form-button-border;
+
+// Buttons: CTA
+$scheme-form-button-cta-background: #0b2f7f;
+$scheme-form-button-cta-text: #e4ff00;
+$scheme-form-button-cta-border: $scheme-form-button-cta-text;
+	// :hover
+	$scheme-form-button-cta-hover-background: darken($scheme-form-button-cta-background, 5%);
+	$scheme-form-button-cta-hover-text: $scheme-form-button-cta-text;
+	$scheme-form-button-cta-hover-border: $scheme-form-button-cta-border;
+
+/********************************************************************************************
+ * Página: Home
+ *******************************************************************************************/
+
+$scheme-page-home-background: lighten(#0b2f7f, 5%);
+$scheme-page-home-text: #fff;
+
+/********************************************************************************************
+ * Página: Inscrição
+ *******************************************************************************************/
+
+$scheme-page-inscricao-background: lighten(#0b2f7f, 5%);
+$scheme-page-inscricao-text: #0b2f7f;
+
+// Opções de Curso
+$scheme-page-inscricao-curso-background: #e4ff00;
+$scheme-page-inscricao-curso-text: #0b2f7f;
+
+// Informações Gerais
+$scheme-page-inscricao-inicio-aulas: $scheme-page-inscricao-curso-text;
+$scheme-page-inscricao-desconto-regressivo: lighten($scheme-page-inscricao-curso-text, 30%);
+
+/********************************************************************************************
+ * Layout Institucional
+ *******************************************************************************************/
+
+$scheme-institucional-background: #e2e2e2;
+$scheme-institucional-background-content: lighten($scheme-institucional-background, 15%);
+
+$scheme-institucional-text: #121215;
+$scheme-institucional-text-shadow: darken($scheme-institucional-text, 10%);
+
+$scheme-institucional-shadow: darken($scheme-institucional-background, 10%);
+
+$scheme-institucional-text-colored: #0b2f7f;
+$scheme-institucional-text-colored-shadow: darken($scheme-institucional-text-colored, 10%);
+
+// Versão acentuada
+
+$scheme-institucional-accent-background: #0b2f7f;
+$scheme-institucional-accent-background-content: lighten($scheme-institucional-accent-background, 15%);
+
+$scheme-institucional-accent-shadow: darken($scheme-institucional-accent-background, 10%);
+
+$scheme-institucional-accent-text: #ffffff;
+$scheme-institucional-accent-text-shadow: darken($scheme-institucional-accent-background, 10%);

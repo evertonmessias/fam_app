@@ -1,0 +1,118 @@
+{% extends ('Admin::layout') %}
+
+{% set opcoes =
+[
+    {"id": "red_14set_8-12", "data": "14 de Setembro", "materia": "Redação", "horario": "8h às 12h" },
+    {"id": "red_14set_13-17", "data": "14 de Setembro", "materia": "Redação", "horario": "13h às 17h" },
+    {"id": "por_21set_8-12", "data": "21 de Setembro", "materia": "Português (Gramática e Literatura)", "horario": "8h às 12h" },
+    {"id": "mat_21set_13-17", "data": "21 de Setembro", "materia": "Matemática", "horario": "13h às 17h" },
+    {"id": "his_28set_8-12", "data": "28 de Setembro", "materia": "História", "horario": "8h às 12h" },
+    {"id": "fil_28set_13-17", "data": "28 de Setembro", "materia": "Filosofia e Sociologia", "horario": "13h às 17h" },
+    {"id": "geo_05out_8-12", "data": "05 de Outubro", "materia": "Geografia", "horario": "8h às 12h" },
+    {"id": "bio_05out_13-17", "data": "05 de Outubro", "materia": "Biologia", "horario": "13h às 17h" },
+    {"id": "qui_12out_8-12", "data": "12 de Outubro", "materia": "Química", "horario": "8h às 12h" },
+    {"id": "fis_12out_13-17", "data": "12 de Outubro", "materia": "Física", "horario": "13h às 17h" },
+    {"id": "atu_19out_8-11", "data": "19 de Outubro", "materia": "Atualidades", "horario": "8h às 11h" },
+    {"id": "ing_19out_12-1430", "data": "19 de Outubro", "materia": "Inglês", "horario": "12h às 14h30" },
+    {"id": "esp_19out_1530-18", "data": "19 de Outubro", "materia": "Espanhol", "horario": "15h30 às 18h" }
+]
+%}
+
+{% set nomeCurso = "Curso inválido" %}
+{% for opcao in opcoes %}
+    {% if opcao.id == curso %}
+        {% set nomeCurso = opcao.materia ~ " - " ~ opcao.data ~ " - " ~ opcao.horario ~ " (" ~ opcao.id ~ ")" %}
+    {% endif %}
+{% endfor %}
+
+{% set title = nomeCurso ~ ': Revisaço ENEM' %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <img src="/images/logo-revisaco.png" style="display: block;width: auto;max-width: 100%;margin: 2em auto;">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Revisaço ENEM: {{ nomeCurso }}</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table id="tabela_alunos" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th class="all">Nome</th>
+                        <th class="all">CPF</th>
+                        <th class="all">Celular</th>
+                        <th class="all">E-mail</th>
+                        <th class="all">Estado</th>
+                        <th class="all">Cidade</th>
+                        <th class="all">Matérias inscritas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for inscrito in inscritos %}
+                        <tr>
+                            <td>{{ inscrito.id|number_format }}</td>
+                            <td>{{ inscrito.data.nome }}</td>
+                            <td>{{ inscrito.data.cpf }}</td>
+                            <td>{{ inscrito.data.celular }}</td>
+                            <td>{{ inscrito.data.email }}</td>
+                            <td>{{ inscrito.data.estado }}</td>
+                            <td>{{ inscrito.data.cidade }}</td>
+                            <td>
+                              {% if inscrito.data.opcoes is defined %}
+                                {{ inscrito.data.opcoes|replace({ ('"'): '' })|replace({ ('['): ''})|replace({ (']'): ''})|replace({ ('"'): '' })|replace({ (','): ', ' }) }}
+                              {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <a href="/revisaco" class="btn btn-primary" style="padding: .6em 3em; margin-top: 1em;">Voltar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css" media="screen">
+    .x_option {
+        font-size: 1.1em;
+        line-height: 1.5;
+        margin-bottom: 1.25em;
+    }
+    #tabela_alunos tr:hover {}
+</style>
+<script>
+$(document).ready(function () {
+	var table = $('#tabela_alunos').DataTable( {
+        scrollY: '50vh',
+        scrollCollapse: true,
+        scroller: {
+            loadingIndicator: true
+        },
+  		responsive: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        initComplete: function () {
+            console.log('LOADED', table);
+            table.buttons().container()
+                .appendTo( $('#tabela_alunos_filter').parent() );
+                {# .appendTo( $('.col-md-6:eq(0)', table.table().container() ) ); #}
+        }
+    } );
+});
+</script>
+{% endblock %}

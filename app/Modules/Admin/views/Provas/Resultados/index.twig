@@ -1,0 +1,77 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_prova' as form %}
+
+{% set title = 'Locais de Prova' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Locais de Prova</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped" id="tabela_locais">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Unidade</th>
+                        <th>Local</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for unidade in unidades %}
+                        {% for local in unidade.locais_provas %}
+                            <tr>
+                              <th scope="row">{{ local.id }}</th>
+                              <td><a target="_blank" href="/unidades/{{ local.unidade.id }}/"a>{{ local.unidade.nome }}</a></td>
+                              <td>{{ local.local }}</td>
+                              <td>{{ local.endereco }}</td>
+                              <td>{{ local.telefone }}</td>
+                              <td>{{ local.email }}</td>
+                              <td>
+                              	<a href="/provas/locais/{{ local.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                              	<a href="/provas/locais/{{ local.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                              </td>
+                            </tr>
+                        {% endfor %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+		<div class="row">
+	    	{{ form.editar_locais_provas (null, unidades) }}
+	    </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- FullCalendar -->
+<script>
+  $(window).load(function() {
+
+    $('#tabela_locais').DataTable( {
+      responsive: true
+    });
+  });
+</script>
+<!-- /FullCalendar -->
+{% endblock %}

@@ -1,0 +1,250 @@
+@import 'fixes';
+@import 'variables';
+@import 'color-scheme';
+@import 'icons';
+@import 'forms';
+
+@import 'vue-transitions';
+
+// @import 'wireframe';
+
+body {
+	position: relative;
+	background-position: top center;
+	background-size: cover;
+
+	font-family: $font-main;
+}
+
+main {
+	position: relative;
+
+	box-sizing: border-box;
+	min-height: 100vh;
+	min-height: calc(100vh - 5.375em);
+
+	// Espaço para o Rodapé
+    padding-bottom: 1em + $size-footer-height;
+    @media (max-width: $bp-medium) {
+        min-height: calc(86vh - 5.375em);
+        padding-bottom: 0;
+    }
+    #page-finalizar-inscricao & {
+        padding-bottom: 12em;
+        @media (max-width: $bp-medium) { padding-bottom: 2em; }
+    }
+}
+
+// Menu principal
+#acfam-nav-main {
+	position: relative;
+	overflow: hidden;
+	z-index: 1000;
+	color: $scheme-nav-text;	
+
+    @import 'nav-main';
+    
+    @media (max-width: $bp-medium) {
+        box-shadow: 0 6px 4px -4px rgba(0,0,0,.2);
+        .navbar-brand { margin-right: 0; }
+        .navbar-toggler { margin-left: .5em; }
+        .fam-texto { display: none; }
+        .flex-mobile {
+            display: flex;
+            justify-content: space-around!important;
+            align-items: center;
+        }
+        background-color: $scheme-nav-background-mobile;
+    }
+
+    @media (max-width: $bp-medium) {
+        @include enable-glass-background (url('../images/background-fam-2020.jpg'));
+    }
+
+    #page-inscricao &, #page-finalizar-inscricao & {
+        .navbar-brand,
+        .fam-texto {
+            filter: brightness(0) invert(1);
+        }
+    }
+
+	.container {
+		justify-content: center;
+		#acfam-nav-main-inner {
+			-webkit-box-flex: 0;
+			-ms-flex-positive: 0;
+			flex-grow: 0;
+		}
+		.fam-texto {
+			background-image: url("../images/fam-texto.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			width: 238px;
+			height: 18px;
+		}
+	}
+}
+
+// Página: Home
+body#page-home {
+	background-image: url('../images/home-background.jpg');
+	background-color: $scheme-page-home-background;
+	color: $scheme-page-home-text;
+    background-size: cover;
+    min-height: 100vh;
+	
+	@import 'page-home';
+
+	@media (max-width: 768px) { background-image: url('../images/home-background-mobile.jpg'); }
+}
+
+// Página: Inscrição
+body#page-inscricao {
+	background-image: url('../images/inscricao-background.jpg');
+	background-color: $scheme-page-inscricao-background;
+    color: $scheme-page-inscricao-text;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @media (max-width: $bp-medium) {
+        background-size: 155% !important;
+        background-repeat: no-repeat !important;
+        background-position: center 75px;
+    }
+
+	@import 'page-inscricao';
+}
+
+// Página: Finalizou Inscrição
+body#page-finalizar-inscricao {
+	background-image: url('../images/institucional-background.jpg');
+	@media (max-width: 1500px) { background-image: url('../images/institucional-background-1500.jpg'); }
+	background-color: $scheme-institucional-background;
+    color: $scheme-institucional-text;
+
+    @import 'page-finalizar-inscricao';
+    
+    @media (max-width: $bp-medium) {
+        background-image: unset;
+    }
+}
+
+// Página: Acompanhar Inscrição
+body#page-acompanhar-inscricao {
+	background-image: url('../images/background-acompanhar.jpg');
+	background-color: $scheme-institucional-background;
+	color: $scheme-institucional-text;
+    @media (max-width: 1500px) { background-image: url('../images/background-acompanhar-1500.jpg'); }
+    @import 'page-acompanhar-inscricao';
+
+    
+    @media (max-width: $bp-medium) {
+        background-image: url('../images/home-background-mobile.jpg');
+    }
+}
+
+// Rodapé
+footer {
+	@media (min-width: $bp-large) {
+		position: absolute;
+		bottom: 0px;
+	}
+
+	width: 100%;
+	padding-bottom: 1em;
+	text-align: center;
+	font-weight: bold;
+
+	background-color: $scheme-footer-background;
+	color: $scheme-footer-text;
+
+	a {
+		color: inherit;
+		&:hover {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
+	.social {
+		margin-top: -0.5em;
+
+		a {
+			display: inline-block;
+			margin: 0em 0.3em;
+
+			i {
+				display: inline-block;
+				position: relative;
+				z-index: 1;
+				padding: 0.74em;
+                transition: .2s ease;
+				color: $scheme-footer-social-icon;
+
+				&:after {
+					content: ' ';
+					display: block;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					width: 2.5em;
+					height: 2.5em;
+					transform: translate(-50%, -50%);
+					z-index: -1;
+                    transition: .2s ease;
+					background-color: $scheme-footer-social-background;
+					border-radius: 50%;
+                }
+                &:hover {
+                    color: #fff;
+                    &:after {
+                        background-color: lighten($scheme-footer-social-background-hover, 10%);
+                        color: #fff;
+                    }
+                }
+                
+                @media (max-width: $bp-medium) {
+                    padding: 0.8em;
+                }
+			}
+
+			@media (max-width: $bp-large) {
+				.has-text {
+					clear: both;
+					display: block;
+				}
+            }
+		}
+	}
+}
+
+// Layout
+.fit-height {
+	display: flex;
+
+	.fit {
+		flex: 1;
+	}
+}
+
+.full-height {
+	min-height: 100%;
+}
+
+.row > .v-spacing {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.align {
+	&.center { text-align: center; }
+	&.left { text-align: left; }
+	&.right { text-align: right; }
+}
+
+@media (max-width: $bp-medium) {
+    .nav-container-mobile {
+        max-height: 77px;
+        overflow: visible;
+    }
+}

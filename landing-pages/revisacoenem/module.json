@@ -1,0 +1,57 @@
+{
+    "name": "Revisaço ENEM",
+    "identifier": "revisacoenem",
+    "pages": {
+        "inscricao": {
+            "view": "inscricao",
+            "rules": {
+                "requires-session": true,
+                "requires-datastore": true
+            }
+        },
+        "inscricao/obrigado": {
+            "view": "obrigado",
+            "rules": {
+                "requires-session": true,
+                "requires-datastore": true
+            }
+        }
+    },
+    "data": {
+        "table": "datastore",
+        "column": "identifier",
+        "match": "revisacoenem"
+    },
+    "endpoints": {
+        "inscricao": {
+            "settings": {
+                "datastore-mode": "fetch-or-create",
+                "fetch-rules": {
+                    "cpf": "cpf"
+                }
+            },
+            "validation": {
+                "cpf": "unique:datastore,data|required|max:14"
+            },
+            "callback": "/inscricao"
+        },
+        "inscricao/revisacoenem": {
+            "settings": {
+                "debug": false,
+                "identifier": "revisacoenem",
+                "conversion": "Revisaço ENEM",
+                "conversion_user": "email",
+                "datastore-mode": "update"
+            },
+            "validation": {
+                "nome": "required|max:255",
+                "celular": "required|max:14",
+                "email": "required|email|max:255",
+                "estado": "required|max:2",
+                "cidade": "required|max:255",
+                "opcoes": "required"
+            },
+            "callback": "/inscricao/obrigado"
+        }
+    }
+}

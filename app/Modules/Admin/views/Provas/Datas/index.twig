@@ -1,0 +1,153 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_prova' as form %}
+
+{% set title = 'Datas de Prova' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+
+    <div class="row">
+        {{ form.calendario_provas () }}
+
+        {{ form.editar_datas_provas (null, unidades) }}
+      </div>
+      
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Datas de Prova</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped" id="tabela_datas">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Local</th>
+                        <th>Unidade</th>
+                        <th>Provas</th>
+                        <th>Limite</th>
+                        <th>Restantes</th>
+                        <th>Aproveitamento</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for data in datas %}
+                      <tr class="{% if data.lotado %}info{% else %}{% if data.vagas_ocupadas < (data.maximo / 10) %}warning{% else %}success{% endif %}{% endif %}">
+                        <th scope="row">{{ data.id }}</th>
+                        <td>{{ data.hora|date('d/m/Y H:i') }}{% if (data.hora_final) %} - {{ data.hora_final|date('H:i') }}{% endif %}</td>
+                        <td><a target="_blank" href="/provas/locais/{{ data.local.id }}/">{{ data.local.local }}</a></td>
+                        <td><a target="_blank" href="/unidades/{{ data.local.unidade.id }}/">{{ data.local.unidade.nome }}</td>
+                        <td>{{ data.vagas_ocupadas }}</td>
+                        <td>{{ data.maximo }}{% if data.tem_vagas %}{% endif %}</td>
+                        <td>{{ data.vagas }}</td>
+                        <td>{{ data.aproveitamento }}%</td>
+                        <td>{{ data.status }}</td>
+                        <td>
+                        	<a href="/provas/datas/{{ data.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                        	<a href="/provas/datas/{{ data.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                        </td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- FullCalendar -->
+<script>
+  $(window).load(function() {
+    var date = new Date(),
+        d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear(),
+        started,
+        categoryClass;
+
+    var data_fix = function (Y, m, d, H, i) {
+    	m--;
+    	return new Date(Y,m,d,H,i);
+    }
+
+    var calendar = $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      selectable: true,
+      selectHelper: true,
+      select: function(start, end, allDay) {
+        $('#fc_create').click();
+
+        started = start;
+        ended = end;
+
+        $(".antosubmit").on("click", function() {
+          var title = $("#title").val();
+          if (end) {
+            ended = end;
+          }
+
+          categoryClass = $("#event_type").val();
+
+          if (title) {
+            calendar.fullCalendar('renderEvent', {
+                title: title,
+                start: started,
+                end: end,
+                allDay: allDay
+              },
+              true // make the event "stick"
+            );
+          }
+
+          $('#title').val('');
+
+          calendar.fullCalendar('unselect');
+
+          $('.antoclose').click();
+
+          return false;
+        });
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        document.location.href = '/provas/datas/' + calEvent.dados.id + '/';
+      },
+      events: [
+      {% for data in datas %}
+      {
+      	title: '{{ data.local.local }} - {{ data.status }}',
+      	start: data_fix({{ data.hora|date('Y,m,d,H,i') }}),
+      	end: data_fix({{ data.hora|date('Y,m,d') }}, {% if data.hora_final %}{{ data.hora_final|date('H') }}{% else %}{{ data.hora|date('H') + 1 }}{% endif %}, {% if data.hora_final %}{{ data.hora_final|date('i') }}{% else %}{{ data.hora|date('i') }}{% endif %}),
+      	dados: {{ data|json_encode|raw }},
+      	{% if data.lotado %}color: '#ff0000'{% endif %}
+      },
+      {% endfor %}
+      ]
+    });
+  });
+
+  $('#tabela_datas').DataTable( {
+    responsive: true
+  });
+</script>
+<!-- /FullCalendar -->
+{% endblock %}

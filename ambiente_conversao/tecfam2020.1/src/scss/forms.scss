@@ -1,0 +1,101 @@
+// Inputs padrão (texto e select)
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+select {
+	&.form-control {
+	    display: block;
+	    padding: .5em .75em;
+	    color: $scheme-form-input-text;
+	    font-size: 1.25em;
+	    border: none;
+	    margin: 0;
+        background-color: $scheme-form-input-background;
+        #page-inscricao & {
+            border-radius: 3px;
+            background-color: $scheme-form-input-background-inscricao;
+            color: $scheme-form-input-text-inscricao;
+            box-shadow: -1px 1px 5px rgba($color: #000000, $alpha: .15), 0 -1px 0 $scheme-form-input-shadow;
+        }
+	    box-shadow: 0 -1px 0 $scheme-form-input-shadow;
+	    font-weight: bold;
+	    text-align: center;
+	    border-radius: 0px;
+	}
+}
+select:not([size]):not([multiple]) {
+	&.form-control {
+		font-size: 1em;
+    }
+    &.form-control.curso {
+        font-size: 1.25em;
+    }
+}
+
+// Botões
+.btn {
+	background-color: $scheme-form-button-background;
+	color: $scheme-form-button-text;
+	border-color: $scheme-form-button-border;
+
+	&:hover {
+		background-color: $scheme-form-button-hover-background;
+		color: $scheme-form-button-hover-text;
+		border-color: $scheme-form-button-hover-border;
+	}
+
+	&.cta {
+		background-color: $scheme-form-button-cta-background;
+		color: $scheme-form-button-cta-text;
+		border-color: $scheme-form-button-cta-border;
+
+		&:hover {
+			background-color: $scheme-form-button-cta-hover-background;
+			color: $scheme-form-button-cta-hover-text;
+			border-color: $scheme-form-button-cta-hover-border;
+        }
+        @media (max-width: $bp-medium) {
+            background-color: $scheme-form-button-cta-background-mobile;
+            color: $scheme-form-button-cta-text-mobile;
+            border-color: $scheme-form-button-cta-border-mobile;
+        }
+	}
+
+	&.large {
+		font-size: 1.5em;
+		padding: .375rem 1.5rem;
+	}
+
+	&.uppercase { text-transform: uppercase; }
+	&.centered {
+		margin-left: auto;
+		margin-right: auto;
+    }
+
+}
+
+// Placeholders
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	color: $scheme-form-placeholder-text !important;
+	font-weight: 300;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	color: $scheme-form-placeholder-text !important;
+	font-weight: 300;
+}
+:-ms-input-placeholder { /* IE 10+ */
+	color: $scheme-form-placeholder-text !important;
+	font-weight: 300;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color: $scheme-form-placeholder-text !important;
+	font-weight: 300;
+}
+
+.form-home {
+    margin-bottom: 4.5em;
+    @media (max-width: $bp-medium) {
+        margin-bottom: 0em;
+    }
+}

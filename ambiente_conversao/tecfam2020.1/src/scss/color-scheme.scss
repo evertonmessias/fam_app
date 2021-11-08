@@ -1,0 +1,122 @@
+/********************************************************************************************
+ * Menu
+ *******************************************************************************************/
+
+// Menu: Main Colors
+$scheme-nav-background: #3b0f68;
+$scheme-nav-text: #fff;
+
+// Menu: Responsive
+$scheme-nav-background-mobile: #3b0f68;
+
+// Menu: Button Colors
+$scheme-nav-button-background: #e13fbb;
+$scheme-nav-button-text: #fff;
+	// :hover
+	$scheme-nav-button-hover-background: #591e73;
+	$scheme-nav-button-hover-text: #fff;
+
+/********************************************************************************************
+ * Footer
+ *******************************************************************************************/
+
+$scheme-footer-background: transparent;
+$scheme-footer-text: #fff;
+
+$scheme-footer-social-background: #fff;
+$scheme-footer-social-icon: #591e73;
+$scheme-footer-social-text: #fff;
+
+    // :hover
+    $scheme-footer-social-background-hover: #e13fbb;
+
+/********************************************************************************************
+ * Formulários
+ *******************************************************************************************/
+
+// Input
+$scheme-form-input-background: #fff;
+$scheme-form-input-shadow: #29295f;
+$scheme-form-input-text: #0348b2;
+
+$scheme-form-input-background-inscricao: #e13fbb;
+$scheme-form-input-text-inscricao: #fff;
+
+// Placeholders
+$scheme-form-placeholder-text: #fff;
+$scheme-form-placeholder-text-home: #0348b2;
+
+// Buttons: Normal
+$scheme-form-button-background: #ec008c;
+$scheme-form-button-text: #fff;
+$scheme-form-button-border: transparent;
+	// :hover
+	$scheme-form-button-hover-background: darken($scheme-form-button-background, 5%);
+	$scheme-form-button-hover-text: $scheme-form-button-text;
+	$scheme-form-button-hover-border: $scheme-form-button-border;
+
+// Buttons: CTA
+$scheme-form-button-cta-background: #e13fbb;
+$scheme-form-button-cta-background-mobile: #e13fbb;
+$scheme-form-button-cta-text: #fff;
+$scheme-form-button-cta-text-mobile: #fff;
+$scheme-form-button-cta-border: #e13fbb;
+$scheme-form-button-cta-border-mobile: #e13fbb;
+	// :hover
+	$scheme-form-button-cta-hover-background: #fff;
+	$scheme-form-button-cta-hover-text: #e13fbb;
+	$scheme-form-button-cta-hover-border: #e13fbb;
+
+/********************************************************************************************
+ * Página: Home
+ *******************************************************************************************/
+
+$scheme-page-home-background: lighten(#29295f, 5%);
+$scheme-page-home-text: #fff;
+
+/********************************************************************************************
+ * Página: Inscrição
+ *******************************************************************************************/
+
+$scheme-page-inscricao-background: #3b0f68;
+$scheme-page-inscricao-text: #fff;
+
+$scheme-page-inscricao-btn-background: #e13fbb;
+$scheme-page-inscricao-btn-background-hover: darken($scheme-page-inscricao-btn-background, 10%);
+$scheme-page-inscricao-btn-text: #fbee2b;
+
+// Opções de Curso
+$scheme-page-inscricao-curso-background: #fff;
+$scheme-page-inscricao-curso-text: #591e73;
+$scheme-page-inscricao-curso-border: #1eade9;
+
+// Informações Gerais
+$scheme-page-inscricao-inicio-aulas: $scheme-page-inscricao-curso-text;
+$scheme-page-inscricao-desconto-regressivo: lighten($scheme-page-inscricao-curso-text, 30%);
+
+/********************************************************************************************
+ * Layout Institucional
+ *******************************************************************************************/
+
+$scheme-institucional-background: #3b0f68;
+$scheme-institucional-background-content: #fff;
+
+$scheme-institucional-text: #121215;
+$scheme-institucional-text-shadow: darken($scheme-institucional-text, 10%);
+
+$scheme-institucional-shadow: darken($scheme-institucional-background, 10%);
+
+$scheme-institucional-text-colored: #e13fbb;
+$scheme-institucional-text-accent: #591e73;
+$scheme-institucional-text-colored-shadow: darken($scheme-institucional-text-colored, 10%);
+$scheme-institucional-text-subtitle: #fff;
+
+// Versão acentuada
+
+$scheme-institucional-accent-background: #e13fbb;
+$scheme-institucional-accent-background-content: lighten($scheme-institucional-accent-background, 15%);
+
+$scheme-institucional-accent-shadow: darken($scheme-institucional-accent-background, 10%);
+
+$scheme-institucional-accent-text: #ffffff;
+$scheme-institucional-accent-text-shadow: darken($scheme-institucional-accent-background, 10%);

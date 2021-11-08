@@ -1,0 +1,75 @@
+{% macro editar_modulo (modulo, disponiveis) %}
+
+<form id="demo-form" method="post" action="/modulos/{% if modulo %}{{ modulo.id }}/edit{% else %}new{% endif %}" data-parsley-validate>
+  {{ csrf_field() }}
+  <div class="row">
+    
+    <!-- Editar Módulo -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{% if modulo %}Editar{% else %}Inserir{% endif %} Módulo</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% if modulo %}
+          <label for="id">ID (não mutável) :</label>
+          <input type="text" id="id" class="form-control" name="id" readonly value="{{ modulo.id }}" />
+          {% endif %}
+
+          <div class="row">
+            <div class="col-md-4 col-sm-8 com-xs-8">
+              <label for="domain">Domínio * :</label>
+              <input type="text" id="domain" class="form-control" name="domain" required value="{{ modulo.domain }}" />
+            </div>
+            <div class="col-md-1 col-sm-2 com-xs-2">
+              <label for="domain">WWW?</label>
+              <div><input type="checkbox" id="www" name="www" value="1" class="flat" {% if modulo.www %}checked{% endif %} /></div>
+            </div>
+            <div class="col-md-1 col-sm-2 com-xs-2">
+              <label for="domain">HTTPS/SSL</label>
+              <div><input type="checkbox" id="force_ssl" name="force_ssl" value="1" class="flat" {% if modulo.force_ssl %}checked{% endif %} /></div>
+            </div>
+            <div class="col-md-6 col-sm-12 com-xs-12">
+              <label for="root">Diretório * :</label>
+              <input type="text" id="root" class="form-control" name="root" required value="{% if modulo.root %}{{ modulo.root }}{% else %}/{% endif %}" />
+            </div>
+          </div>
+          <br />
+
+          <label for="namespace">Módulo * :</label>
+        {% if modulo %}
+          <div>{{ modulo.info.name }}</div>
+        {% else %}
+          <select class="select2_single form-control" id="namespace" name="namespace" value="{{ modulo.namespace }}">
+            {% for module in disponiveis %}
+            <option value="{{ module.namespace }}" {% if module.namespace == modulo.namespace %}selected{% endif %}>{{ module.name }}</option>}
+            {% endfor %}
+          </select>
+        {% endif %}
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+          
+          {# <br /><br /> #}
+        </div>
+    </div>
+  </div>
+    
+    <!-- Editar Opções -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Opções do Módulo</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% for option in modulo.info.options %}
+          {{ option|getOptionsField(modulo, 'options')|raw }}
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+</form>
+
+{% endmacro %}

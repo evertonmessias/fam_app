@@ -1,0 +1,245 @@
+{% macro editar_campanha (campanha, cursos, unidades, campanhas) %}
+{% import 'Admin::helpers/custom_fields.twig' as custom_fields %}
+
+<form id="demo-form" method="post" action="/campanhas/{% if campanha %}{{ campanha.id }}/edit{% else %}new{% endif %}" data-parsley-validate>
+  {{ csrf_field() }}
+  <div class="row">
+    
+    <!-- Editar Campanha -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{% if campanha %}Editar{% else %}Nova{% endif %} Campanha</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="row">
+          {% if campanha %}
+          <div class="col-md-6 col-sm-12 com-xs-12">
+            <label for="id">ID (não mutável) :</label>
+            <input type="text" id="id" class="form-control" name="id" readonly value="{{ campanha.id }}" />
+          </div>
+          <div class="col-md-6 col-sm-12 com-xs-12">
+            <label for="parent">Campanha Principal :</label>
+            <select name="parent" id="parent" class="form-control">
+              <option value="null"></option>
+            {% for camp in campanhas %}
+              <option value="{{ camp.id }}" {% if campanha.parent_id == camp.id %}selected{% endif %}>{{ camp.nome }}</option>
+            {% endfor %}
+            </select>
+          </div>
+          {% endif %}
+
+          <div class="col-md-6 col-sm-12 com-xs-12">
+            <label for="nome">Nome * :</label>
+            <input type="text" id="nome" class="form-control" name="nome" required value="{{ campanha.nome }}" />
+          </div>
+
+          <div class="col-md-6 col-sm-12 com-xs-12">
+            <label for="budget">Budget (R$) * :</label>
+            <input type="number" step="0.01" id="budget" class="form-control type-currency" name="budget" data-parsley-trigger="change" required value="{{ campanha.budget|number_format(2, '.', '') }}" />
+          </div>
+
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="data_inicio">Data de Início * :</label>
+              <input id="data_inicio" name="data_inicio" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="{{ campanha.inicio|date('d/m/Y') }}" />
+            </div>
+
+            <div class="col-md-4 col-sm-12 com-xs-12">
+              <label for="data_fim">Data de Término * :</label>
+              <input id="data_fim" name="data_fim" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="{{ campanha.fim|date('d/m/Y') }}" />
+            </div>
+
+            <div class="col-md-2 col-sm-6 com-xs-6">
+              <label>Status:</label>
+              <input type="text" class="form-control" readonly value="{{ campanha.status }}" />
+            </div>
+            <div class="col-md-2 col-sm-6 com-xs-6">
+              <label>Relatórios:</label>
+              <select name="relatorios" class="form-control">
+                <option value="0">Não</option>
+                <option value="1" {% if campanha.relatorios %}selected{% endif %}>Sim</option>
+              </select>
+            </div>
+          </div>
+
+          <br />
+          <input type="submit" class="btn btn-primary" value="Salvar" />
+          {% if campanha %}<a class="btn btn-default" href="/campanhas/{{ campanha.id }}/">Visualizar</a>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    {% if campanha %}
+    
+    <!-- Editar Cursos -->
+    <div class="col-md-7 col-sm-7 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Editar Cursos</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p style="padding: 5px;">
+          {% for curso in cursos %}
+            <label><input type="checkbox" name="cursos[]" value="{{ curso.id }}" class="flat" {% if campanha.tem_curso(curso.id) %}checked{% endif %} /> {{ curso.nome }}</label>
+            <br />
+          {% endfor %}
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Editar Mídias + Unidades -->
+    <div class="col-md-5 col-sm-5 col-xs-12">
+
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Como nos Conheceu?</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p style="padding: 5px;">
+            <ol class="enable-drag no-list">
+            {% for midia in campanha.midias %}
+              <li><label><input type="checkbox" name="midias[]" value="{{ midia.id }}" class="flat" {% if true %}checked{% endif %} /> {{ midia.nome }}</label></li>
+            {% endfor %}
+            </ol>
+          </p>
+        </div>
+      </div>
+
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Unidades</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p style="padding: 5px;">
+            <ol class="enable-drag no-list">
+            {% for unidade in unidades %}
+              <li><label><input type="checkbox" name="unidades[]" value="{{ unidade.id }}" class="flat" {% if campanha.tem_unidade(unidade.id) %}checked{% endif %} /> {{ unidade.nome }}</label></li>
+            {% endfor %}
+            </ol>
+          </p>
+        </div>
+      </div>
+
+      <!-- Editar Textos -->
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Textos</h2>
+          <div class="clearfix"></div>
+          <p>Aqui você pode configurar os textos que serão usados na Landing Page.</p>
+        </div>
+        <div class="x_content">
+          <div>
+            <label for="textos-inicio_aulas">Início das Aulas:</label>
+            <input id="textos-inicio_aulas" class="form-control" type="text" name="textos[inicio_aulas]" value="{{ campanha.textos['inicio_aulas'] }}" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Editar Campos -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Campos Personalizados</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          {% for campo in campanha.campos_personalizados %}
+          {{ custom_fields.render_editor(campo, 'campos_personalizados') }}
+          {% endfor %}
+          {{ custom_fields.render_editor(null, 'campos_personalizados') }}
+          <br />
+          <input class="btn btn-primary" type="submit" value="Salvar" >
+        </div>
+      </div>
+    </div>
+
+    <!-- Editar Tags -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Tags Personalizadas</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+        {% set paginas = {
+          '[ Todas ]': '*',
+          'Home': '/',
+          'Inscrição': '/inscricao',
+          'Inscrição Finalizada': '/inscricao/finaliza',
+          'Inserir Dados Adicionais': '/inscricao/adicionais'
+        } %}
+        {% for tag in campanha.tags %}
+          <div class="row">
+            <div class="col-md-3">
+              <input name="tags[{{ tag.id }}][desc]" value="{{ tag.desc }}" class="form-control" type="text" />
+            </div>
+            <div class="col-md-3">
+              <select name="tags[{{ tag.id }}][pagina]" class="form-control">
+              {% for pagina, val in paginas %}
+                <option value="{{ val }}" {% if tag.pagina == val %}selected{% endif %}>{{ pagina }}</option>
+              {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select name="tags[{{ tag.id }}][topo]" class="form-control">
+                <option value="1" {% if tag.topo %}selected{% endif %}>Cabeçalho</option>
+                <option value="0" {% if not tag.topo %}selected{% endif %}>Rodapé</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <textarea rows="1" name="tags[{{ tag.id }}][codigo]" class="form-control" type="text">{{ tag.codigo }}</textarea>
+            </div>
+          </div><br />
+        {% endfor %}
+
+          <br />
+          <h2>Inserir Tag</h2>
+
+          <div class="row">
+            <div class="col-md-3">
+              <label>Descrição:</label>
+              <input name="tags[new][desc]" class="form-control" type="text" />
+            </div>
+            <div class="col-md-3">
+              <label>Página:</label>
+              <select name="tags[new][pagina]" class="form-control">
+              {% for pagina, val in paginas %}
+                <option value="{{ val }}">{{ pagina }}</option>
+              {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label>Local de Inserção:</label>
+              <select name="tags[new][topo]" class="form-control">
+                <option value="1">Cabeçalho</option>
+                <option value="0">Rodapé</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label>Código:</label>
+              <textarea rows="1" name="tags[new][codigo]" class="form-control" type="text"></textarea>
+            </div>
+          </div>
+          
+          <br />
+          <input class="btn btn-primary" type="submit" value="Salvar" >
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+
+    <div class="clearfix"></div>
+  </div>
+</form>
+
+{% endmacro %}

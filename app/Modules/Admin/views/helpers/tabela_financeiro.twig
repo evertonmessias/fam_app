@@ -1,0 +1,419 @@
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_midias_select (midias, fornecedor) %}
+    <table class="table table-striped" id="tabela_locais">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Mídia</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for midia in midias %}
+                {% if fornecedor.tipos_midias.contains (midia) %}
+                    {% set fornecedor_midia = fornecedor.midia(midia) %}
+                {% else %}
+                    {% set fornecedor_midia = null %}
+                {% endif %}
+                
+                <tr class="{% if fornecedor_midia %}success{% endif %}">
+                    <th scope="row"><input type="checkbox" name="midias[]" value="{{ midia.id }}"
+                            {% if fornecedor_midia %}checked{% endif %} /></th>
+                    <td>{% if midia.categoria %}{{ midia.categoria_arvore(true)|raw }}{% else %}{{ midia.nome }}{% endif %}</td>
+                    <td>{% if fornecedor_midia %}<input class="form-control" name="midia_nome[{{ fornecedor_midia.id }}]"
+                            type="text" value="{{ fornecedor_midia.nome }}" />{% else %}<em>{{ midia.nome }}</em>{% endif %}
+                    </td>
+                </tr>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $(window).load(function () {
+
+            $('#tabela_locais').DataTable({
+                responsive: true,
+                pageLength: 50,
+                order: [
+                    [1, 'asc']
+                ] // Ordenar por categoria e nome
+            });
+        });
+    </script>
+{% endmacro %}
+
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_midias (midias) %}
+    <table class="table table-striped" id="tabela_locais">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for midia in midias %}
+            <tr>
+                <th scope="row">{{ midia.id }}</th>
+                <td>{{ midia.nome }}</td>
+                <td>{% if midia.categoria %}{{ midia.categoria_arvore()|raw }}{% endif %}</td>
+                <td>
+                    <a href="/financeiro/midias/{{ midia.id }}/" title="Visualizar"><i class="fa fa-eye"></i></a>
+                    <a href="/financeiro/midias/{{ midia.id }}/edit" title="Editar"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $(window).load(function () {
+
+            $('#tabela_locais').DataTable({
+                responsive: true,
+                order: [
+                    [2, 'asc'],
+                    [1, 'asc']
+                ] // Ordenar por categoria e nome
+            });
+        });
+    </script>
+{% endmacro %}
+
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_notas (notas, notas_todas) %}
+    {% import 'Admin::helpers.link_display' as exibir %}
+    <table class="table table-striped" id="tabela_notas">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fornecedor</th>
+                <th>Data</th>
+                <th>Vencimento</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Valor Total</th>
+                {% if notas_todas %}<th></th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+            <tr>
+                <th scope="row">{{ exibir.nota_codigo(nota) }}</td>
+                <td>{{ exibir.nota_fornecedor(nota) }}</td>
+                <td>{{ exibir.data(nota.data) }}</td>
+                <td>{{ exibir.data(nota.vencimento) }}</td>
+                <td>{{ nota.descricao }}</td>
+                <td>{{ exibir.reais(nota.valor) }}</td>
+                <td>{{ exibir.reais(nota.valor_somado) }}</td>
+                {% if notas_todas %}<td><input name="notas_relacionadas[]" type="checkbox" value="{{ nota.id }}" checked />
+                </td>{% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Caso esteja editando, mostrar um select! #}
+    {% if notas_todas %}
+    <br />
+    <div class="row">
+        <div class="col-md-10">
+            <label for="relacionadas_new">Inserir Nota Relacionada:</label>
+            <select data-placeholder="Selecionar nota fiscal" class="select2 form-control" id="tabela_notas_nova"
+                name="relacionadas_new" id="relacionadas_new">
+                <option></option>
+                {% for nota in notas_todas %}
+                <option value="{{ nota.id }}">{{ exibir.nota_descritivo(nota) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>&nbsp;</label>
+            <input type="submit" class="form-control btn btn-success" value="Salvar" />
+        </div>
+    </div>
+    <br />
+    <p><em><strong>Obs.:</strong> Salvando este item irá salvar a Nota Fiscal inteira.</em></p>
+    {% endif %}
+
+    
+    <script>
+        $(window).load(function () {
+            $('#tabela_notas').DataTable({
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: "csv",
+                        className: "btn-sm"
+                    },
+                    {
+                        extend: "excel",
+                        className: "btn-sm"
+                    }
+                ],
+                order: [
+                    [3, 'desc']
+                ] // Ordenar por data de vencimento
+            });
+        });
+    </script>
+{% endmacro %}
+
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_notas_mes (notas, notas_todas) %}
+    {% import 'Admin::helpers.link_display' as exibir %}
+    <table class="table table-striped" id="tabela_notas_mes">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fornecedor</th>
+                <th>Data</th>
+                <th>Vencimento</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Valor Total</th>
+                {% if notas_todas %}<th></th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+            <tr>
+                <th scope="row">{{ exibir.nota_codigo(nota) }}</td>
+                <td>{{ exibir.nota_fornecedor(nota) }}</td>
+                <td>{{ exibir.data(nota.data) }}</td>
+                <td>{{ exibir.data(nota.vencimento) }}</td>
+                <td>{{ nota.descricao }}</td>
+                <td>{{ exibir.reais(nota.valor) }}</td>
+                <td>{{ exibir.reais(nota.valor_somado) }}</td>
+                {% if notas_todas %}<td><input name="notas_relacionadas[]" type="checkbox" value="{{ nota.id }}" checked />
+                </td>{% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Caso esteja editando, mostrar um select! #}
+    {% if notas_todas %}
+    <br />
+    <div class="row">
+        <div class="col-md-10">
+            <label for="relacionadas_new">Inserir Nota Relacionada:</label>
+            <select data-placeholder="Selecionar nota fiscal" class="select2 form-control" id="tabela_notas_nova"
+                name="relacionadas_new" id="relacionadas_new">
+                <option></option>
+                {% for nota in notas_todas %}
+                <option value="{{ nota.id }}">{{ exibir.nota_descritivo(nota) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>&nbsp;</label>
+            <input type="submit" class="form-control btn btn-success" value="Salvar" />
+        </div>
+    </div>
+    <br />
+    <p><em><strong>Obs.:</strong> Salvando este item irá salvar a Nota Fiscal inteira.</em></p>
+    {% endif %}
+
+    <script>
+        $(window).load(function () {
+
+            $('#tabela_notas_mes').DataTable({
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: "csv",
+                        className: "btn-sm"
+                    },
+                    {
+                        extend: "excel",
+                        className: "btn-sm"
+                    }
+                ],
+                order: [
+                    [0, 'desc']
+                ] // Ordenar por categoria e nome
+            });
+        });
+    </script>
+{% endmacro %}
+
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_notas_mes_anterior (notas, notas_todas) %}
+    {% import 'Admin::helpers.link_display' as exibir %}
+    <table class="table table-striped" id="tabela_notas_mes_anterior">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fornecedor</th>
+                <th>Data</th>
+                <th>Vencimento</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Valor Total</th>
+                {% if notas_todas %}<th></th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+            <tr>
+                <th scope="row">{{ exibir.nota_codigo(nota) }}</td>
+                <td>{{ exibir.nota_fornecedor(nota) }}</td>
+                <td>{{ exibir.data(nota.data) }}</td>
+                <td>{{ exibir.data(nota.vencimento) }}</td>
+                <td>{{ nota.descricao }}</td>
+                <td>{{ exibir.reais(nota.valor) }}</td>
+                <td>{{ exibir.reais(nota.valor_somado) }}</td>
+                {% if notas_todas %}<td><input name="notas_relacionadas[]" type="checkbox" value="{{ nota.id }}" checked />
+                </td>{% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Caso esteja editando, mostrar um select! #}
+    {% if notas_todas %}
+    <br />
+    <div class="row">
+        <div class="col-md-10">
+            <label for="relacionadas_new">Inserir Nota Relacionada:</label>
+            <select data-placeholder="Selecionar nota fiscal" class="select2 form-control" id="tabela_notas_nova"
+                name="relacionadas_new" id="relacionadas_new">
+                <option></option>
+                {% for nota in notas_todas %}
+                <option value="{{ nota.id }}">{{ exibir.nota_descritivo(nota) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>&nbsp;</label>
+            <input type="submit" class="form-control btn btn-success" value="Salvar" />
+        </div>
+    </div>
+    <br />
+    <p><em><strong>Obs.:</strong> Salvando este item irá salvar a Nota Fiscal inteira.</em></p>
+    {% endif %}
+
+    <script>
+        $(window).load(function () {
+
+            $('#tabela_notas_mes_anterior').DataTable({
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: "csv",
+                        className: "btn-sm"
+                    },
+                    {
+                        extend: "excel",
+                        className: "btn-sm"
+                    }
+                ],
+                order: [
+                    [0, 'desc']
+                ] // Ordenar por categoria e nome
+            });
+        });
+    </script>
+{% endmacro %}
+
+<!-- -------------------------- Macro -------------------------- -->
+{% macro listar_nota_campanhas (nota, editar, campanhas, midias) %}
+    {% import 'Admin::helpers.link_display' as exibir %}
+
+    <table class="table table-striped" id="tabela_campanhas">
+        <thead>
+            <tr class="">
+                <td><em>Nota Fiscal - Não Distribuídos</em></td>
+                <td>-</td>
+                <td>{{ exibir.nota_fornecedor(nota) }}</td>
+                <td>{{ exibir.porcentagem(nota.porcentagem_restante) }}</td>
+                <td>{{ exibir.reais(nota.valor_restante) }}</td>
+            </tr>
+            <tr>
+                <th>Campanha</th>
+                <th>Mídia</th>
+                <th>Fornecedor</th>
+                <th>%</th>
+                <th>Valor</th>
+                {% if editar %}<th></th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% autoescape false %}
+            {% for rel in nota.todas_campanhas %}
+            <tr class="{% if rel._nivel %}info{% endif %}">
+                <td>{% if rel._nivel %}{{ exibir.nota_codigo (rel._nota) ~ exibir.breadcrumbs }}{% endif %}{{ exibir.campanha_nome (rel.campanha) }}
+                </td>
+                <td>{{ rel.midia.nome }}</td>
+                <td>{{ exibir.midia_fornecedor(rel.midia) }}</td>
+                <td>{{ exibir.porcentagem(rel.porcentagem_relativa(nota.valor_somado)) }}</td>
+                <td>{{ exibir.reais(rel.valor) }}</td>
+                {% if editar %}<td><input name="campanhas[]" class="flat" type="checkbox" checked
+                        {% if rel._nivel %}disabled{% else %}value="{{ rel.id }}" {% endif %} /></td>{% endif %}
+            </tr>
+            {% endfor %}
+            {% endautoescape %}
+        </tbody>
+    </table>
+
+    <p><em><strong>Observação:</strong> Porcentagens marcadas em azul são baseadas no valor total desta nota.</em></p>
+
+    {% if editar and campanhas and midias %}
+    <div class="row">
+        <div class="col-md-12"><label>Inserir campanha:</label></div>
+        <div class="col-md-4">
+            <select class="select2 form-control" name="campanha_new[campanha]" data-placeholder="Selecione uma campanha">
+                <option></option>
+                {% for campanha in campanhas %}
+                <option value="{{ campanha.id }}">{{ exibir.campanha_nome(campanha) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select class="select2 form-control" name="campanha_new[midia]" data-placeholder="Selecione uma mídia">
+                <option></option>
+                {% for midia in midias %}
+                <option value="{{ midia.id }}">{{ exibir.midia_nome(midia) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input class="form-control no-spin has-feedback-right" type="number" step="any" min="0"
+                max="{{ nota.porcentagem_restante }}" name="campanha_new[porcentagem]"
+                placeholder="Digite uma porcentagem" />
+            <span class="form-control-feedback right" aria-hidden="true">%</span>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="form-control btn btn-success" value="Salvar" />
+        </div>
+    </div>
+    <br />
+    <p><em><strong>Obs.:</strong> Salvando este item irá salvar a Nota Fiscal inteira.</em></p>
+    {% endif %}
+
+    <script>
+        $(window).load(function () {
+
+            $('#tabela_campanhas').DataTable({
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: "csv",
+                        className: "btn-sm"
+                    },
+                    {
+                        extend: "excel",
+                        className: "btn-sm"
+                    }
+                ]
+                // order: [[0, 'desc']] // Ordenar por categoria e nome
+            });
+        });
+    </script>
+{% endmacro %}

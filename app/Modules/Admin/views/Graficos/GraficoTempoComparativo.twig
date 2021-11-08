@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard_graph x_panel">
+      <div class="row x_title">
+        <div class="col-md-6">
+          <h3>{{ title }}</h3>
+        </div>
+      </div>
+      <div class="x_content">
+        <div class="demo-container" style="height:250px">
+          <div id="grafico_{{ id }}" class="demo-placeholder" style="width: 100%; height:250px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+
+  {% if charts %}
+  var data = [];
+
+  {#{% set charts = charts|array_order(['MATR', 'INSC', 'LEAD']) %}#}
+  {% set charts = charts|array_order(['LEAD', 'INSC', 'MATR']) %}
+
+  {% for chart in charts %}
+  data.push({
+    // stack: true,
+    data: {{ chart.data|array_reverse|array2js(true)|raw }},
+    label: '{{ chart.title }}',
+    lines: {
+      // fillColor: "rgba(150, 202, 89, 0.12)",
+      fill: true
+    }, //#96CA59 rgba(150, 202, 89, 0.42)
+    points: {
+      fillColor: "#fff"
+    }
+  });
+  {% endfor %}
+
+  {% else %}
+
+  {% endif %}
+
+  for (var i = 0; i < data.length; i++) {
+    var chart = data[i];
+    for (var r = 0; r < chart.data.length; r++) {
+      var row = chart.data[r];
+      row[0] = new Date(row[0]);
+    }
+    chart.data.sort(function(x, y) {
+      if(x[0] == y[0]) return 0;
+      else return (x[0] > y[0]) ? 1 : -1;
+    });
+  }
+
+  console.log(data);
+
+  var d1 = [
+    [0, 1],
+    [1, 9],
+    [2, 6],
+    [3, 10],
+    [4, 5],
+    [5, 17],
+    [6, 6],
+    [7, 10],
+    [8, 7],
+    [9, 11],
+    [10, 35],
+    [11, 9],
+    [12, 12],
+    [13, 5],
+    [14, 3],
+    [15, 4],
+    [16, 9]
+  ];
+
+  //flot options
+  var options = {
+    xaxis: {
+      mode: 'time',
+      timeformat: "%d/%m/%Y"
+    },
+    series: {
+      // stack: true,
+      curvedLines: {
+        apply: true,
+        active: true,
+        monotonicFit: true
+      }
+    },
+    // colors: ['#0b2f7f', '#26B99A', '#9b59b6'],
+    colors: ['#CCCCCC', '#26B99A', '#0b2f7f', '#4D5D7F', '#EACA15', '#D36C13', '#fff', '#03BA00', '#fff', '#910D0D'],
+    grid: {
+      hoverable: true,
+      borderWidth: {
+        top: 0,
+        right: 0,
+        bottom: 1,
+        left: 1
+      },
+      borderColor: {
+        bottom: "#7F8790",
+        left: "#7F8790"
+      }
+    },
+    tooltip: {
+      show: true,
+      content: '%s: %y'
+    }
+  };
+
+  if (charts_settings.time) {
+      options.xaxis.min = charts_settings.time.min;
+      options.xaxis.max = charts_settings.time.max;
+  }
+
+  var plot = $.plot($("#grafico_{{ id }}"), data, options);
+
+  on_charts_update(function (change) {
+    if (change.time)
+      var time = change.time;
+    else return;
+
+    plot.getOptions().xaxes[0].min = time.start;
+    plot.getOptions().xaxes[0].max = time.end;
+    plot.setupGrid();
+    plot.draw();
+
+    $('#grafico_{{ id }} .legend > *').css({
+      right: 'auto',
+      left: '32px'
+    });
+  });
+});
+</script>

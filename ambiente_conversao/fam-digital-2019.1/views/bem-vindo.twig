@@ -1,0 +1,96 @@
+{% spaceless %}
+
+{% set utc =  ''|date('U') %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,900italic');
+	html, body { margin: 0px; padding: 0px; }
+	body {
+		font-family: 'Source Sans Pro', sans-serif;
+		background-color: #c4d3df;
+		color: #0b2f7f;
+	}
+	h1, h2 {
+		text-align: center;
+	}
+	h1 {
+		font-weight: 900;
+		font-style: italic;
+		font-size: 3em;
+	}
+	h2 {
+		font-weight: 300;
+		font-size: 2em;
+		text-transform: uppercase;
+	}
+	p,
+	ul {
+		width: 80%;
+		margin: 1em auto;
+	}
+	img { display: block; max-width: 100%; margin: 0px auto; padding: 0px; }
+	.enem {
+		text-align: center;
+		font-weight: 300;
+		font-size: 1.3em;
+		margin: 1.5em auto;
+	}
+	</style>
+</head>
+<body style="background-color:#f0f0f0;">
+	<div style="color:#0b2f7f !important;max-width:800px;margin:0px auto;background-color: #c4d3df;">
+		<img src="http://{{ modulo.url}}/imagens_email/cabecalho.jpg?utc={{ utc }}" />
+		<div style="padding:1em">
+			<h1 style="font-size: 3em; text-align: center;">Seja bem-vind{{ aluno.genero_letra }}, {{ aluno.primeiro_nome }}!!</h1>
+			<p>Seu pedido de inscri&ccedil;&atilde;o foi realizado com sucesso.<br />Esperamos por voc&ecirc; no centro de uma poderosa estrutura de ensino.</p>
+			<h3 style="text-align: center;">Inscri&ccedil;&atilde;o</h3>
+			<p>Curso: {{ curso.nome }}</p>
+			{# <p>Periodo: {{ curso.dados_adicionais.periodo }}</p> #}
+		{% if usarenem == 'sim' %}
+			<p>Data entrega da documenta&ccedil;&atilde;o: {{ prova.data.hora()|date('d/m/Y') }}</p>
+			<p>Hor&aacute;rio: {% if periodo_manha %}das 08:30 &agrave;s 11:30{% else %}das 9:00 &agrave;s 21:00{% endif %}</p>
+			<p>N&atilde;o se esque&ccedil;a de trazer sua nota do ENEM v&aacute;lida.</p>
+		{% else %}
+			<p>Data da prova: {{ prova.data.hora()|date('d/m/Y') }}</p>
+			<p>Hora da prova: {{ prova.data.hora()|date('H:i') }}</p>
+		{% endif %}
+			<p>Local da prova: Av. Joaquim Boer, 733 - Jardim Luciene - Americana/SP<br />
+			Recepção Portaria 4</p>
+
+			<h3 style="text-align: center;">Documentos Necess&aacute;rios</h3>
+
+			<ul>
+				<li>Fotoc&oacute;pia certificado de conclus&atilde;o do Ensino M&eacute;dio ou equivalente;</li>
+				<li>Fotoc&oacute;pia hist&oacute;rico Escolar do Ensino M&eacute;dio (complementa o Certificado de Conclus&atilde;o);</li>
+				<li>Fotoc&oacute;pia certid&atilde;o de Nascimento ou Casamento;</li>
+				<li>Fotoc&oacute;pia c&eacute;dula de Identidade;</li>
+				<li>Fotoc&oacute;pia CPF;</li>
+				<li>Fotoc&oacute;pia T&iacute;tulo de Eleitor;</li>
+				<li>Fotoc&oacute;pia certificado de Reservista (se maior de 18 anos)</li>
+				<li>Fotoc&oacute;pia comprovante de Endere&ccedil;o.</li>
+			</ul>
+
+			<p>Obs: Para os candidatos menores de 18 anos &eacute; necess&aacute;ria a presen&ccedil;a do respons&aacute;vel legal com fotoc&oacute;pias da Carteira de Identidade e do CPF, para a assinatura do Contrato de Presta&ccedil;&atilde;o de Servi&ccedil;os Educacionais.</p>
+
+			{# <p>Os cursos de Letras, Tecnologia em Log&iacute;stica, Tecnologia em Redes de Computadores, Tecnologia em Marketing, Tecnologia em Recursos Humanos, Tecnologia em Design Gr&aacute;fico e Tecnologia em Petr&oacute;leo e G&aacute;s possuem 50% de desconto nas mensalidades durante todo o curso mediante o preenchimento do PSE (Perfil S&oacute;cio Econ&ocirc;mico) e entrega dos documentos requeridos no Depto. Social.</p> #}
+			
+			<p style="text-align:center;"><strong>Facilite sua pr&eacute; matr&iacute;cula preenchendo dados adicionais.</strong></p>
+			<p><a style="display: block;padding: 0.25em 0.75em;font-size: 1.5em;border: none;border-radius: 9px;color: #fff;font-weight: bolder;font-style: italic;background-color: #0b2f7f;box-shadow: -3px 3px 0px #082e5a;text-align: center;margin: 2em auto;cursor: pointer;text-decoration: none;" href="http://{{ modulo.url }}/inscricao/adicionais?cpf={{ aluno.cpf }}">Inserir Dados Adicionais</a></p>
+
+			<p>Esperamos por voc&ecirc;!</p>
+
+			<p>Veja como chegar:</p>
+			<p><img src="http://{{ modulo.url}}/imagens_email/mapa-fam.png" width="100%"></p>
+			<p><strong>Hor&aacute;rio de Funcionamento:</strong> Segunda a Sexta-feira das 9h00 &agrave;s 21h00, s&aacute;bados das 08h30 &agrave;s 11h30.</p>
+			<p style="text-align:center;">Email: vestibular@fam.br | Whatsapp (19) 99437.9555 | Tel.: (19) 3465.8100</p>
+		</div>
+		{# <img src="http://{{ modulo.url}}/imagens_email/rodape.png?utc={{ utc }}" /> #}
+
+	</p>
+</body>
+</html>
+
+{% endspaceless %}

@@ -1,0 +1,49 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-home' %}
+
+{% block body %}
+<!-- Principal -->
+<main id="page-home" class="container fit-height">
+	<div class="row fit">
+		<div id="acfam-home-form" class="col-md-4 full-height">
+			<!-- Centralizar verticamente o formulário -->
+			<div class="row full-height align-items-start">
+				<div class="col">
+					<!-- Aqui é o formulário padrão de cadastro -->
+					<form action="/inscricao" method="post" class="form-home">
+						{{ csrf_field() }}
+
+						<img src="/assets/images/home-campanha-logo.png" class="d-block d-md-none" />
+						<the-mask required name="cpf" class="form-control" type="text" placeholder="Insira seu CPF" :mask="['###.###.###-##']"></the-mask>
+						<div class="inputs-hidden">
+							<input required name="candidato[nome]" class="form-control" type="text" placeholder="Insira seu Nome" />
+							<input required name="candidato[email]" class="form-control" type="email" placeholder="Insira seu E-mail" />
+						</div>
+						<fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+						<input class="btn cta" type="submit" value="Continuar" />
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="acfam-home-artwork" class="col-md-8 full-height d-none d-md-block">
+			<!-- Aqui serão inseridas as artes de campanha (roupagem) -->
+			<img src="/assets/images/home-campanha-logo.png" class="art allow-larger-width" style="top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; margin-left: -25%;" />
+			<img src="/assets/images/home-anim-pessoa.png" class="art allow-larger-width" style="bottom: 0px; left: 0px; max-width: 100%; margin-left: -50%; transform: translateY(-17%); margin-bottom: 0px;" />
+		</div>
+	</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+	<!-- Script da Página -->
+	<script type="text/javascript" src="/assets/js/page-index.js"></script>
+
+	<!-- Styles da Página -->
+	<link rel="stylesheet" type="text/css" href="/assets/css/page-index.css" />
+
+	{% if error %}
+		<script>alert('{{ error }}');</script>
+	{% endif %}
+{% endblock %}

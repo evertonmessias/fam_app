@@ -1,0 +1,75 @@
+<div id="score">
+	<h3>Você se identifica mais com: {{ area.nome|title }}</h3>
+	<p>{{ area.descricao|nl2br }}</p>
+
+	<h4>Cursos da Área</h4>
+	<p>
+		<div class="cursos">
+			{% for curso in cursos %}
+				<div class="curso">
+					<a target="_blank" href="{{ curso.landing_page }}">{{ curso.nome }}</a><br />
+				</div>
+			{% endfor %}
+		</div>
+	</p>
+
+</div>
+
+<style type="text/css">
+#score p {
+	text-align: justify;
+	text-justify: inter-word;
+	display: flex;
+	justify-items: center;
+}
+#score p br {
+    display: block;
+    margin: 1em;
+    content: ' ';
+}
+#score p a {
+    display: block;
+    color: inherit;
+}
+
+.cursos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
+.curso{
+    max-width: 265px;
+	min-width: 265px;
+    background: linear-gradient(90deg,#3849a9, #00b8fe);
+	background-size: auto 200%;
+    background-position: 0 100%;
+    transition: background-position 0.5s;
+    padding: 1px 2px; 
+    margin-bottom: 20px;
+    min-height: 62px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.curso:hover {
+	background-position: 100% 0;
+}
+
+.curso a {
+	color: #fff;
+	font-size: 0.65em;
+}
+
+.curso a:hover {
+	color: lightblue;
+}
+
+@media (max-width: 768px) {
+	#score p { text-align: center; }
+}
+</style>
+
+<script type="text/javascript">setCover('{{ area.id }}.jpg');</script>

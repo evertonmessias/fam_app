@@ -1,0 +1,13 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+
+{% set title = 'Editar Nota Fiscal' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+	{{ form.editar_nota (nota, notas, campanhas, midias) }}
+	</div>
+</div>
+{% endblock %}

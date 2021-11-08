@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% include 'TOP::includes.head' %}
+</head>
+<body>    
+
+<section class="full" id="bg-home">   
+    <div class="container">
+        <div class="row">
+             <div class="col-lg-6 col-lg-offset-3 inicio">
+            {% if custom_branding %}
+                <img border="0" src="{{ custom_branding }}/img/fam.png" />
+            {% else %}
+                <img border="0" src="img/fam.png" />
+            {% endif %}
+                <p style="font-size:1.2em;">Ainda não se decidiu?</p>
+                <p>Calma, escolher seu curso é uma decisão crucial para começar a sua carreira.<br>Sabendo dessa dificuldade criamos um teste da análise do seu perfil, para saber com quais cursos você se identifica.</p>
+                <p><b>Vamos Começar?</b></p><br>
+                <form action="quiz" method="post" id="go_quiz">
+                    {{ csrf_field() }}
+                    <input type="text" name="nome" id="input-nome" class="campo" placeholder="INSIRA SEU NOME COMPLETO">
+                    <input type="email" name="email" id="input-email" class="campo" placeholder="INSIRA SEU E-MAIL">
+                    <p>OU</p>
+                    <fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+                </form>
+                {# <img border="0" src="img/entrar-com-facebook.png" /> #}
+            </div>
+            <div class="col-lg-1">
+                <a href="#" onclick="$('#go_quiz').submit();">
+                    <img border="0" src="img/seta-right.png" align="right" class="seta" style="margin-top:300px" />
+                </a>
+            </div>
+		</div>
+    </div>  
+    <div class="col-lg-6 col-lg-offset-3">
+        <center>            
+            <br><br>
+            <p style="font-size:.8em;">Desenvolvido por <a href="http://www.b2s.marketing" target="_blank">B2S Marketing</a></p>
+        </center>    
+    </div>
+</section> 
+
+<script type="text/javascript">
+function fb_login (x) {
+    if (x.status == 'connected') {
+        $('#loader').fadeIn(350);
+
+        FB.api('/me?fields=id,name,gender,email', (response) => {
+            if (response.name)
+                $('#input-nome').val(response.name);
+
+            if (response.email)
+                $('#input-email').val(response.email);
+
+            $('#go_quiz').submit();
+        });
+    }
+}
+</script>
+
+</body>
+</html>

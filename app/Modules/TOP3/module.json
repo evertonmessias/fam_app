@@ -1,0 +1,9 @@
+{
+	"name": "Teste de Orientação Profissional 3.0",
+	"options": {
+		"custom_branding": {
+			"type": "text",
+			"label": "Branding Personalizado :"
+		}
+	}
+}

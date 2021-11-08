@@ -1,0 +1,15 @@
+<div id="score">
+    <img border="0" src="img/logo.png" class="score-img" alt="FAM 20 anos | Teste de Orientação Profissional" />
+	<h3 class="score-title">Você se identifica mais com:<br/>{{ area.nome|title }}</h3>
+	<p>{{ area.descricao|nl2br }}</p>
+
+    <div class="cursos">
+        {% for curso in cursos %}
+            <a target="_blank" class="link" href="{{ curso.landing_page }}">
+                <div class="curso">
+                {{ curso.nome }}<br />
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>

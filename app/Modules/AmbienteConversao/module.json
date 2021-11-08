@@ -1,0 +1,33 @@
+{
+	"name": "Ambiente de Conversão",
+	"options": {
+		"campanha": {
+			"type": "model",
+			"model": "Campanha",
+			"value": "id",
+			"display": "{{ nome }}",
+			"label": "Campanha * :",
+			"control": "select"
+		},
+		"url_edital": {
+			"type": "text",
+			"label": "URL do Edital :"
+		},
+		"diretorio": {
+			"type": "text",
+			"label": "Pasta (assets, templates, etc) :"
+		},
+		"desativar": {
+			"type": "radio",
+			"label": "Desativar Inscrições?",
+			"values": [
+				{ "label": "Não", "default": true, "value": "0" },
+				{ "label": "Sim", "value": "1" }
+			]
+		},
+		"redirecionar": {
+			"type": "text",
+			"label": "Redirecionar para (se desativado):"
+		}
+	}
+}

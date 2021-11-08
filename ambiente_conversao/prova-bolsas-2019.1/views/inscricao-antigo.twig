@@ -1,0 +1,224 @@
+{% extends 'layout.html' %}
+{% block pagina %}
+<header class="banner-inscricao">
+	<div class="layout">
+		<h2 id="vc-no-topo">Você no <span>topo!</span></h2>
+		<h2 id="nome-curso">{{ curso['nome'] }}</h2>
+	</div>
+	<h2 id="nome-curso-mobile">{{ curso['nome'] }}</h2>
+</header>
+<main>
+	<div class="layout">
+		<div class="center">
+			<div id="info-curso">
+				<div>
+					<span>Modalidade</span>
+					<span>{{ curso['modalidade'] }}</span>
+				</div>
+				<div>
+					<span>Dura&ccedil;&atilde;o</span>
+					<span>{{ curso['duracao'] }}</span>
+				</div>
+				<div>
+					<span>Campus</span>
+					<span>{{ curso['campus'] }}</span>
+				</div>
+				<div>
+					<span>Taxa de Inscrição</span>
+					<span>{{ curso['taxa'] }}</span>
+				</div>
+				<div>
+					<span>{{ curso['periodo'] }}</span>
+					<span>{{ curso['preco'] }}</span>
+				</div>
+				<div>
+					<span>{{ curso['modo'] }}</span>
+					<span>FAM-Americana</span>
+				</div>
+			</div>
+		</div>
+		<h3 id="inicio-aulas">In&iacute;cio das aulas Agosto 2016</h3>
+		<div id="desconto-regressivo" class="center">
+			<h3>Desconto Regressivo</h3>
+			<img src="{{ url_root }}/img/desconto-regressivo.png" />
+			<h4>Aproveite antes que os descontos derretam</h4>
+			<p>O desconto regressivo refere-se ao pagamento da matr&iacute;cula (1&ordf; mensalidade) realizada dentro do m&ecirc;s indicado na figura.
+<br />**Exceto para cursos de Tecnologia, Ci&ecirc;ncias Cont&aacute;beis e Letras.</p>
+		</div>
+		<div id="detalhes-curso">
+			<div class="tab-container">
+				<section class="tab active" title="Sobre o Curso">
+					<div class="video-container full-width">
+						<div class="youtube video" data-video="{{ curso['video'] }}"></div>
+						{{ curso['descricao']|raw }}
+					</div>
+				</section>
+				<section class="tab" title="Mercado de Trabalho">{{ curso['mercado']|raw }}</section>
+				<section class="tab" title="Grade Curricular">{{ curso['grade']|raw }}</section>
+				<section class="tab" title="Coordenador do Curso">{{ curso['coordenador']|raw }}</section>
+			</div>
+			<div class="center">
+				<a id="inscricao-continuar" class="button-cta">Preencher dados adicionais</a>
+			</div>
+		</div>
+		<div id="inscricao-dados" {% if inscricao['datanascimento'] %} class="open" {% endif %} { >
+			<h4>Voc&ecirc; escolheu:</h4>
+			<h5 class="center">{{ curso['nome'] }}</h5>
+			<form action="{{ url_finaliza }}" method="post">
+				<div class="input full">
+					<input required="required" type="text" name="nome" readonly="readonly" value="{{ inscricao['nome'] }}">
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="Data de Nasc." type="text" name="nasc" data-mask="99/99/9999" value="{{ inscricao['datanascimento'] }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="Telefone" type="text" name="tel" data-mask="(99) 9999-9999" value="{{ inscricao['tel'] }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="Celular" type="text" name="cel" data-mask="(99) 99999-9999" value="{{ inscricao['cel'] }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="CEP" type="text" name="cep" data-mask="99999-999" value="{{ inscricao['cep'] }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="Endere&ccedil;o" type="text" name="endereco" value="{{ inscricao['endereco'] }}" />
+				</div>
+				<div class="input third">
+					<input required="required" placeholder="N&ordm;" type="text" name="numero" value="{{ inscricao['numero'] }}" />
+				</div>
+				<div class="input half">
+					<input placeholder="Complemento" type="text" name="complemento" value="{{ inscricao['complemento'] }}" />
+				</div>
+				<div class="input half">
+					<input required="required" placeholder="Bairro" type="text" name="bairro" value="{{ inscricao['bairro'] }}" />
+				</div>
+				<div class="input fourth fill">
+					<input required="required" placeholder="Cidade" type="text" name="cidade" value="{{ inscricao['cidade'] }}" />
+				</div>
+				<div class="input fourth">
+					<input required="required" placeholder="UF" type="text" name="uf" maxlength="2" value="{{ inscricao['uf'] }}" />
+				</div>
+				<div class="input half responsive-full">
+					<input required="required" placeholder="CPF" type="text" name="cpf" readonly="readonly" value="{{ inscricao['cpf'] }}" />
+				</div>
+				<div class="input half responsive-full">
+					<input required="required" placeholder="RG" type="text" name="rg" data-mask="99.999.999-9" value="{{ inscricao['rg'] }}" />
+				</div>
+				<div class="input">
+					<div class="select">
+						<select required="required" name="conheceu">
+							<option value="">Como nos conheceu?</option>
+							<option value="Internet">Internet</option>
+							<option value="Indica&ccedil;&atilde;o">Indica&ccedil;&atilde;o</option>
+							<option value="Jornal">Jornal</option>
+							<option value="Outdoor">Outdoor</option>
+							<option value="R&aacute;dio">R&aacute;dio</option>
+							<option value="Outros">Outros</option>
+						</select>
+					</div>
+				</div>
+				<div class="input">
+					<div class="select">
+						<select required="required" name="sexo">
+							<option value="">Sexo:</option>
+							<option value="M" {% if inscricao['sexo'] == 'M' %} selected="selected" {% endif %}>Masculino</option>
+							<option value="F" {% if inscricao['sexo'] == 'F' %} selected="selected" {% endif %}>Feminino</option>
+						</select>
+					</div>
+				</div>
+				<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="medio">
+							<option value="">Onde conclu&iacute;u o ensino m&eacute;dio?</option>
+							<option value="publica" {% if inscricao['tipoescola'] == 'publica' %} selected="selected" {% endif %}>P&uacute;blica</option>
+							<option value="particular" {% if inscricao['tipoescola'] == 'particular' %} selected="selected" {% endif %}>Particular</option>
+						</select>
+					</div>
+				</div>
+				<div class="input responsive-full">
+					<div class="select">
+						<select required="required" name="enem">
+							<option value="">Utilizar nota do ENEM?</option>
+							<option value="sim" {% if inscricao['usarenem'] == 'sim' %} selected="selected" {% endif %}>Ingressar com nota do ENEM</option>
+							<option value="nao" {% if inscricao['usarenem'] == 'nao' %} selected="selected" {% endif %}>Ingressar com Vestibular</option>
+						</select>
+					</div>
+				</div>
+				<div class="input full">
+					<p>Candidatos com boletim do ENEM (realizados ap&oacute;s 2010) com nota de reda&ccedil;&atilde;o superior a 400 pontos n&atilde;o necessitam prestar vestibular, por&eacute;m &eacute; necess&aacute;rio selecionar uma data para apresenta&ccedil;&atilde;o do boletim (exceto notas do ENEM realizadas como treineiro).</p>
+				</div>
+				<div class="input responsive-full">
+					<p>Atendendo &agrave; Portaria Normativa n&ordm; 21, de 28 de agosto de 2013, com rela&ccedil;&atilde;o &agrave; ra&ccedil;a/cor, o candidato se autodeclara:</p>
+				</div>
+				<div class="input responsive-full">
+					<div class="select">
+						<select name="cor">
+							<option value="">Autodeclara&ccedil;&atilde;o ra&ccedil;a/cor:</option>
+							{% for raca in racas %} 
+							<option value="{{ raca['codigo'] }}" {% if inscricao['raca'] == raca['codigo'] %} selected="selected" {% endif %}>{{ raca['raca'] }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="input full" id="deficiencia-container">
+					<div required="required" class="select">
+						<select name="def" id="deficiencia">
+							<option value="">Possui alguma defici&ecirc;ncia?</option>
+							<option value="sim" {% if inscricao['deficiencia'] == 'sim' %} selected="selected" {% endif %}>Sim</option>
+							<option value="nao" {% if inscricao['deficiencia'] == 'nao' %} selected="selected" {% endif %}>N&atilde;o</option>
+						</select>
+					</div>
+				</div>
+				<div class="input responsive-full" id="deficiencia-qual">
+					<div class="select">
+						<select name="ql">
+							<option value="">Qual?</option>
+							{% for deficiencia in deficiencias %}
+							<option value="{{ deficiencia['codigo'] }}" {% if deficiencia.codigo == inscricao['qualdeficiencia'] %} selected="selected" {% endif %}>{{ deficiencia['deficiencia'] }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="input full" id="deficiencia-condicoes">
+					<input placeholder="Condi&ccedil;&otilde;es especiais para a realiza&ccedil;&atilde;o da prova:" type="text" name="cond" value="{{ inscricao['cond'] }}" />
+				</div>
+				<div class="input full">
+					<div class="select">
+						<select required="required" name="newsletter">
+							<option value="">Receber novidades e informa&ccedil;&otilde;es de cursos por e-mail?</option>
+							<option value="sim">Sim</option>
+							<option value="nao">N&atilde;o</option>
+						</select>
+					</div>
+				</div>
+				<div class="input full">
+					<div class="select">
+						<select required="required" name="data">
+							<option value="">Escolher data da prova:</option>
+							{% for data in datas %}
+							<option value="{{ data['value'] }}">{{ data['data_ok'] }} - {{ data['titulo'] }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				{% if erro %}
+				<div id="error_msg" class="input full">
+					<div class="center">
+						<p>
+							{% if erro == 'data' %}
+							Por favor, selecione uma data para a prova!
+							{% elseif erro == 'dados' %}
+							Por favor, preencha todos os dados!
+							{% endif %}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+				<div class="input">
+					<input type="submit" class="button-cta" value="Conclu&iacute;r Inscri&ccedil;&atilde;o" />
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+{% endblock %}

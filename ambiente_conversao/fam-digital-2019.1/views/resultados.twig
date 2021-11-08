@@ -1,0 +1,62 @@
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<div class="layout" id="resultados-provas-vestibular">
+	<br />
+	<div class="resultados">
+		<div class="center">
+			<h3>Confira aqui o resultado de suas provas!</h3>
+		</div>
+		<form action="/resultados" method="post">
+			{{ csrf_field() }}
+			<div class="input full">
+				<input type="text" name="cpf" data-mask='999.999.999-99' placeholder="CPF" value="{{ aluno.cpf }}" />
+			</div>
+			<div class="input full">
+				<input type="submit" value="OK" />
+			</div>
+		</form>
+	{% if provas %}
+		<table>
+			<thead>
+				<tr>
+					<th>Data</th>
+					<th>Curso</th>
+					<th>Status</th>
+					<th>Nota</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for prova in provas %}
+				<tr class="{% if prova.aprovado %}prova-aprovado{% else %}prova-reprovado{% endif %}">
+					<td>{{ prova.data.hora|date('d/m/Y') }}</td>
+					<td>{{ prova.curso.nome }}</td>
+					<td>{{ prova.status }}</td>
+					<td>{% if prova.participou %}{{ prova.nota|number_format(2) }}{% else %}-{% endif %}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+	</div>
+</div>
+<style type="text/css">
+	input { width: 100%; }
+	.input { margin: 1em auto; }
+	form {
+		max-width: 20em;
+		margin: 1em auto;
+	}
+	table {
+		width: 100%;
+		background-color: #0b2f7f;
+		color: #fff;
+	}
+	td, th {
+		text-align: center;
+		padding: 0.4em 1em !important;
+	}
+	.prova-aprovado {
+		background-color: #093e99;
+	}
+</style>
+{% endblock %}

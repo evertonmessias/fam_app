@@ -1,0 +1,88 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_prova' as form %}
+
+{% set title = 'Datas de Prova' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Visualizando Dia de Prova</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                <div class="row">
+					<div class="col-md-2">
+						<label>Data e Hora:</label>
+						<div>{{ data.hora|date('d/m/Y H:i') }}</div>
+					</div>
+					<div class="col-md-2">
+						<label>Status:</label>
+						<div>{{ data.status }}</div>
+					</div>
+					<div class="col-md-4">
+						<label>Local:</label>
+						<div>{{ data.local.local }}</div>
+					</div>
+					<div class="col-md-4">
+						<label>Unidade:</label>
+						<div>{{ data.local.unidade.nome }}</div>
+					</div>
+                </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Provas e Alunos</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Lead #</th>
+                        <th>Aluno</th>
+                        <th>Curso</th>
+                        <th>Campanha</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+					{% for prova in data.provas %}
+						<tr>
+							<th scope="row">{{ prova.id }}</th>
+							<td>{{ prova.lead.id }}</td>
+							<td><a target="_blank" href="/alunos/{{ prova.aluno.id }}/">{{ prova.aluno.nome }}</a></td>
+							<td><a target="_blank" href="/cursos/{{ prova.curso.id }}/">{{ prova.curso.nome }}</a></td>
+							<td><a target="_blank" href="/campanhas/{{ prova.campanha.id }}/">{{ prova.campanha.nome }}</a></td>
+							<td>{{ prova.status }}</td>
+						</tr>
+					{% endfor %}
+                    </tbody>
+                  </table>
+
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

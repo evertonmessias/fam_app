@@ -1,0 +1,98 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.link_display' as exibir %}
+
+{% set title = 'Visualizar Fornecedor' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Visualizando Fornecedor</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <label>CNPJ:</label>
+              <div>{{ fornecedor.cnpj }}</div>
+              <br />
+
+              <label>Razão Social:</label>
+              <div>{{ fornecedor.razao_social }}</div>
+              <br />
+              
+              <label>Nome Fantasia:</label>
+              <div>{{ fornecedor.nome_fantasia }}</div>
+              <br />
+
+              <div>
+                <a class="btn btn-success" href="{{ exibir.url_admin('financeiro/fornecedores', fornecedor.id, 'edit') }}">Editar</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Informações de Contato</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            <div class="row">
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <label>Nome do Contato:</label>
+                <div>{{ fornecedor.c_nome }}</div>
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <label>Cargo do Contato:</label>
+                <div>{{ fornecedor.c_cargo }}</div>
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <label>Gerente do Contato:</label>
+                <div>{{ fornecedor.c_gerente }}</div>
+              </div>
+            </div>
+            <br />
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <label>Telefone:</label>
+                <div>{{ fornecedor.fone }}</div>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <label>Telefone Alternativo:</label>
+                <div>{{ fornecedor.fone_alt }}</div>
+              </div>
+            </div>
+            <br />
+
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <label>E-mail:</label>
+                <div>{{ fornecedor.email }}</div>
+              </div>
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <label>E-mail Alternativo:</label>
+                <div>{{ fornecedor.email_alt }}</div>
+              </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+</div>
+{% endblock %}

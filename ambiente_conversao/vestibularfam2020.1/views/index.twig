@@ -1,0 +1,80 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-home' %}
+
+{% block body %}
+
+	<!-- Principal -->
+
+<!--
+	<div class="pop">
+		<div class="msg">
+			<img src="/assets/images/pop-up-aviso.jpg" onclick="apaga()"></a>
+		<a href="https://provadebolsas.com.br" target="_blank">
+			<button class="bolsa">Clique Aqui e Inscreva-se</button>
+		</a>
+	</div>
+</div>
+-->
+
+<main id="page-home" class="container fit-height">
+	<div
+		class="row fit mt-4 mt-md-0 index">
+		<!--div id="acfam-home-artwork" class="col-md-8 full-height d-none d-md-block">
+					{# <img src="/assets/images/home-campanha-logo.png" class="art top right overflow allow-larger-width" /> #}
+				</div-->
+		<img class="img-home-person d-none d-md-block" src="/assets/images/index.png">
+		<div
+			id="acfam-home-form" class="col-md-7 pt-md-5 full-height">
+			<!-- Centralizar verticamente o formulário -->
+			<div class="row full-height align-items-end">
+				<div
+					class="col">
+					<!-- Aqui é o formulário padrão de cadastro -->
+					<form id="form" action="/inscricao" method="post" class="form-home">
+						{{ csrf_field() }}
+						<the-mask onkeypress="Valida();" required name="cpf" id="cpf" class="form-control cpf" type="tel" placeholder="Insira seu CPF" :mask="['###.###.###-##']" title="Por favor insira seu CPF"></the-mask>
+						<div class="oculto">
+							<input oninput="Submeter();" required name="candidato[nome]" id="nome" class="form-control" type="text" placeholder="Nome" title="Por favor insira seu nome"/>
+							<input oninput="Submeter();" required name="candidato[sobrenome]" id="sobrenome" class="form-control" type="text" placeholder="Sobrenome" title="Por favor insira seu Sobrenome"/>
+							<input oninput="Submeter();" required name="candidato[email]" id="email" class="form-control" type="email" placeholder="E-mail" title="Por favor insira seu e-mail"/>
+							<the-mask oninput="Submeter();" class="form-control" name="candidato[celular]" id="celular" type="tel" placeholder="Celular/WhatsApp" required :mask="['(##) ####-####', '(##) #####-####']" title="Por favor insira seu celular"></the-mask>
+							<select oninput="Submeter();" required name="curso" id="curso" class="form-control curso">
+								<option selected :value="null">Selecione um curso...</option>
+								<option v-for="curso in cursos_sort" :value="curso.id" v-html="curso.nome"></option>
+							</select>
+						</div>
+						<!--<fb:login-button onclick="fb_login_start" onlogin="fb_login" scope="public_profile,email" max-rows="1" size="large" button-type="continue_with" show-faces="false" auto-logout-link="false" use-continue-as="true"></fb:login-button>
+												<br>
+												<input class="btn cta" type="submit" value="Continuar" />-->
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+<script language="javascript" type="text/javascript">
+	function apaga() {
+$('.pop').css({'display': 'none'});
+}
+/*
+window.open('/assets/pop/pop.html','page','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=520,height=520');
+*/
+</script>{% endblock %}{% block scripts %}
+<!-- Script da Página -->
+<script type="text/javascript" src="/assets/js/page-index.js"></script>
+<script type="text/javascript" src="/assets/js/update.js"></script>
+<script type="text/javascript" src="/assets/js/validador.js"></script>
+
+<!-- Styles da Página -->
+<link rel="stylesheet" type="text/css" href="/assets/css/page-index.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/update.css"/>
+
+{% if error %}
+	<script>
+		alert('{{ error }}');
+	</script>
+{% endif %}{% endblock %}

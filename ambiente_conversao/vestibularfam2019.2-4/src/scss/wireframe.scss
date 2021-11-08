@@ -1,0 +1,30 @@
+// Critical
+body, nav, #page-inscricao header > .container:after {
+	background-color: #F66 !important;
+	background-image: none !important;
+}
+
+// Maybe
+main, #page-inscricao header {
+	background-color: #FF6 !important;
+}
+
+// Good
+#acfam-home-artwork, #page-inscricao header > div {
+	background-color: #6F6 !important;
+}
+
+#page-inscricao header > .container {
+	position: relative;
+	z-index: 1;
+	&:after {
+		content: ' ';
+		display: block;
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		height: 50%;
+		z-index: -1;
+	}
+}

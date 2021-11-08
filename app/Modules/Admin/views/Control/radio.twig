@@ -1,0 +1,8 @@
+<label>{{ option.label }}</label><br />
+{% for opt in option.values %}
+{% if (current is empty) and (opt.default) %}{% set current = opt.value %}{% endif %}
+	<label for="{{ name_prefix }}[{{ name }}][{{ loop.index0 }}]">
+		<input type="radio" id="{{ name_prefix }}[{{ name }}][{{ loop.index0 }}]" name="{{ name_prefix }}[{{ name }}]" value="{{ opt.value }}" {% if opt.value == current %}checked{% endif %} />
+		{{ opt.label }}
+	</label><br />
+{% endfor %}

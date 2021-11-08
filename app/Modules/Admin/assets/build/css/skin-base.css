@@ -1,0 +1,28 @@
+/* Animação de Login */
+
+@-webkit-keyframes login-show {
+    from { opacity: 0; margin-top: -5em; }
+    to { opacity: 1; margin-top: 0em; }
+}
+
+/* Folha de estilos do login */
+
+@media (min-width: 720px) {
+    .login_wrapper {
+        position: relative;
+        margin: 0px;
+        padding: 0px;
+        width: 100vw;
+        height: 100vh;
+        max-width: initial;
+        max-height: initial;
+    }
+    .login_form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 350px;
+        -webkit-animation: login-show 1s ease forwards;
+    }
+}

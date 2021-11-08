@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% include 'TOP::includes.head' %}
+    <link rel="stylesheet" href="css/loading-bar.css" />
+</head>
+<body> 
+<section class="full" id="bg-perguntas"> 
+    <div id="cover">
+
+    </div>
+    <div class="container">
+        <div class="row">
+           {# <div class="col-lg-8 col-lg-offset-2 inicio"> #}
+           <div class="col-lg-12 inicio">
+            {% if custom_branding %}
+                <img border="0" src="{{ custom_branding }}/img/fam.png" />
+            {% else %}
+                <img border="0" src="img/fam.png" />
+            {% endif %}      
+                <section class="content container-fluid" id="quiz"></section>
+                <center>
+                    <button id="prev" style="transform: rotateY(180deg);"></button>             
+                    <button id="next"></button>             
+                    <button id="start">Começar novamente</button>
+                </center>
+            </div>
+        </div>    
+    </div>
+    <div class="col-lg-6 col-lg-offset-3">
+        <center>          
+            <br><br>
+            <div class="ldBar label-center" data-preset="rainbow" data-value="0" id="quizProgress"></div>
+            <br><br><br><br>
+            <p style="font-size:.8em;">Desenvolvido por <a href="http://www.b2s.marketing" target="_blank">B2S Marketing</a></p>
+        </center>    
+    </div>
+    <br style="clear:both" />
+</section>
+<form id="resultados" action="/resultados" method="post" style="display:none;">{{ csrf_field() }}</form>
+<script src="js/loading-bar.min.js"></script>
+<script src="js/index.js"></script>  
+</body>
+</html>

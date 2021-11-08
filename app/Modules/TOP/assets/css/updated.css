@@ -1,0 +1,14 @@
+#bg-home, #bg-perguntas {
+	background-image: url(../img/bg-home.png);
+	background-size: cover;
+}
+
+#quizProgress {
+	width:80%!important;
+	height: 100px!important;
+}
+
+.ldBar-label {
+	font-family: courier new;
+	font-weight: 200;
+}

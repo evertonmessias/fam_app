@@ -1,0 +1,53 @@
+{% extends 'AmbienteConversao::layout.twig' %}
+
+{% set page_id = 'page-finalizar-inscricao' %}
+
+{% block body %}
+<main class="container">
+	<div class="row">
+		<div class="row-header offset-md-1 col-md-7">
+			<h1>Parabéns<br/><span>{{ aluno.primeiro_nome }}!</span></h1>
+            <p>seu pedido de inscrição foi realizado com sucesso!</p>
+		</div>
+		<div class="row-header-cursos offset-md-1 col-md-7">
+			<div class="row">
+				<div class="col-md-4 fit-height">
+					<div class="opcao-curso principal fit {% if lead.isMatriculado(opcoes_curso[0]) %}matriculado{% endif %}">
+						<h2>Primeira Opção de Curso</h2>
+						<p>
+							{{ opcoes_curso[0].nome }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content offset-md-1 col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Detalhes da Inscrição</h2>
+					<p><strong>Enviamos um e-mail com mais detalhes sobre sua inscrição.</strong></p>
+					<p>
+						<strong>Data da matrícula:</strong><br />
+						{{ prova.data.hora|date('w')|dia_semana }}, {{ prova.data.hora|date('d/m/Y') }}
+					</p>
+					<p>
+						<strong>Horário:</strong><br />
+						Das 13h às 21h de segunda à sexta ou das 08h30 às 11h aos sábados.
+					</p>
+					<p>
+						<strong>Local da matrícula:</strong><br />
+						{{ prova.local.local }}<br />{{ prova.local.endereco }}
+					</p>
+
+					<p class="accent"><strong>Esperamos por você!</strong></p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <img src="/assets/images/titulo.png" class="d-block d-md-none mt-4 apoio" alt="Curso Técnico é FAM."/>
+</main>
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

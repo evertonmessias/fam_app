@@ -1,0 +1,26 @@
+{% extends 'LP::layout' %}
+
+{% set title = 'Revisaço ENEM — Faculdade de Americana' %}
+{% set meta_desc = '' %}
+{% set meta_keyw = '' %}
+
+{% block head %}
+    <script src="/assets/js/index.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="home">
+    <div class="container">
+        <!-- Logo -->
+        <img class="logo" alt="Revisaço ENEM" src="/assets/img/home-logo.png" />
+
+        <!-- Form -->
+        <form method="post" action="" class="js-form">
+            {{ csrf_field() }}
+            <input class="form-control js-cpf" type="text" placeholder="CPF" name="cpf" required />
+            <input class="btn btn-primary enviar js-enviar" type="submit" value="Inscrever-se" disabled />
+        </form>
+    </div>
+</div>
+{% endblock %}
+

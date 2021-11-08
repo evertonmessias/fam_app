@@ -1,0 +1,43 @@
+{# link_display.twig
+ # Este arquivo é usado para exibir e converter informações em todo admin, de forma global.
+ # Qualquer alteração em determinada função irá refletir em todas views.
+ # Recomenda-se usar macros no seguinte formato:
+ # - nome_do_model (id, texto) => Chama a função 'link_admin' para exibir o link para o modelo com o id
+ # - nome_do_model_propriedade (objeto) => Chama a função 'nome_do_model', aplicando quaisquer modificações no 'objeto' e utilizando suas propriedades
+ #}
+
+{# Campanha #}
+{% macro campanha_nome (campanha) %}{{ _self.link_admin (campanha.nome, 'campanhas', campanha.id) }}</a>{% endmacro %}
+
+{# Nota Fiscal #}
+{% macro nota (id, texto) %}{{ _self.link_admin (texto, 'financeiro/notas', id) }}</a>{% endmacro %}
+{% macro nota_codigo (nota) %}{{ _self.nota (nota.id, '#' ~ nota.numero) }}{% endmacro %}
+{% macro nota_fornecedor (nota) %}{{ _self.fornecedor_nome (nota.fornecedor) }}</a>{% endmacro %}
+{% macro nota_descritivo (nota) %}{{ _self.nota_codigo (nota) }} - {{ _self.nota_fornecedor(nota) }} ({{ nota.descricao }})</a>{% endmacro %}
+
+{# Mídias #}
+{% macro midia (id, texto) %}{{ _self.link_admin (texto, 'financeiro/midias', id) }}</a>{% endmacro %}
+{% macro midia_nome (midia) %}{{ _self.midia (midia.id, midia.nome) }}</a>{% endmacro %}
+{% macro midia_fornecedor (midia) %}{{ _self.fornecedor_nome (midia.fornecedor) }}</a>{% endmacro %}
+
+{# Fornecedores #}
+{% macro fornecedor (id, texto) %}{{ _self.link_admin (texto, 'financeiro/fornecedores', id) }}{% endmacro %}
+{% macro fornecedor_nome (fornecedor) %}{{ _self.fornecedor (fornecedor.id, fornecedor.nome) }}{% endmacro %}
+
+{# Breadcrumbs #}
+{% macro breadcrumbs (itens) %}{% if itens %}{{ itens|join(_self.breadcrumbs)|raw }}{% else %} <i class="fa fa-angle-right"></i> {% endif %}{% endmacro %}
+
+{# Data e Hora #}
+{% macro data (data) %}{{ data|date('d/m/Y') }}{% endmacro %}
+{% macro hora (data) %}{{ data|date('H:i') }}{% endmacro %}
+{% macro datahora (data) %}{{ _self.data(data) ~ ' ' ~ _self.hora(data) }}{% endmacro %}
+
+{# Monetário #}
+{% macro reais (valor) %}R$ {{ (((valor * 100)|floor)/100)|number_format(2, ',', '.') }}{% endmacro %}
+
+{# Porcentagem #}
+{% macro porcentagem (valor) %}{{ valor|number_format(2, ',', '.') }}%{% endmacro %}
+
+{# Link Admin #}
+{% macro url_admin (link, id, action) %}/{{ link }}{% if id %}/{{ id }}{% endif %}{% if action %}/{{ action }}{% endif %}{% endmacro %}
+{% macro link_admin (texto, link, id, action) %}<a target="_blank" href="{{ _self.url_admin (link, id, action) }}">{{ texto }}{% endmacro %}

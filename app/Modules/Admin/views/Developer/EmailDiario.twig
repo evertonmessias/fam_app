@@ -1,0 +1,55 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'E-mail Diário' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>E-mail Diário</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>E-mail</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                  {% for email in emails %}
+                      <tr>
+                        <th scope="row">{{ email.value }}</th>
+                        <td><a href="/dev/email-diario?remove={{ email.id }}">Remover</a></td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                  </table>
+        
+                  <div>
+                    <form method="post" action="/dev/email-diario">
+                      {{ csrf_field() }}
+                      <br />
+                      <label>Inserir novo destinatário:</label>
+                      <input type="email" class="form-control" name="email" />
+                      <br />
+                      <input type="submit" class="btn btn-primary" value="Salvar" />
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<svg id="e-mail" xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #155bb3;
+      }
+
+      .cls-2 {
+        fill: #dea293;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="28.844" cy="29.5" r="27.781"/>
+  <path id="e-mail-2" data-name="e-mail" class="cls-2" d="M10.468,16.383V43.464h35.9V16.383h-35.9ZM28.419,33.107L13.694,18.391h29.45Zm-5.866-3.188L12.234,40.231V19.606Zm1.337,1.337,4.528,4.525,4.528-4.525,10.206,10.2H13.685Zm10.393-1.336L44.605,19.606V40.231Z"/>
+</svg>

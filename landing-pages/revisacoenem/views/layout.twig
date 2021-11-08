@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+
+    {% if meta_desc %}<meta name="description" content="{{ meta_desc }}" />{% endif %}
+    {% if meta_keyw %}<meta name="keywords" content="{{ meta_keyw }}" />{% endif %}
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block body %}{% endblock %}
+
+    <!-- JS -->
+    <script defer src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    {% block script %}{% endblock %}
+
+    <!-- CSS: Defer -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+</body>
+</html>

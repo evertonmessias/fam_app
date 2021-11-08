@@ -1,0 +1,97 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+{% import 'Admin::helpers.link_display' as exibir %}
+
+{% set title = 'Visualizar Nota Fiscal' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Visualizando Nota Fiscal</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+      			<div class="row">
+      				<div class="col-md-2 col-sm-12 col-xs-12">
+	            	<label>Número:</label>
+	            	<div>{{ nota.numero }}</div>
+	          	</div>
+      				<div class="col-md-6 col-sm-12 col-xs-12">
+	            	<label>Fornecedor:</label>
+	            	<div>{{ exibir.nota_fornecedor(nota) }}</div>
+	          	</div>
+      				<div class="col-md-2 col-sm-6 col-xs-6">
+	            	<label>Valor:</label>
+	            	<div>R$ {{ nota.valor|number_format(2, ',', '.') }}</div>
+	          	</div>
+      				<div class="col-md-2 col-sm-6 col-xs-6">
+	            	<label>Valor Total:</label>
+	            	<div>R$ {{ nota.valor_somado|number_format(2, ',', '.') }}</div>
+	          	</div>
+          	</div>
+          	<br />
+
+            <div class="row">
+              <div class="col-md-10 col-sm-12 col-xs-12">
+                <label>Descrição:</label>
+                <div>{{ nota.descricao }}</div>
+              </div>
+              <div class="col-md-2 col-sm-12 col-xs-12">
+                <label>&nbsp;</label>
+                <a class="form-control btn btn-success" href="{{ exibir.url_admin('financeiro/notas', nota.id, 'edit') }}">Editar</a>
+                <a class="form-control btn btn-danger" href="{{ exibir.url_admin('financeiro/notas', nota.id, 'remove') }}" onclick="return confirm('Excluir esta nota fiscal?');">Excluír</a>
+              </div>
+            </div>
+            <br />
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Notas Relacionadas</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            {{ tabela.listar_notas (nota.notas_relacionadas) }}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Campanhas</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            {{ tabela.listar_nota_campanhas (nota, false) }}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+</div>
+{% endblock %}

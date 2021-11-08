@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>Vestibular FAM</title>
+		<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/assets/css/update.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/assets/js/update.js"></script>
+		<script type="text/javascript" src="/assets/js/validador.js"></script>
+
+		<script type="text/javascript">
+			function apaga() {								
+				$("#form1").submit();				
+			}
+		</script>
+
+	</head>
+	<body id='page-adicionais'>
+		<div class="alteracoes vmatricula">
+			<img class="imgadd" src="/assets/images/fam2020.png">
+			<h3>Apagar CPF</h3>
+			<form id="form1" method="POST" action="/apaga">
+				{{ csrf_field() }}
+				<input class="form-control" id="cpf" name="cpf" maxlength="14" type="tel" placeholder="* Digite um CPF" onkeypress="MascaraCPF(this);"/><br>
+				<input class="form-control" name="senha" type="password" placeholder="* Digite a Senha"><br><br>
+				<input type="button" onclick="document.getElementById('form1');
+				if(!validaCPF(form1.cpf.value)){
+					form1.cpf.value='';document.getElementById('resp').innerHTML='Digite um CPF válido !';
+					}else{apaga();}" class="add" value="Apagar"/><br>
+				<br><br>
+				<h3 id="resp" style="color: #f00;">&nbsp;</h3>
+			</form>
+		</div>
+	</body>
+</html>

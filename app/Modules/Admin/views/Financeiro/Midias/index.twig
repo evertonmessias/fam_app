@@ -1,0 +1,33 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.form_financeiro' as form %}
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+
+{% set title = 'Tipos de Mídia' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Tipos de Mídia</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                {{ tabela.listar_midias (midias) }}
+
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+	    	{{ form.editar_midia (null, midias) }}
+
+    </div>
+</div>
+{% endblock %}

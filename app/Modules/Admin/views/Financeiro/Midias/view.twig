@@ -1,0 +1,56 @@
+{% extends ('Admin::layout') %}
+
+{% import 'Admin::helpers.tabela_financeiro' as tabela %}
+
+{% set title = 'Visualizar Mídia' %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Visualizando Mídia</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <label>Nome:</label>
+              <div>{{ midia.nome }}</div>
+              <br />
+
+              <label>Categoria:</label>
+              <div>{{ midia.categoria_arvore()|raw }}</div>
+              <br />
+              
+              <label>Código:</label>
+              <div>{{ midia.codigo }}</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Subtipos</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+            {{ tabela.listar_midias (midia.subtipos_all) }}
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+    </div>
+</div>
+{% endblock %}

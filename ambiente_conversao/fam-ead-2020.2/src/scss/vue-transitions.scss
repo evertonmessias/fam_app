@@ -1,0 +1,18 @@
+// fade_resize
+.fade_resize-enter-active, .fade_resize-leave-active {
+	transition: opacity .6s, max-height .6s;
+	max-height: 20em;
+	overflow: hidden;
+}
+.fade_resize-enter, .fade_resize-leave-to {
+	opacity: 0;
+	max-height: 0em;
+}
+
+// fade
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .6s;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}

@@ -1,0 +1,228 @@
+{% extends ('Admin::layout') %}
+
+{% set title = 'Alunos: ' ~ aluno.nome %}
+
+{% block content %}
+<div class="right_col" role="main">
+	<div class="">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Editando cadastro #{{ lead.id }} de {{ aluno.nome }}</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<form method="post" action="/alunos/{{ aluno.id }}/lead/{{ lead.id }}">
+
+							{{ csrf_field() }}
+
+							<div class="row">
+								<div class="col-md-2 col-sm-2 col-xs-3">
+									<label>ID :</label>
+									<div><input readonly type="text" class="form-control" value="{{ lead.id }}" /></div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-9">
+									<label>Campanha :</label>
+									<div><input readonly type="text" class="form-control" value="{{ lead.campanha.nome }}" /></div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>Status :</label>
+									<div><input readonly type="text" class="form-control" value="{{ lead.status.nome }}" /></div>
+								</div>
+								<div class="col-md-4 col-sm-4 col-xs-12">
+									<label>Data da Prova :</label>
+									<div>
+										<select class="form-control" name="data_prova">
+											<optgroup label="Data Selecionada (não reagendar):">
+												<option selected value="{{ lead.prova.data.id }}">{{ lead.prova.data.hora|date('d/m/Y') }} -
+													{{ lead.prova.data.hora|date('H:i') }} - {{ lead.prova.data.hora|date('w')|dia_semana }}
+												</option>
+											</optgroup>
+											<optgroup label="Datas Disponíveis (reagendar):">
+												{% for local in lead.campanha.locais_provas %}
+												{% if local.datas_provas_disponiveis %}
+											<optgroup label="{{ local.local }}">
+												{% for data in local.datas_provas_disponiveis.splice(0, 10) %}
+												<option value="{{ data.id }}">{{ data.hora|date('d/m/Y') }} - {{ data.hora|date('H:i') }} -
+													{{ data.hora|date('w')|dia_semana }}</option>
+												{% endfor %}
+											</optgroup>
+											{% endif %}
+											{% endfor %}
+											</optgroup>
+										</select>
+									</div>
+								</div>
+							</div>
+							<br />
+
+							<div class="row">
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>Opção de Curso p/ Matrícula :</label>
+									<div>
+										<select name="opcao_curso" class="form-control">
+											<option value="1" {% if lead.opcao_curso_1 == lead.curso_id %}selected{% endif %}>1ª Opção -
+												{{ lead.curso_primeira_opcao.nome }}</option>
+											{% if lead.opcao_curso_2 %}
+											<option value="2" {% if lead.opcao_curso_2 == lead.curso_id %}selected{% endif %}>2ª Opção -
+												{{ lead.curso_segunda_opcao.nome }}</option>
+											{% if lead.opcao_curso_3 %}
+											<option value="3" {% if lead.opcao_curso_3 == lead.curso_id %}selected{% endif %}>3ª Opção -
+												{{ lead.curso_terceira_opcao.nome }}</option>
+											{% endif %}
+											{% endif %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>1ª Opção de Curso :</label>
+									<div>
+										<select name="opcoes_curso[]" class="form-control">
+											{% for curso in lead.campanha.cursos %}
+											<option value="{{ curso.id }}" {% if curso.id == lead.opcao_curso_1 %}selected{% endif %}>
+												{{ curso.nome }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>2ª Opção de Curso :</label>
+									<div>
+										<select name="opcoes_curso[]" class="form-control">
+											<option value="">- Nenhuma -</option>
+											{% for curso in lead.campanha.cursos %}
+											<option value="{{ curso.id }}" {% if curso.id == lead.opcao_curso_2 %}selected{% endif %}>
+												{{ curso.nome }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>3ª Opção de Curso :</label>
+									<div>
+										<select name="opcoes_curso[]" class="form-control">
+											<option value="">- Nenhuma -</option>
+											{% for curso in lead.campanha.cursos %}
+											<option value="{{ curso.id }}" {% if curso.id == lead.opcao_curso_3 %}selected{% endif %}>
+												{{ curso.nome }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="clearfix"></div>
+							<hr />
+
+							<div class="row">
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<label>Conversão Manual de Lead :</label>
+									<div>
+										<select name="converter_lead" class="form-control">
+											<option value="0" selected>- Não Converter -</option>
+										{% for status in lead_status %}
+											<option value="{{ status.codigo }}">Base {{ status.base_id }} :: {{ status.nome }}</option>
+										{% endfor %}
+										{% if lead.campanha.id == 6 or auth_user().can('dev*') %}
+											<optgroup style="background-color:red;color:#fff" label="--- Opções de Desenvolvedor ---">
+												<option value="LEAD">Base 0 :: LEAD</option>
+											</optgroup>
+										{% endif %}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<label>Aviso :</label>
+									<div>
+										<p>Esta conversão manual é destinada apenas para casos onde o sistema não atualizou o status do lead
+											automaticamente. Seu uso acarretará em migrações de base em outros sistemas e um registro de
+											alteração sendo feito no histórico do lead.</p>
+									</div>
+								</div>
+							</div>
+
+						
+						{% if lead.prova %}
+							<div class="clearfix"></div>
+							<hr />
+
+							<div class="row">
+								<div class="col-md-12">
+									<label>Resultados da Prova</label>
+									<p>Abaixo você pode visualizar os resultados da prova do candidato no banco de dados.</p>
+									<p>A edição destes resultados está desativada e os mesmos são alimentados pelos sistemas internos do TI.</p>
+								</div>
+								<div class="col-md-1">
+									<label>Disponíveis</label>
+									<div>
+										<input class="form-control" disabled readonly value="{% if lead.prova.dados_disponiveis %}Sim{% else %}Não{% endif %}" />
+									</div>
+								</div>
+								<div class="col-md-1">
+									<label>Atualizados</label>
+									<div>
+										<input class="form-control" disabled readonly value="{% if lead.prova.dados_foram_atualizados %}Sim{% else %}Não{% endif %}" />
+									</div>
+								</div>
+								<div class="col-md-1">
+									<label>Participou</label>
+									<div>
+										<input class="form-control" disabled readonly value="{% if lead.prova.raw('participou') %}Sim{% else %}Não{% endif %}" />
+									</div>
+								</div>
+								<div class="col-md-1">
+									<label>Aprovado</label>
+									<div>
+										<input class="form-control" disabled readonly value="{% if lead.prova.raw('aprovado') %}Sim{% else %}Não{% endif %}" />
+									</div>
+								</div>
+								<div class="col-md-2">
+									<label>Nota</label>
+									<div>
+										<input class="form-control" disabled readonly value="{{ lead.prova.raw('nota') }}" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<label>Status (Prova)</label>
+									<div>
+										<input class="form-control" disabled readonly value="{{ lead.prova.status }}" />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<label>Status (Base)</label>
+									<div>
+										<input class="form-control" disabled readonly value="{{ lead.status.nome }}" />
+									</div>
+								</div>
+							</div>
+						{% endif %}
+
+
+							<div class="clearfix"></div>
+							<hr />
+							<br />
+
+							<div class="row">
+								<div class="col-xs-12">
+									<input type="submit" class="btn btn-success" value="Salvar" />
+									<input type="reset" class="btn btn-warning" value="Reverter" />
+									<input type="reset" class="btn btn-danger" value="Cancelar"
+										onclick="document.location='/alunos/{{ aluno.id }}'" />
+								</div>
+							</div>
+							<br />
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+{% endblock %}

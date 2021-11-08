@@ -1,0 +1,26 @@
+{% extends 'LP::layout' %}
+
+{% set title = 'FAM na Escola — Faculdade de Americana' %}
+{% set meta_desc = '' %}
+{% set meta_keyw = '' %}
+
+{% block body %}
+<div class="inscricao">
+    <div class="container">
+        <!-- Logo -->
+        <img class="logo" alt="FAM na Escola" src="/assets/img/insc-logo.png" />
+        
+        <!-- Chamada -->
+        <div class="row chamada">
+            <div class="col-md-7">
+                <h2>Sua inscrição foi recebida com sucesso!</h2>
+                <p>{{nome}}, estaremos entrando em contato em breve através do e-mail do responsável pela sua escola ({{ responsavel }}, {{ responsavel_email }}){% if responsavel_telefone %} ou pelo telefone cadastrado ({{ responsavel_telefone }}){% endif %}.</p>
+                <p>A Faculdade de Americana agradece o seu contato.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="skatista d-none d-md-block" alt="" src="/assets/img/insc-skatista.png" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

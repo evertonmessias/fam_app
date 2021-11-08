@@ -1,0 +1,122 @@
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.landing-page {
+  height: 100vh;
+  background-image: url("../img/tecfam_piscando.gif");
+  background-position: center;
+  background-size: cover; }
+  .landing-page .container-fluid.home-content {
+    padding-top: 20px; }
+    .landing-page .container-fluid.home-content .menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%; }
+      .landing-page .container-fluid.home-content .menu img {
+        width: 500px;
+        height: 100%; }
+      .landing-page .container-fluid.home-content .menu .links a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #fff;
+        padding-left: 2em;
+        transition: 0.3s; }
+        .landing-page .container-fluid.home-content .menu .links a:hover {
+          color: #00aeef; }
+    .landing-page .container-fluid.home-content .mais-chances {
+      padding-top: 1.5em; }
+      .landing-page .container-fluid.home-content .mais-chances img {
+        max-width: 60%; }
+    .landing-page .container-fluid.home-content .cursos-tecnicos {
+      padding-top: 4em; }
+      .landing-page .container-fluid.home-content .cursos-tecnicos img {
+        max-width: 100%; }
+    .landing-page .container-fluid.home-content .forms {
+      padding-top: 4em; }
+      .landing-page .container-fluid.home-content .forms form input {
+        width: 53%;
+        background-color: #fff;
+        padding: 8px;
+        text-align: center;
+        color: #4276c6;
+        font-size: 1.1em; }
+        .landing-page .container-fluid.home-content .forms form input::-webkit-input-placeholder {
+          color: #4276c6;
+          font-style: italic;
+          font-size: 1.1em; }
+    .landing-page .container-fluid.home-content .atendimento {
+      text-align: center;
+      margin-top: 100px;
+      box-sizing: border-box; }
+      .landing-page .container-fluid.home-content .atendimento p {
+        color: #1f3e6a;
+        font-weight: 600; }
+        .landing-page .container-fluid.home-content .atendimento p a {
+          color: inherit;
+          text-decoration: none;
+          transition: 0.3s; }
+          .landing-page .container-fluid.home-content .atendimento p a:hover {
+            color: #4276c6; }
+    .landing-page .container-fluid.home-content .sociais {
+      text-align: center;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center; }
+      .landing-page .container-fluid.home-content .sociais .social-bar, .landing-page .container-fluid.home-content .sociais div {
+        margin-right: .5em; }
+        .landing-page .container-fluid.home-content .sociais .social-bar > *:not(span), .landing-page .container-fluid.home-content .sociais div > *:not(span) {
+          margin-right: .5em; }
+        .landing-page .container-fluid.home-content .sociais .social-bar img, .landing-page .container-fluid.home-content .sociais div img {
+          transition: .3s ease; }
+          .landing-page .container-fluid.home-content .sociais .social-bar img:hover, .landing-page .container-fluid.home-content .sociais div img:hover {
+            transform: scale(0.9); }
+      .landing-page .container-fluid.home-content .sociais div {
+        display: inherit;
+        align-items: center; }
+        .landing-page .container-fluid.home-content .sociais div span {
+          color: #1f3e6a;
+          font-weight: 600;
+          margin-left: 3px;
+          margin-right: 2px;
+          font-size: 0.9em; }
+
+@media (max-width: 1400px) {
+  .landing-page .container-fluid.home-content {
+    padding-top: 10px; }
+    .landing-page .container-fluid.home-content .menu img {
+      width: 350px; }
+    .landing-page .container-fluid.home-content .mais-chances img {
+      max-width: 55%; }
+    .landing-page .container-fluid.home-content .cursos-tecnicos {
+      padding-top: 2em; }
+    .landing-page .container-fluid.home-content .forms {
+      padding-top: 2em; } }
+@media (max-width: 780px) {
+  .landing-page {
+    background-position: -400px; }
+    .landing-page .container-fluid.home-content .menu {
+      display: block;
+      text-align: right; }
+    .landing-page .container-fluid.home-content .menu img {
+      width: 350px; }
+    .landing-page .container-fluid.home-content .mais-chances img {
+      max-width: 55%; }
+    .landing-page .container-fluid.home-content .cursos-tecnicos {
+      padding-top: 4em; }
+    .landing-page .container-fluid.home-content .forms {
+      padding-top: 4em; }
+    .landing-page .container-fluid.home-content .atendimento {
+      margin-top: 86vh; }
+    .landing-page .container-fluid.home-content .sociais {
+      display: block; }
+      .landing-page .container-fluid.home-content .sociais div {
+        display: inline-flex; } }
+@media (max-width: 400px) {
+  body {
+    display: flex; } }
+
+/*# sourceMappingURL=style.css.map */

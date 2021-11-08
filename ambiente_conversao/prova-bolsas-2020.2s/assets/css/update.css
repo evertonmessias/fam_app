@@ -1,0 +1,269 @@
+    /* ALTERAÇÕES EVERTON 04-06-2020 */
+    .pop{        
+        margin:0;
+        padding: 0;
+        display: block;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 120%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 2000;
+            }
+    .pop .msg{
+        margin:0;
+        padding: 0;
+        display: block;
+        position: absolute;
+        top: 15%;
+        left: 35%;
+        width: 500px;
+        height: 500px;
+        background-color: #f0506f;
+        z-index: 2500;        
+    }
+
+    .pop .bolsa{
+        display: block;
+        position: absolute;
+        width: 200px;
+        height: 50px;
+        top:445px;
+        left: 255px;
+        border-radius: 5px;
+        background-color: #c6d92c;
+        color: #fff;
+        font-weight: 600;
+        z-index: 3000;    
+    }
+    @media (max-width: 768px) {
+        .pop .msg{
+            transform: scale(0.65);
+            left: -3em;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .encerrado{
+            display:block;
+            position:absolute;
+            top:10em;
+            left:6em;           
+        }
+        #pageinscricao {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 35px;
+            width: 1100px;
+            height: 100%;
+        }
+        #pagefinaliza {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 0px;
+            width: 1100px;
+            height: 100%;
+            margin-left: 18%;
+        }
+        .imginscricao {
+            transform: scale(1);
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            margin-top: -6em !important;
+            margin-left: 10em !important;
+        }
+        .js-form {
+            display: block;
+            position: relative;
+            margin-top: -520px !important;
+        }   
+        .form-home {
+            margin-top: -10em !important;
+        }  
+
+    }
+    
+    @media (max-width: 768px) {
+        .encerrado{
+            display:block;
+            position:absolute;
+            top:6em;
+            left:2em;           
+        }
+        .js-form {
+            display: block;
+            position: relative;
+            margin-top: -260px !important;
+        }
+        .imginscricao {
+            transform: scale(1);
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 1em !important;
+            margin-left: 1em !important;
+        }
+        .form-home {
+            margin-top: 15em !important;           
+        } 
+    }
+    
+    .btn-concluir {
+        background-color: #ffca30 !important;
+        color: #ec008c !important;
+    }
+    
+    .btn-concluir:hover {
+        background-color: #29295f !important;
+        color: #fff !important;
+    }
+
+    #page-adicionais .arquivo{
+        cursor: pointer;
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        background-color: #ccc;
+        width: 430px;
+        font-size: 20px;
+        line-height: 50px;
+        height: 50px;
+        border-radius: 4px;
+        
+    }
+    
+    .oculto,
+    .vestibular,
+    .enem,
+    .formado,
+    .confirmaemail,
+    .deficiencia {
+        display: none;
+    }
+    
+    .datanascimento {
+        background-color: #1EADE9;
+    }    
+    
+    @media (min-width: 768px) {
+        .pontosenem {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            left: 230px;
+            color: #fff;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .pontosenem {
+            display: block;
+            position: relative;
+            margin: 0 auto;
+            color: #fff;
+        }
+    }
+    .alteracoes, .responsavel{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 430px;
+        padding: 20px;
+        text-align: center;
+        height: 100%;
+    }
+
+    .responsavel{
+        display: none;
+        position: relative;
+        margin: 0 auto;
+        width: 380px;
+        margin-left: -18px;        
+        border-radius: 4px;
+        text-align: center;
+        height: 100%;
+    }
+
+    #page-adicionais input[type="text"],
+    #page-adicionais input[type="email"],
+    #page-adicionais input[type="tel"],
+    #page-adicionais input[type="file"]{
+        width: 400px;
+    }
+    #page-adicionais select{
+        width: 430px;
+        height: 45px;
+    }
+    #page-adicionais input[type="file"]{
+        font-size: 16px;
+        width: 434px;
+        height: 45px;
+    }
+    .readonly{
+        background-color: #29295f;
+    }
+    .add {
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 600;
+        border: 0;
+        border-top: 1px solid #2b347c;
+        width: 150px;
+        height: 50px;
+        background-color: #ffca30;
+        color: #d3007d;
+    }        
+    .add:hover {
+        background-color: #fff;
+        color: #d3007d;
+    }
+
+    @media (max-width: 768px) {
+        .alteracoes{
+            margin: 0; padding: 0;
+            transform: scale(0.95);
+        }
+    }
+    
+    #page-adicionais input[type="text"].afazer,
+    #page-adicionais select.afazer,
+    #page-adicionais input[type="email"].afazer,
+    #page-adicionais input[type="tel"].afazer,
+    #page-adicionais input[type="file"].afazer
+     {
+        background-color: #ccc;
+    }
+
+    .aceite{
+        border-top: 1px solid #333;
+        text-align: center;
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 530px;
+        height: 45px;
+        background-color: #ffca30;
+        border-radius: 4px;
+        line-height: 45px;
+    }
+    @media (max-width: 768px) {
+        .aceite{
+            width: 350px;
+            height: 100px;
+        }
+    }
+
+    .aceite .checkaceita{        
+        transform: scale(2);
+        margin-top: 18px !important;
+        margin-left: 50px;
+    }
+
+    a.aceita{
+        font-size: 18px;  
+        font-weight: 600;      
+        color: #fff;
+    }

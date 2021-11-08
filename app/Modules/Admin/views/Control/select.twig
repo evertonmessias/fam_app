@@ -1,0 +1,6 @@
+<label for="{{ name_prefix }}[{{ name }}]">{{ option.label }}</label>
+<select id="{{ name_prefix }}[{{ name }}]" name="{{ name_prefix }}[{{ name }}]" class="form-control">
+{% for option in values %}
+	<option value="{{ option.value }}" {% if current[0].value == option.value %}selected{% endif %}>{{ option.text }}</option>
+{% endfor %}
+</select>

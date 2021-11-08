@@ -1,0 +1,611 @@
+{% extends 'AmbienteConversao::layout' %}
+
+{% set page_id = 'page-inscricao' %}
+
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+var ingresso = {{ curso|json_encode()|raw }}
+console.log("Ingresso: "+aluno.ingresso);
+console.log("Curso: "+ingresso);
+
+var selectprova = $("select#prova");
+var option = document.createElement("option");
+
+if(aluno.ingresso == "tecnico"){
+option.setAttribute("class","tec");
+option.setAttribute("value", "tecnico");
+option.innerHTML = "Técnico";
+selectprova.append(option);		
+}else if(aluno.ingresso == "vestibular"){
+option.setAttribute("class","ves");
+option.setAttribute("value", "vestibular");
+option.innerHTML = "Vestibular";
+selectprova.append(option);		
+}else if(aluno.ingresso == "enem"){
+option.setAttribute("class","ene");
+option.setAttribute("value", "enem");
+option.innerHTML = "Enem";
+selectprova.append(option);		
+}else if(aluno.ingresso == "segunda_graduacao"){
+option.setAttribute("class","seg");
+option.setAttribute("value", "segunda_graduacao");
+option.innerHTML = "Segunda Graduação";
+selectprova.append(option);		
+}else{
+option.setAttribute("class","bol");
+option.setAttribute("value", "bolsa");
+option.innerHTML = "Prova de Bolsas";
+selectprova.append(option);		
+}
+})
+
+
+var select = document.createElement("select");
+    select.setAttribute("name", "data_prova");
+	select.setAttribute("onchange", "tipoprova()"); 
+	select.setAttribute("required", "required");   
+	if(screen.width >= 700){
+		select.setAttribute("style", "display:block;position:relative;width:510px;height:45px;font-size:18px;font-weight:800!important;");	
+	}else{
+		select.setAttribute("style", "display:block;position:relative;width:510px;height:45px;font-size:18px;font-weight:800!important;");	
+	}
+	var option = document.createElement("option");
+	select.setAttribute("selected","selected");
+    option.setAttribute("value", null);
+    option.innerHTML = '***** CONFIRME DATA DA PROVA *****';
+    select.appendChild(option);	
+
+	function FormaIngresso(resp){	
+		console.log(resp);  
+		if (resp == "bolsa"){	
+			$(".formingresso").css({ "display": "none" })			
+			var option = document.createElement("option");
+			option.setAttribute("value",'3002');
+			option.innerHTML = 'Prova de Bolsa Online: 04/07/2021 - 14:00';
+			select.appendChild(option);		  
+			$(".listaprova").append(select);
+		}else if (resp == "enem"){	
+			$(".formingresso").css({ "display": "none" })			
+			var option = document.createElement("option");
+			option.setAttribute("value",'2895');
+			option.innerHTML = 'NOTA DO ENEM';
+			select.appendChild(option);		  
+			$(".listaprova").append(select);
+		}else if (resp == "tecnico"){	
+			$(".formingresso").css({ "display": "none" })			
+			var option = document.createElement("option");
+			option.setAttribute("value",'2895');
+			option.innerHTML = 'Ingresso por curso Técnico';
+			select.appendChild(option);		  
+			$(".listaprova").append(select);
+		}else if (resp == "segunda_graduacao"){	
+			$(".formingresso").css({ "display": "none" })			
+			var option = document.createElement("option");
+			option.setAttribute("value",'2895');
+			option.innerHTML = 'Ingresso por Segunda Graduacao';
+			select.appendChild(option);		  
+			$(".listaprova").append(select);
+		}else{
+			$(".formingresso").css({ "display": "none" })
+			{% for prova in aluno.data_provas %}
+			var option = document.createElement("option");
+			option.setAttribute("value",'{{ prova[0] }}');
+			option.innerHTML = '{{ prova[1] }}';
+			select.appendChild(option);
+			{% endfor %}   
+			$(".listaprova").append(select);		    
+		}
+	}
+
+
+</script>
+	<img class="imginscricao" src="/assets/images/institucional2.png">
+    <div id="pageinscricao" class="container fit-height inscricaofundo">
+		<!-- Principal -->	
+		<form method="post" action="/inscricao/finaliza" class="js-form" enctype="multipart/form-data">
+			{{ csrf_field() }}
+			{% verbatim %}
+				<main
+					id="page-inscricao">
+					<!-- Cabeçalho -->
+					<header class="fit-height">
+						<div class="container fit fit-height">
+							<div
+								class="fit align-items-end">
+								<!-- Tela: Opções de Curso -->
+								<div id="acfam-inscricao-opcoes-curso" class="col-md-12 mb-2">
+									<h2>Opções de Curso</h2>
+									<div
+										class="row">
+										<!-- Primeira Opção -->
+										<div class="opcao-curso col-xs-12 col-md-4">
+											<label for="acfam-inscricao-opcoes-curso-1">Primeira Opção ( {{ aluno.ingresso }} ): <br><strong class="curso-1-op">{{ cursos[opcao1].nome }}</strong></label>
+
+											<!-- Listagem de Cursos 1a opcao ESCONDIDA !!! 
+											
+											<select required name="opcoes_curso[]" v-model="opcao1" v-on:change="opcao2 = opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-1">
+												<option selected :value="null">Selecione um curso...</option>
+												<option v-for="curso in cursos_sort" :value="curso.id">{{ curso.nome }}</option>
+											</select>-->
+
+											<input type="hidden" name="opcoes_curso[]" v-model="opcao1" v-on:change="opcao2 = opcao3 = null"  value="{{ cursos[opcao1].id }}">
+											
+
+											<!-- Detalhes do Curso -->
+											<transition name="fade_resize">
+												<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao1">
+													<strong>Mensalidade</strong>
+													<span>R$
+														{{ cursos[opcao1].valor|currency }}</span>
+													<strong>Modalidade</strong>
+													<span>{{ cursos[opcao1].dados_adicionais.modalidade }}</span>
+													<strong>Duração</strong>
+													<span>{{ cursos[opcao1].duracao }}
+														semestres</span>
+													<strong>Modo/Período</strong>
+													<span>{{ cursos[opcao1].dados_adicionais.modo }}
+														{{ cursos[opcao1].dados_adicionais.periodo }}</span>
+												</div>
+											</transition>
+										</div>																						
+										<!-- Segunda Opção -->
+										<transition name="fade">
+											<div class="opcao-curso col-xs-12 col-md-4 segundaeterceiraopcao" v-if="opcao1">
+												
+												<!-- Listagem de Cursos BLOCO DE ESCOLHAS -->
+												<div v-if="aluno.distancia != 'adistancia'">
+
+												<div v-if="aluno.ingresso === 'segunda_graduacao'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'vestibular'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2_semTec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'tecnico'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2_tec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'enem'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2_semTec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'bolsa'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2_so_presencial" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+												</div>
+												<div v-if="aluno.distancia === 'adistancia'">
+												<label for="acfam-inscricao-opcoes-curso-1">Segunda Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao2" v-on:change="opcao3 = null" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos2_ead" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+												<!-- Listagem de Cursos FIM DO BLOCO -->	
+
+												<!-- Detalhes do Curso -->
+												<transition name="fade_resize">
+													<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao2">
+														<strong>Mensalidade</strong>
+														<span>R$
+															{{ cursos[opcao2].valor|currency }}</span>
+														<strong>Modalidade</strong>
+														<span>{{ cursos[opcao2].dados_adicionais
+.modalidade }}</span>
+														<strong>Duração</strong>
+														<span>{{ cursos[opcao2].duracao }}
+															semestres</span>
+														<strong>Modo/Período</strong>
+														<span>{{ cursos[opcao2].dados_adicionais.modo }}
+															{{ cursos[opcao2].dados_adicionais.periodo }}</span>
+													</div>
+												</transition>
+											</div>
+										</transition>
+
+										<!-- Terceira Opção -->
+										<transition name="fade">
+											<div class="opcao-curso col-xs-12 col-md-4 segundaeterceiraopcao" v-if="opcao2">
+											
+
+												<!-- Listagem de Cursos BLOCO DE ESCOLHAS -->
+												<div v-if="aluno.distancia != 'adistancia'">
+
+												<div v-if="aluno.ingresso === 'segunda_graduacao'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'vestibular'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3_semTec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'tecnico'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3_tec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'enem'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3_semTec" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+
+												<div v-if="aluno.ingresso === 'bolsa'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3_so_presencial" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+												</div>
+												<div v-if="aluno.distancia === 'adistancia'">
+												<label for="acfam-inscricao-opcoes-curso-1">Terceira Opção:</label>
+												<!-- Listagem de Cursos -->												
+												<select name="opcoes_curso[]" v-model="opcao3" class="form-control" id="acfam-inscricao-opcoes-curso-2">
+													<option></option>
+													<option v-for="curso in cursos3_ead" :value="curso.id">{{ curso.nome }}</option>
+												</select>
+												</div>
+												<!-- Listagem de Cursos FIM DO BLOCO -->
+
+
+
+												<!-- Detalhes do Curso -->
+												<transition name="fade_resize">
+													<div class="curso-info" id="acfam-inscricao-opcoes-curso-1-details" v-if="opcao3">
+														<strong>Mensalidade</strong>
+														<span>R$
+															{{ cursos[opcao3].valor|currency }}</span>
+														<strong>Modalidade</strong>
+														<span>{{ cursos[opcao3].dados_adicionais
+.modalidade }}</span>
+														<strong>Duração</strong>
+														<span>{{ cursos[opcao3].duracao }}
+															semestres</span>
+														<strong>Modo/Período</strong>
+														<span>{{ cursos[opcao3].dados_adicionais.modo }}
+															{{ cursos[opcao3].dados_adicionais.periodo }}</span>
+													</div>
+												</transition>
+											</div>
+										</transition>
+									</div>
+								</div>
+							</div>
+						</div>
+					</header>
+
+					<!-- Informações da Campanha -->
+					<!--<section id="acfam-inscricao-infos" class="container">
+																																												<span class="inicio-aulas">Início das Aulas Agosto 2018</span>
+																																												<strong class="desconto-regressivo">Desconto Regressivo</strong>
+																																												<img src="./assets/images/inscricao-desconto-regressivo.png" />
+																																												<strong>Aproveite os Descontos na Matrícula</strong>
+																																												<p>
+																																													O desconto regressivo refere-se ao pagamento da matrícula (1ª mensalidade) realizada dentro do mês indicado na figura.<br />
+																																													** Exceto para cursos de Tecnologia e Letras.
+																																												</p>
+																																											</section>-->
+
+					<!-- Formulário de Inscrição -->
+						<section id="acfam-inscricao-form" class="container"> <div
+							class="row">
+							<!-- Nome -->
+							<div class="col-xs-12 col-md-6 v-spacing">
+								<input class="form-control" name="candidato[nome]" type="text" placeholder="Nome" required v-model="aluno.nome"/>
+							</div>
+							<!-- Sobrenome -->
+							<div class="col-xs-12 col-md-6 v-spacing">
+								<input class="form-control" name="candidato[sobrenome]" type="text" placeholder="Sobrenome" required v-model="aluno.sobrenome"/>
+							</div>
+
+							<!-- Estado -->
+							<div class="col-xs-12 col-md-4 v-spacing">
+								<select size required class="form-control" name="candidato[estado]" v-model="estado">
+									<option selected :value="null">Selecione um estado...</option>
+									<option value="AC">Acre</option>
+									<option value="AL">Alagoas</option>
+									<option value="AM">Amazonas</option>
+									<option value="AP">Amapá</option>
+									<option value="BA">Bahia</option>
+									<option value="CE">Ceará</option>
+									<option value="DF">Distrito Federal</option>
+									<option value="ES">Espírito Santo</option>
+									<option value="GO">Goiás</option>
+									<option value="MA">Maranhão</option>
+									<option value="MG">Minas Gerais</option>
+									<option value="MS">Mato Grosso do Sul</option>
+									<option value="MT">Mato Grosso</option>
+									<option value="PA">Pará</option>
+									<option value="PB">Paraíba</option>
+									<option value="PE">Pernambuco</option>
+									<option value="PI">Piauí</option>
+									<option value="PR">Paraná</option>
+									<option value="RJ">Rio de Janeiro</option>
+									<option value="RN">Rio Grande do Norte</option>
+									<option value="RO">Rondônia</option>
+									<option value="RR">Roraima</option>
+									<option value="RS">Rio Grande do Sul</option>
+									<option value="SC">Santa Catarina</option>
+									<option value="SE">Sergipe</option>
+									<option value="SP">São Paulo</option>
+									<option value="TO">Tocantins</option>
+								</select>
+							</div>
+
+							<!-- Cidade -->
+							<div class="col-xs-12 col-md-8 v-spacing">
+								<select size required class="form-control" name="candidato[cidade]" v-model="cidade">
+									<option :value="cidade" v-if="!estado">Selecione uma cidade...</option>
+									<option selected :value="null" v-if="estado">Selecione uma cidade...</option>
+									<option v-for="cidade in cidades_estado" :value="cidade.id">{{ cidade.nome }}</option>
+								</select>
+							</div>
+
+							<!-- CPF -->
+							<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+								<the-mask readonly class="form-control" name="candidato[cpf]" type="text" placeholder="CPF" required :mask="['###.###.###-##']" :value="aluno.cpf"/>
+							</div>
+
+							<!-- E-mail -->
+							<div class="col-xs-12 col-md-6 col-lg-8 v-spacing">
+								<input class="email1 form-control" name="candidato[email]" type="email" placeholder="E-mail" required v-model="aluno.email"/>
+							</div>
+
+							<!-- RG -->
+							<!--<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+																																																																		<the-mask class="form-control" name="candidato[rg]" type="text" placeholder="RG" required :mask="['##.###.###-X']" v-model="aluno.rg" />
+																																																																	</div>-->
+
+							<!-- Data Nascimento -->
+								<div class="col-xs-12 col-md-6 col-lg-4 v-spacing"> 
+								<input class="form-control nasc" name="candidato[data_nascimento]" type="tel" placeholder="Data de Nascimento" required onkeypress="MascaraData(this);"/>
+							</div>
+
+							<!-- WhatsApp / Celular -->
+							<div class="col-xs-12 col-md-2 col-lg-1 v-spacing">
+								<the-mask class="form-control fone" name="candidato[celular_ddd]" type="tel" placeholder="DDD" required :mask="['(##)']" v-model="aluno.celular_ddd"/>
+							</div>
+							<div class="col-xs-12 col-md-4 col-lg-3 v-spacing">
+								<the-mask class="form-control fone" name="candidato[celular_numero]" type="tel" placeholder="WhatsApp / Celular" required :mask="['####-####', '#####-####']" v-model="aluno.celular_numero"/>
+							</div>
+
+							<!-- Telefone Residencial -->
+							<div class="col-xs-12 col-md-2 col-lg-1 v-spacing">
+								<the-mask class="form-control fone" name="candidato[telefone_ddd]" type="tel" placeholder="DDD" :mask="['(##)']" v-model="aluno.telefone_ddd"/>
+							</div>
+							<div class="col-xs-12 col-md-4 col-lg-3 v-spacing">
+								<the-mask class="form-control fone" name="candidato[telefone_numero]" type="tel" placeholder="Telefone Residencial" :mask="['####-####']" v-model="aluno.telefone_numero"/>
+							</div>
+
+							<!-- Sexo -->
+							<div class="col-xs-12 col-md-6 col-lg-4 v-spacing">
+								<select size required class="form-control" name="candidato[sexo]">
+									<option :value="null" selected>Sexo:</option>
+									<option value="Masculino">Masculino</option>
+									<option value="Feminino">Feminino</option>
+								</select>
+							</div>
+
+							<!-- PCD -->
+							<div class="col-xs-12 col-md-12 col-lg-8 v-spacing">
+								<select onchange="tipodeficiencia()" name="dados_adicionais[deficiencia]" id="deficiencia" size required class="form-control">
+									<option :value="null">Possui alguma deficiência?</option>
+									<option value="nao">Não</option>
+									<option value="sim">Sim</option>
+								</select>
+							</div>
+							<!-- Necessidades Educacionais Especiais (Distúrbios /Transtornos/Síndromes) -->
+							<div class="deficiencia align center text-white" style="text-align:justify;margin-left:10%;width:80%;font-size:18px;">
+								<br><p><i>No edital geral, temos para os portadores de necessidades 
+								especiais um vestibular específico que deverá ser agendado previamente
+								 para realização presencial. Para fazer seu agendamento entre em contato
+								  no telefone (19) 3465.8100</i></p>
+							</div>
+
+							<!-- Dados do Responsável 
+							<div class="col-xs-12 col-md-12 v-spacing" v-if="candidato_idade < 18">
+								<input required class="form-control" name="dados_adicionais[responsavel_nome]" type="text" placeholder="Nome do Responsável" :value="lead.dados_adicionais.responsavel_nome"/>
+							</div>
+							<div class="col-xs-12 col-md-12 v-spacing" v-if="candidato_idade < 18">
+								<the-mask required class="form-control" :mask="['###.###.###-##']" name="dados_adicionais[responsavel_cpf]" type="text" placeholder="CPF do Responsável" :value="lead.dados_adicionais.responsavel_cpf"/>
+							</div>
+							<div class="col-xs-12 col-md-12 v-spacing" v-if="candidato_idade < 18">
+								<the-mask required class="form-control" :mask="['(##) ####-####', '(##) #####-####']" name="dados_adicionais[responsavel_telefone]" type="text" placeholder="Telefone do Responsável" :value="lead.dados_adicionais.responsavel_telefone"/>
+							</div>
+							<div class="col-xs-12 col-md-12 v-spacing" v-if="candidato_idade < 18">
+								<the-mask required class="form-control" :mask="['##/##/####']" name="dados_adicionais[responsavel_nascimento]" type="text" placeholder="Data de Nascimento do Responsável" :value="lead.dados_adicionais.responsavel_nascimento"/>
+							</div>
+								-->
+							<!-- Como conheceu a FAM? -->
+							<div class="defic col-xs-12 col-md-6 v-spacing">
+								<select size required class="form-control" name="como_conheceu" v-model="lead.midia_id">
+									<option :value="null">Como nos conheceu?</option>
+									<option v-for="midia in midias" :value="midia.id">{{ midia.nome }}</option>
+								</select>
+							</div>
+
+							<!-- Tipo de ingresso  -->
+							<div class="formingresso defic col-xs-12 col-md-6 v-spacing">							
+								<select oninput="FormaIngresso(value)" id="prova" size required class="form-control" name="candidato[ingresso]">
+									<option value="null" selected>Confirme a forma de ingresso:</option>							
+								</select>
+							</div>
+
+							<!-- Selecionar data prova 
+							<div class="defic col-xs-12 col-md-4 col-lg-4 v-spacing">
+								<select size required class="form-control" name="data_prova">
+									<option :value="null">Escolha a data da Prova:</option>
+									<option v-for="prova in aluno.data_provas" :value="prova[0]">{{ prova[1] }}</option>						
+        						</select>								
+							</div>-->
+							
+							<div class="listaprova col-xs-12 col-md-6 v-spacing"></div>						
+							
+						{% endverbatim %}
+						
+						<!-- Avisos Vestibular/ENEM/Segunda Graduação/Bolsa -->
+						<div class="defic col-md-8 offset-md-2 v-spacing">
+						<br>
+							<div class="vestibular">
+								<p class="align center text-white" style="text-align:justify;">
+									Durante a pandemia, a FAM - Faculdade de Americana está operacionalizando
+									as provas do vestibular de forma online. Após a conclusão de sua inscrição
+									você receberá em seu e-mail instruções adicionais sobre como proceder para
+									a realização da mesma.
+								</p>
+							</div>
+							<div
+								class="enem row">
+							<p class="align center text-white">
+									<strong>Ingresso ENEM:</strong><br><br>
+									Você optou por utilizar a sua nota do ENEM como mecanismo de ingresso
+										 no Ensino Superior e não será necessário realizar a prova de vestibular.
+										<br><br>Sua nota de Redação deverá ser igual ou superior a 400 pontos.
+										<br>Poderá ser qualquer resultado desde o ano de 2012.
+										<br>** Não serão aceitos resultados de ENEM “treineiros”.
+								
+									</p>							
+								</div>
+							<div class="formado">
+								<p class="align center text-white">
+								Se você já realizou uma Graduação não será necessário realizar a prova de vestibular.
+								Após a conclusão de sua inscrição você receberá em seu e-mail instruções adicionais sobre como proceder.
+
+									</p>
+								
+							</div>
+							<div class="tecnico">
+								<p class="align center text-white">
+								Você optou por Cursos Técnicos. 
+								Confirme seu E-Mail e Clique no botão abaixo para iniciar seu processo de matrícula.
+								</p>
+								
+							</div>
+
+							<div class="bolsa">
+								<p class="align center text-white">
+								Você optou por ingressar através da Prova de Bolsas. 
+								Confirme seu e-mail no campo abaixo e fique atento as informações que encaminharemos por lá. Boa sorte!
+								</p>
+								
+							</div>
+
+							<!-- Confirma E-mail -->
+							<div class="confirmaemail">
+								<input class="email2 form-control cmail" type="email" onpaste="return false" ondrop="return false" placeholder="Confirme seu E-mail"/>
+							</div>
+						</div>						
+						<!-- Finalizar Inscrição -->
+						<div class="defic col-xs-12 col-md-12 col-lg-12 v-spacing align center">
+							<input onclick="validar()" class="btn cta large centered btn-concluir" type="button" value="Concluir Inscrição"/><br>
+							<input onclick="window.location.reload()" class="btn centered btn-final" type="reset" value="Apagar Tudo"/>&emsp;
+							<!--<input onclick="window.location.href='/'" class="btn centered btn-final" type="reset" value="Reiniciar Inscrição"/>-->
+						</div>
+					</div>
+				</section>
+
+			</main>
+
+		</form>
+
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+	<!-- Variáveis (BI -> VueJS) -->
+	<script type="text/javascript">
+		window.history.forward(1);
+let midias = {{ campanha.midias|json_encode|raw }};
+let aluno = {{ aluno|json_encode|raw }};
+let lead = {{ lead|json_encode|raw }};
+let curso = {{ curso }};
+if (Array.isArray(aluno.dados_adicionais)) 
+delete aluno.dados_adicionais;
+aluno = Object.assign({
+dados_adicionais: {
+responsavel_cpf: null,
+responsavel_nome: null,
+responsavel_telefone: null,
+responsavel_nascimento: null
+}
+}, aluno);
+if (Array.isArray(lead.dados_adicionais)) 
+delete lead.dados_adicionais;
+lead = Object.assign({
+dados_adicionais: {
+deficiencia: null,
+deficiencia_qual: null,
+usar_enem: null
+}
+}, lead);
+if (typeof aluno.data_nascimento !== "undefined") 
+aluno.data_nascimento = aluno.datanascimento.split('-').reverse().join('/');
+
+window.onload = function () {
+$(".js-form").on("submit", function () {
+$(".btn-concluir").attr("disabled", "true");
+setTimeout(function () {
+$(".btn-concluir").removeAttr("disabled");
+}, 5000);
+});
+}
+</script>
+
+	<!-- Script da Página -->
+	<script type="text/javascript" src="./assets/js/page-inscricao.js"></script>
+
+	{% if error %}
+		<script>
+			alert('{{ error }}');
+		</script>
+	{% endif %}
+{% endblock %}

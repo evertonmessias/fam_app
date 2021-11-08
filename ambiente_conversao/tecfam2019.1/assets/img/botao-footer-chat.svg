@@ -1,0 +1,16 @@
+<svg id="bate_papo" data-name="bate papo" xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #155bb3;
+      }
+
+      .cls-2 {
+        fill: #e0a192;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <ellipse class="cls-1" cx="29.219" cy="29.5" rx="27.781" ry="27.5"/>
+  <path id="Message_Ballon" data-name="Message Ballon" class="cls-2" d="M42.553,13H15.882a3.312,3.312,0,0,0-3.317,3.3L12.548,46l6.669-6.6H42.553a3.326,3.326,0,0,0,3.334-3.3V16.3A3.327,3.327,0,0,0,42.553,13ZM19.217,24.55h20v3.3h-20v-3.3ZM32.552,32.8H19.216V29.5H32.551v3.3h0Zm6.666-9.9h-20V19.6h20v3.3Z"/>
+</svg>

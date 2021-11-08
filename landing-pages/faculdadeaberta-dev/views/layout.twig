@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="https://www.fam.br/wp-content/themes/fam-2017/images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://www.fam.br/wp-content/themes/fam-2017/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://www.fam.br/wp-content/themes/fam-2017/images/favicon-16x16.png">
+
+    {% if meta_desc %}<meta name="description" content="{{ meta_desc }}" />{% endif %}
+    {% if meta_keyw %}<meta name="keywords" content="{{ meta_keyw }}" />{% endif %}
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body class="l-body">
+    {% block body %}{% endblock %}
+</body>
+</html>

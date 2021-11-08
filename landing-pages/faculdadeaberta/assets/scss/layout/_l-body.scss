@@ -1,0 +1,7 @@
+.l-body {
+    background-color: #0067ba;
+    background-image: url("../img/background.jpg");
+    background-size: cover;
+    background-position: top center;
+    @media (max-width: 768px) { background-image: url("../img/background-mobile.jpg"); }
+}

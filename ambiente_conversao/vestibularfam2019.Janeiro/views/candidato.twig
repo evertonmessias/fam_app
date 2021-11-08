@@ -1,0 +1,105 @@
+{% set class = 'resultados' %}
+
+{% extends 'AmbienteConversao::layout' %}
+{% block pagina %}
+<div class="layout" id="resultados-provas-vestibular">
+	<br />
+	<div class="resultados">
+		<div class="center">
+			<h3>Olá, {{ aluno.nome }}!</h3>
+		</div>
+		{# <form action="/resultados" method="post">
+			{{ csrf_field() }}
+			<div class="input full">
+				<input type="text" name="cpf" data-mask='999.999.999-99' placeholder="CPF" value="{{ aluno.cpf }}" />
+			</div>
+			<div class="input full">
+				<input type="submit" value="OK" />
+			</div>
+		</form> #}
+		<h3>Minhas Inscrições</h3>
+
+	{% for prova in provas|reverse %}
+		<div class="prova {% if prova.aprovado %}prova-aprovado{% else %}prova-reprovado{% endif %}">
+			<div><strong>#{{ prova.created_at|date('Ym') }}{{ prova.id }}</strong> | Data da Prova: {{ prova.data.hora|date('d/m/Y H:i') }} | {{ prova.status }}</div>
+			<table>
+				<thead><tr>
+					<th>Opção de Curso</th>
+					<th></th>
+				</tr></thead>
+				<tbody>
+				{% for lead in prova.leads|reverse %}
+				{% if lead.status_id != 'LEAD' %}
+					<tr>
+						<td>{{ lead.curso.nome }}</td>
+						<td>{% if lead.status_id == 'MATR' %}MATRICULADO{% endif %}</td>
+					</tr>
+				{% endif %}
+				{% endfor %}
+					<tr>
+						<td><form action="/candidato/editar">
+							<input type="submit" value="Editar Dados / Data de Prova" />
+							<p><em>Você será redirecionado(a) para a página de inscrição relacionada à sua última opção de curso, porém todas suas opções de curso serão transferidas.</em></p>
+						</form></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% endfor %}
+
+	{% if incompletos|length > 0 %}
+		<div class="prova {% if prova.aprovado %}prova-aprovado{% else %}prova-reprovado{% endif %}">
+			<div><strong>Cadastros Incompletos</strong> | Você iniciou um cadastro para estes cursos, porém não concluiu.</div>
+			<table>
+				<thead><tr>
+					<th>Opção de Curso</th>
+					<th></th>
+				</tr></thead>
+				<tbody>
+				{% for lead in incompletos %}
+					<tr>
+						<td>{{ lead.curso.nome }}</td>
+						<td>
+							<form action="/candidato/editar/{{ lead.id }}">
+								<input type="submit" value="Retomar Cadastro" />
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+	</div>
+</div>
+<style type="text/css">
+	.prova {
+		margin: 2em auto;
+		border-radius: 4px;
+		padding: 1em;
+
+		background-color: #004198;
+		color: #fff;
+	}
+	.prova-aprovado {
+		background-color: #fff;
+		color: #004198;
+	}
+
+	input { width: 100%; }
+	.input { margin: 1em auto; }
+	form {
+		max-width: 20em;
+		margin: 1em auto;
+	}
+	table {
+		margin-top: 1em;
+		width: 100%;
+	}
+	td, th {
+		text-align: left;
+		padding: 0.4em 1em !important;
+	}
+	form p { text-align: center; }
+</style>
+{% endblock %}

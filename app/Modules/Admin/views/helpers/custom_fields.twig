@@ -1,0 +1,39 @@
+{% macro render_editor (campo, form) %}
+{% if not form %}{% set form = 'campos_personalizados' %}{% endif %}
+	<div class="row">
+{% if campo %}
+		<input type="hidden" name="{{ form }}[{{ campo.nome }}][nome]" value="{{ campo.nome }}" />
+		<input type="hidden" name="{{ form }}[{{ campo.nome }}][tipo]" value="{{ campo.tipo }}" />
+		<div class="col-md-4">
+			<label class="form-control">{{ campo.nome }}</label>
+		</div>
+		<div class="col-md-4">
+			<input class="form-control" type="text" name="{{ form }}[{{ campo.nome }}][label]" value="{{ campo.label }}" />
+		</div>
+		<div class="col-md-4">
+		{% if campo.tipo == 'select' %}
+			<input class="form-control" type="button" value="Editar Opções" />
+			<input type="hidden" name="{{ form }}[{{ campo.nome }}][valores]" value="{{ campo.valores|array2json }}" />
+		{% elseif campo.tipo == 'text' %}
+			<input class="form-control" name="{{ form }}[{{ campo.nome }}][valores]" readonly value="" />
+		{% else %}
+			<input class="form-control" name="{{ form }}[{{ campo.nome }}][valores]" readonly value="{{ campo.valores|array2json }}" />
+		{% endif %}
+		</div>
+{% else %}
+		<div class="col-md-4">
+			<input class="form-control" type="text" name="{{ form }}[__new__][nome]" placeholder="ID do Campo">{{ campo.nome }}</label>
+		</div>
+		<div class="col-md-4">
+			<input class="form-control" type="text" name="{{ form }}[__new__][label]" placeholder="Legenda do Campo" />
+		</div>
+		<div class="col-md-4">
+			<select class="form-control" name="{{ form }}[__new__][tipo]">
+				<option>Selecione um tipo de campo</option>
+				<option value="text">Texto</option>
+				<option value="select">Seleção</option>
+			</select>
+		</div>
+{% endif %}
+	</div>
+{% endmacro %}
